@@ -61,10 +61,8 @@
     ls.forEach((l, i) => {
       const halo = l.querySelector(".light-halo");
       const core = l.querySelector(".light-core");
-      const o = originOf(l);
       S.tl.fromTo(core, { autoAlpha: 0.25 }, { autoAlpha: 1, duration: 0.25, ease: "power1.out" }, pos + i * stagger);
       S.tl.fromTo(halo, { scale: 0, autoAlpha: 0, transformOrigin: "50% 50%" }, { scale: 1, autoAlpha: 1, duration: 0.9, ease: S.E.enter }, pos + i * stagger);
-      void o;
     });
   }
 
@@ -313,7 +311,6 @@
 
   /* ================================================================ S7 */
   B["s-principles"] = (S) => {
-    const { tl } = S;
     S.lines(".headline .line", 0);
     S.q(".p").forEach((p, i) => {
       const t = 0.7 + i * 0.32;
@@ -326,7 +323,6 @@
       S.fade(p.querySelector(".impl"), t + 0.7, { y: 8 });
       S.pop(S.q(p.querySelectorAll("svg .accf")), t + 0.6);
     });
-    void tl;
   };
 
   /* ================================================================ S8 */
@@ -706,10 +702,8 @@
     };
 
     // overlays
-    const pBath = planPt(svg, 470, 30);
     const bubble = S.one(".bubble");
     bubble.classList.add("up");
-    void pBath;
     const notif = S.one(".notif");
     const chart = DECK.rectIn(chartBox);
     notif.style.left = `${chart.x + 60}px`;
