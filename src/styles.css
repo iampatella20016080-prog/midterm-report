@@ -579,8 +579,8 @@ body { font-family: var(--f-sans); }
 }
 
 /* ---------- S7 principles */
-#s-principles .grid { position: absolute; left: 120px; right: 120px; top: 360px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
-#s-principles .p { position: relative; padding-top: 118px; }
+#s-principles .grid { position: absolute; left: 120px; right: 120px; top: 380px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+#s-principles .p { position: relative; padding-top: 118px; display: flex; flex-direction: column; }
 #s-principles .p .bar { position: absolute; left: 0; top: 88px; height: 2px; width: 100%; background: var(--fg); transform-origin: 0 50%; }
 #s-principles .p svg.ic { position: absolute; left: 0; top: 0; margin-top: 0; }
 #s-principles .p .n { font-family: var(--f-mono); font-size: 18px; color: var(--fg3); letter-spacing: 0.1em; }
@@ -588,7 +588,7 @@ body { font-family: var(--f-sans); }
 #s-principles .p .d { font-size: 23px; line-height: 1.6; color: var(--fg2); margin-top: 20px; min-height: 37px; }
 #s-principles .p .ex { margin-top: 22px; font-size: 19px; line-height: 1.6; color: var(--fg2); min-height: 61px; }
 #s-principles .p .ex b { color: var(--accent-text); font-weight: 500; white-space: nowrap; }
-#s-principles .p .impl { margin-top: 34px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 17px; color: var(--fg2); letter-spacing: 0.02em; }
+#s-principles .p .impl { margin-top: auto; padding-top: 14px; position: relative; top: 34px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 17px; color: var(--fg2); letter-spacing: 0.02em; }
 #s-principles .p svg { width: 64px; height: 64px; margin-top: 26px; overflow: visible; }
 #s-principles .p svg .ln { fill: none; stroke: var(--fg); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 #s-principles .p svg .acc { fill: none; stroke: var(--amber-deep); stroke-width: 2; stroke-linecap: round; }
@@ -863,8 +863,10 @@ body.show-notes #notes-panel { display: block; }
 
 #help {
   position: fixed;
-  right: 16px;
-  bottom: 14px;
+  left: 50%;
+  top: 12px;
+  transform: translateX(-50%);
+  white-space: nowrap;
   z-index: 40;
   font-family: var(--f-mono);
   font-size: 12px;
