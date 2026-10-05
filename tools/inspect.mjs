@@ -133,7 +133,7 @@ if (args.has("--master")) {
   const dur = await page.evaluate(() => DECK.master.duration());
   console.log(`master timeline: ${dur.toFixed(1)}s`);
   for (const f of [0, 0.25, 0.5, 0.75, 1]) {
-    await page.evaluate((t) => DECK.master.pause(t), Math.min(dur * f, dur - 0.02));
+    await page.evaluate((t) => { DECK.master.pause(t); }, Math.min(dur * f, dur - 0.02));
     await page.waitForTimeout(40);
     await page.screenshot({ path: path.join(OUT, `master-${String(f * 100).padStart(3, "0")}.png`) });
   }

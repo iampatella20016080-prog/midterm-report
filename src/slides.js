@@ -101,9 +101,10 @@
     S.q(".clock").forEach((c, ci) => {
       const strips = DECK.makeRoller(c, c.dataset.time);
       const t0 = 0.2 + ci * 0.45;
-      tl.fromTo(c, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, t0);
+      tl.fromTo(c, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, ease: "power1.out" }, t0);
+      // odometer: each digit spins through a full turn and settles (fast start, long follow-through)
       strips.forEach((st, k) => {
-        tl.fromTo(st.s, { yPercent: 0 }, { yPercent: -st.d * 10, duration: 1.1 + k * 0.14, ease: "power3.inOut" }, t0);
+        tl.fromTo(st.s, { yPercent: 0 }, { yPercent: -(10 + st.d) * 5, duration: 1.3 + k * 0.16, ease: "expo.out" }, t0);
       });
     });
     tl.fromTo(S.one(".divider"), { scaleY: 0 }, { scaleY: 1, duration: 1.1, ease: E.move }, 0.4);

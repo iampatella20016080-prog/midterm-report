@@ -103,14 +103,10 @@
       mode: MODE,
       /** End the current segment. Live: pause here. Render: hold for `hold` s. */
       step(hold = 2.5) {
-        if (MODE === "render") {
-          tl.to({}, { duration: hold });
-        } else {
-          const t = tl.duration();
-          tl.addPause(t);
-          slide.steps.push(t);
-          slide.holds.push(hold);
-        }
+        const t = tl.duration();
+        tl.addPause(t);
+        slide.steps.push(t);
+        slide.holds.push(hold);
       },
       /** Masked line reveal — editorial headline entrance. */
       lines(sel, pos, o = {}) {
@@ -198,9 +194,9 @@
         r.className = "roller";
         const s = document.createElement("span");
         s.className = "strip";
-        for (let d = 0; d <= 9; d++) {
+        for (let d = 0; d < 20; d++) {
           const c = document.createElement("span");
-          c.textContent = d;
+          c.textContent = d % 10;
           s.appendChild(c);
         }
         r.appendChild(s);
@@ -372,9 +368,25 @@
       s.tl = gsap.timeline({ paused: true });
       const b = D.builders[s.id];
       if (b) b(helpers(s.tl, s.el, s), s);
-      // final hold
-      if (MODE === "render") s.tl.to({}, { duration: s.hold });
-      else if (s.tl.duration() === 0) s.tl.to({}, { duration: 0.01 });
+      if (s.tl.duration() === 0) s.tl.to({}, { duration: 0.01 });
+    });
+    computeHolds();
+  }
+
+  /* Narration-paced holds: each slide lasts about as long as reading its
+     speaker notes aloud (≈ 4.6 Chinese characters per second), so autoplay and
+     the exported video stay in step with the script. Extra time is spread over
+     the slide's holds in proportion to their planned length. */
+  const CPS = 4.6;
+  function computeHolds() {
+    D.slides.forEach((s) => {
+      const base = s.holds.concat([s.hold]);
+      const sumBase = base.reduce((a, b) => a + b, 0);
+      const chars = s.notes.replace(/[\s（）()「」]/g, "").length;
+      const target = chars / CPS;
+      const extra = Math.max(0, target - (s.tl.duration() + sumBase));
+      s.playHolds = base.map((h) => h + (extra * h) / sumBase);
+      s.playDuration = s.tl.duration() + s.playHolds.reduce((a, b) => a + b, 0);
     });
   }
 
@@ -521,7 +533,7 @@
       return;
     }
     idle += dt / 1000;
-    const hold = seg < s.holds.length ? s.holds[seg] : s.hold;
+    const hold = s.playHolds[seg];
     if (idle >= hold) {
       idle = 0;
       if (cur === D.slides.length - 1 && seg >= s.steps.length) auto = false;
@@ -530,24 +542,32 @@
   }
 
   /* -------------------------------------------------------------- render */
+  /* One master timeline for video export: every slide's segments are
+     scrubbed in order (tweenFromTo), separated by the narration-paced holds. */
+  function addSlideSegments(s, pos) {
+    const bounds = [0].concat(s.steps, [s.tl.duration()]);
+    for (let k = 0; k < bounds.length - 1; k++) {
+      const a = bounds[k];
+      const b = bounds[k + 1];
+      if (b > a) master.add(s.tl.tweenFromTo(a, b, { ease: "none", immediateRender: false }), pos);
+      pos += b - a + s.playHolds[k];
+    }
+    return pos;
+  }
+
   function buildMaster() {
     master = gsap.timeline({ paused: true });
     hudSet(0);
     showOnly(0);
-    const s0 = D.slides[0];
-    s0.tl.paused(false);
-    master.add(s0.tl, 0);
-    let pos = s0.tl.duration();
+    D.slides.forEach((s) => s.tl.pause(0));
     D.slideStarts = [0];
+    let pos = addSlideSegments(D.slides[0], 0);
     for (let i = 1; i < D.slides.length; i++) {
       const t = gsap.timeline();
       const at = buildTransition(t, i - 1, i);
       master.add(t, pos);
-      const B = D.slides[i];
-      B.tl.paused(false);
-      master.add(B.tl, pos + at);
       D.slideStarts.push(pos);
-      pos = pos + at + B.tl.duration();
+      pos = addSlideSegments(D.slides[i], pos + at);
     }
     master.to({}, { duration: 0.01 }, pos);
     D.master = master;
@@ -574,7 +594,7 @@
     s.tl.pause(s.tl.duration() * f);
   };
   D.info = function () {
-    return D.slides.map((s) => ({ id: s.id, steps: s.steps.length, duration: +s.tl.duration().toFixed(2), theme: s.theme }));
+    return D.slides.map((s) => ({ id: s.id, steps: s.steps.length, duration: +s.tl.duration().toFixed(2), play: +s.playDuration.toFixed(1), theme: s.theme }));
   };
   D.next = next;
   D.prev = prev;

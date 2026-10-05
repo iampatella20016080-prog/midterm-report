@@ -19,6 +19,7 @@
     "@expo-google-fonts/noto-sans-tc": "^0.4.3",
     "@expo-google-fonts/noto-serif-tc": "^0.4.4",
     "gsap": "3.15.0",
+    "pdf-lib": "^1.17.1",
     "playwright": "1.56.1"
   }
 }
