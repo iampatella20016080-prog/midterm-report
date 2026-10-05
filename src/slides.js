@@ -322,6 +322,7 @@
       S.fade(p.querySelector(".t"), t + 0.22, { y: 18 });
       S.fade(p.querySelector(".d"), t + 0.36);
       S.fade(p.querySelector(".ex"), t + 0.5);
+      S.fade(p.querySelector(".impl"), t + 0.7, { y: 8 });
       S.pop(S.q(p.querySelectorAll("svg .accf")), t + 0.6);
     });
     void tl;
@@ -435,13 +436,13 @@
     const base = 2 * 3600 + 13 * 60;
 
     // overlay placement in plan space
-    const pBath = planPt(svg, 600, 360);
+    const pBath = planPt(svg, 470, 352);
     const bubble = S.one(".bubble");
-    bubble.style.left = `${pBath.x - 40}px`;
-    bubble.style.top = `${pBath.y - 132}px`;
+    bubble.style.left = `${pBath.x - 24}px`;
+    bubble.style.top = `${pBath.y - bubble.offsetHeight - 14}px`;
     const cd = S.one(".countdown");
-    cd.style.left = `${pBath.x - 40 + bubble.offsetWidth + 18}px`;
-    cd.style.top = `${pBath.y - 128}px`;
+    cd.style.left = `${pBath.x - 24 + bubble.offsetWidth - 46}px`;
+    cd.style.top = `${pBath.y - bubble.offsetHeight - 14 - 40}px`;
     const pNotif = planPt(svg, 36, 300);
     const notif = S.one(".notif");
     notif.style.left = `${pNotif.x}px`;
@@ -706,15 +707,17 @@
     // overlays
     const pBath = planPt(svg, 470, 30);
     const bubble = S.one(".bubble");
-    bubble.style.left = `${pBath.x - 30}px`;
-    bubble.style.top = `${pBath.y - 112}px`;
+    bubble.classList.add("up");
+    void pBath;
     const notif = S.one(".notif");
     const chart = DECK.rectIn(chartBox);
-    notif.style.left = `${chart.x + 300}px`;
-    notif.style.top = `${chart.y - 250}px`;
+    notif.style.left = `${chart.x + 60}px`;
+    notif.style.top = `${chart.y + 26}px`;
+    bubble.style.left = `${chart.x + 84}px`;
+    bubble.style.top = `${chart.y + 70}px`;
     const chip = S.one(".result-chip");
     chip.style.left = `${chart.x + 84}px`;
-    chip.style.top = `${chart.y + 76}px`;
+    chip.style.top = `${chart.y + 64}px`;
 
     /* ---- seg 0 */
     S.lines(".headline .line", 0);
@@ -733,14 +736,14 @@
     flash(S, sensor("H"), t + 0.1);
     lit(1, t + 0.2, "22:40:00");
     tl.to(svg.querySelectorAll(".heater path, .heater rect"), { stroke: VERM, duration: 0.5 }, t + 0.3);
-    coDrift(S, svg, t + 0.5, 5.5);
+    const tDrift = t + 0.5;
     run(0, 210, 3.6, t + 0.3, "power1.in");
     t += 3.9;
     flash(S, sensor("C", 0), t);
     flash(S, sensor("F"), t + 0.15);
     lit(2, t + 0.1, "22:43:30");
     S.pop(marks[0], t + 0.05, { from: 0 });
-    tl.to(svg.querySelector(".fan .blades"), { rotation: 360 * 9, svgOrigin: "0 0", duration: 9, ease: "none" }, t + 0.1);
+    const tFan = t + 0.1;
     S.step(2.5);
 
     /* ---- seg 2: L2 → L3 */
@@ -784,6 +787,10 @@
     t += 3.1;
     tl.fromTo(chip, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: E.enter }, t);
     lit(5, t + 0.6, "週報");
+
+    // ambient motion, added last so it never shifts the step boundaries
+    coDrift(S, svg, tDrift, 5.5);
+    tl.to(svg.querySelector(".fan .blades"), { rotation: 360 * 14, svgOrigin: "0 0", duration: tl.duration() - tFan, ease: "none" }, tFan);
   };
 
   /* ================================================================ S13 */

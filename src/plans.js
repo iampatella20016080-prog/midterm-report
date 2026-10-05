@@ -211,10 +211,10 @@
     const labels = o.labels
       ? `<g class="labels">
           <text class="plabel strong" x="270" y="420">套房</text>
-          <text class="plabel strong" x="436" y="142">浴室</text>
+          <text class="plabel strong" x="526" y="178">浴室</text>
           <text class="plabel" x="652" y="520">陽台</text>
           <text class="plabel" x="100" y="526" style="font-size:14px">房門</text>
-          <text class="plabel" x="694" y="174" style="font-size:14px;letter-spacing:.04em">熱水器</text>
+          <text class="plabel" x="700" y="44" style="font-size:14px;letter-spacing:.04em">熱水器</text>
         </g>`
       : "";
 
