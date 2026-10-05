@@ -56,16 +56,17 @@ b { font-weight: 700; }
 .abstract { background: #f6f3ee; padding: 4mm 5mm 2mm; margin: 6mm 0; }
 .abstract h2 { border: none; margin: 0 0 2mm; padding: 0; font-size: 12pt; }
 
-.scn { display: grid; grid-template-columns: 1fr 78mm; gap: 6mm; align-items: start; margin: 4mm 0 6mm; break-inside: avoid; }
+.scn { margin: 4mm 0 5mm; }
 .scn h3 { margin-top: 0; }
 table { width: 100%; border-collapse: collapse; font-size: 9.5pt; line-height: 1.6; margin: 2mm 0 4mm; break-inside: auto; }
 tr { break-inside: avoid; }
 th, td { text-align: left; vertical-align: top; padding: 1.6mm 2mm; border-top: .6pt solid var(--line); }
-thead th { font-weight: 500; color: var(--fg3); font-size: 8.5pt; letter-spacing: .08em; border-top: none; border-bottom: .9pt solid var(--fg); }
+thead th { white-space: nowrap; font-weight: 500; color: var(--fg3); font-size: 8.5pt; letter-spacing: .08em; border-top: none; border-bottom: .9pt solid var(--fg); }
 tbody tr:last-child td { border-bottom: .6pt solid var(--line); }
 table.kv th { width: 12mm; color: var(--fg3); font-weight: 500; }
 table.kv b { color: var(--amber-deep); font-weight: 600; }
 table.grid td:first-child { white-space: nowrap; font-weight: 500; }
+table.flow td:nth-child(2) { white-space: nowrap; }
 table.flow td:last-child { font-family: var(--f-mono); font-size: 8.5pt; color: var(--amber-deep); }
 table.layers td:first-child { font-family: var(--f-serif); font-weight: 600; }
 .note { font-size: 9pt; color: var(--fg2); background: #f6f3ee; padding: 2.5mm 3.5mm; }
@@ -75,7 +76,7 @@ ol.principles { padding-left: 5mm; }
 figure { margin: 0; break-inside: avoid; }
 figcaption { font-size: 8.5pt; color: var(--fg3); margin-top: 1.5mm; line-height: 1.5; }
 .planfig svg { width: 100%; height: auto; display: block; }
-.planfig.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin: 4mm 0; }
+.planfig.pair { display: grid; grid-template-columns: 68mm 68mm; justify-content: space-around; gap: 6mm; margin: 3mm 0; }
 .planfig.pair figcaption { grid-column: 1 / -1; }
 
 /* plan drawing styles (light) */

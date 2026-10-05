@@ -136,7 +136,7 @@
       extras += `<g class="presence-g"><circle class="presence-ring" r="10"/><circle class="presence" r="9"/></g>`;
     }
 
-    return `<svg viewBox="0 0 800 612" data-plan="A" data-uid="${id}" aria-label="阿嬤家平面圖">
+    return `<svg viewBox="0 0 800 ${o.scale ? 612 : 566}" data-plan="A" data-uid="${id}" aria-label="阿嬤家平面圖">
       <g class="fl-wet">${wet}</g>
       <g class="fl-furn">${furn}</g>
       <g class="fl-doors">${doors}</g>
@@ -258,7 +258,7 @@
       extras += `<g class="presence-g" transform="translate(566 82)"><circle class="presence-ring" r="10"/><circle class="presence" r="9"/></g>`;
     }
 
-    return `<svg viewBox="${o.crop ? "406 12 388 236" : "0 0 800 612"}"${o.crop ? ' style="overflow:hidden"' : ""} data-plan="B" data-uid="${id}" aria-label="外宿同學套房平面圖">
+    return `<svg viewBox="${o.crop ? "406 12 388 236" : o.scale ? "0 0 800 612" : "0 0 800 566"}"${o.crop ? ' style="overflow:hidden"' : ""} data-plan="B" data-uid="${id}" aria-label="外宿同學套房平面圖">
       <g class="fl-furn">${furn}</g>
       <g class="fl-doors">${doors}</g>
       <g class="fl-walls">${walls}${windows}</g>
