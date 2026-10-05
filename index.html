@@ -66,19 +66,20 @@
         <svg viewBox="0 0 840 470">
           <line class="base" x1="330" y1="430" x2="510" y2="430"/>
           <line class="post" x1="420" y1="430" x2="420" y2="120"/>
-          <g class="beam-g"><line class="beam" x1="100" y1="120" x2="740" y2="120"/><circle cx="420" cy="120" r="6" fill="currentColor"/></g>
-          <g class="pan-g left">
-            <line class="pan-line" x1="0" y1="0" x2="0" y2="170"/>
-            <path class="pan" d="M-90 170 Q0 220 90 170"/>
-            <text class="w-title" x="0" y="150">安全</text>
-            <text class="w-sub" x="0" y="262">裝攝影機，什麼都看得到</text>
-          </g>
-          <g class="pan-g right">
-            <line class="pan-line" x1="0" y1="0" x2="0" y2="170"/>
-            <path class="pan" d="M-90 170 Q0 220 90 170"/>
-            <text class="w-title" x="0" y="150">尊嚴</text>
-            <text class="w-sub" x="0" y="262">什麼都不裝，出事沒人知道</text>
-          </g>
+          <g class="beam-g"><line class="beam" x1="140" y1="120" x2="700" y2="120"/></g>
+          <circle class="pivot" cx="420" cy="120" r="6" fill="currentColor"/>
+          <g class="pan-g left"><g class="pan-in">
+            <path class="pan-line" d="M-78 128 L0 0 L78 128"/>
+            <path class="pan" d="M-96 128 Q0 178 96 128"/>
+            <text class="w-title" x="0" y="116">安全</text>
+            <text class="w-sub" x="0" y="214">裝攝影機，什麼都看得到</text>
+          </g></g>
+          <g class="pan-g right"><g class="pan-in">
+            <path class="pan-line" d="M-78 128 L0 0 L78 128"/>
+            <path class="pan" d="M-96 128 Q0 178 96 128"/>
+            <text class="w-title" x="0" y="116">尊嚴</text>
+            <text class="w-sub" x="0" y="214">什麼都不裝，出事沒人知道</text>
+          </g></g>
         </svg>
       </div>
       <div class="resolve">
@@ -107,7 +108,7 @@
           <div class="claim">每 6 位長者，<br>一年內就有 1 位跌倒</div>
           <div class="num">1<small>/</small>6</div>
           <div class="num-label">長者一年內曾經跌倒<span class="cite">[3]</span></div>
-          <div class="second"><div class="n2"><span class="cnt" data-to="52.6" data-dec="1">52.6</span>%</div><div class="l2">室內跌倒發生在臥室 35.6%＋浴室 17%——正是夜間如廁的動線<span class="cite">[3]</span></div></div>
+          <div class="second"><div class="n2"><span class="cnt" data-to="52.6" data-dec="1">52.6</span>%</div><div class="l2">室內跌倒：臥室 35.6%＋浴室 17%<br>——正是夜間如廁的動線<span class="cite">[3]</span></div></div>
         </div>
         <div class="link l2"></div>
         <div class="col c3">
@@ -163,14 +164,15 @@
         <div class="tag">情境 A ・ 對家人的關心</div>
         <h2 class="title mask"><span class="line">夜裡起身的阿嬤</span></h2>
         <div class="rows">
-          <div class="row who"><div class="k">誰</div><div class="v">阿嬤，78 歲，獨居在老公寓。子女在外地工作，週末才回家。</div></div>
+          <div class="row who"><div class="k">誰</div><div class="v">阿嬤，78 歲，獨居老公寓；子女在外地，週末才回家。</div></div>
           <div class="row time"><div class="k">時間</div><div class="v"><b>每晚 22:00–06:00</b>；夜裡會起身如廁 2–3 次，今晚最近一次在 <b class="mono">02:13</b></div></div>
           <div class="row place"><div class="k">地點</div><div class="v"><b>臥室 → 走廊 → 浴室</b>，約 9 公尺的夜間動線</div></div>
-          <div class="row risk"><div class="k">風險</div><div class="v">剛起身容易頭暈、走廊昏暗、浴室地面濕滑；跌倒後爬不起來，可能到早上才被發現</div></div>
-          <div class="row now"><div class="k">現況</div><div class="v">家人每天晚上打電話問「吃飽沒」——但夜裡，沒有人知道發生什麼事。</div></div>
+          <div class="row risk"><div class="k">風險</div><div class="v"><span class="rk">①</span>剛起身容易頭暈 <span class="rk">②</span>走廊昏暗 <span class="rk">③</span>浴室地面濕滑；跌倒後爬不起來，可能到早上才被發現</div></div>
+          <div class="row now"><div class="k">現況</div><div class="v">家人每晚打電話問「吃飽沒」——但夜裡，沒有人知道發生什麼事。</div></div>
         </div>
       </div>
       <div class="plan" data-plan="A" data-opts='{"route":true,"risks":true,"presence":true}'></div>
+      <div class="risk-legend"><span><i>1</i>起身頭暈</span><span><i>2</i>走廊昏暗</span><span><i>3</i>地面濕滑</span></div>
       <div class="plan-cap"><span>平面示意 ・ 阿嬤家</span><span>夜間動線 ≈ 9 m</span></div>
     </div>
     <aside class="notes">第一個要求：對家人的關心，時間與地點。對象是 78 歲獨居的阿嬤；時間是每晚 22 點到早上 6 點，她會起身上廁所兩到三次；地點是「臥室、走廊、浴室」這條大約 9 公尺的動線。剛起身容易頭暈、走廊很暗、浴室地面濕滑，而跌倒後可能要到早上才被發現。現在家人只能每晚打電話，但夜裡沒有人知道發生什麼事。</aside>
@@ -183,15 +185,16 @@
         <div class="tag">情境 B ・ 對同學、朋友的關心</div>
         <h2 class="title mask"><span class="line">冬夜洗澡的外宿同學</span></h2>
         <div class="rows">
-          <div class="row who"><div class="k">誰</div><div class="v">外宿的同學，和其他學生分租學校附近的套房，室友就住隔壁房。</div></div>
-          <div class="row time"><div class="k">時間</div><div class="v"><b>寒流期間（12 月–2 月）20:00–24:00</b> 的洗澡時段，例如 <b class="mono">22:40</b></div></div>
+          <div class="row who"><div class="k">誰</div><div class="v">外宿的同學，在學校附近分租套房，室友住隔壁。</div></div>
+          <div class="row time"><div class="k">時間</div><div class="v"><b>寒流期間（12–2 月）</b>每晚 <b>20:00–24:00</b> 的洗澡時段；今晚是 <b class="mono">22:40</b></div></div>
           <div class="row place"><div class="k">地點</div><div class="v"><b>套房浴室</b>；屋外式熱水器裝在加了窗戶的陽台<span class="cite">[8]</span>，浴室窗戶正對著陽台</div></div>
-          <div class="row risk"><div class="k">風險</div><div class="v">關窗洗熱水澡 → 熱水器燃燒不完全 → 一氧化碳滲進浴室；頭暈後無法自救，室友以為他只是洗比較久</div></div>
-          <div class="row now"><div class="k">現況</div><div class="v">房間裡沒有任何偵測——只能等到「覺得不舒服」才發現。</div></div>
+          <div class="row risk"><div class="k">風險</div><div class="v"><span class="rk">①</span>熱水器裝在加窗陽台 <span class="rk">②</span>陽台晾衣、不通風 <span class="rk">③</span>關窗洗澡 → 一氧化碳滲進浴室；頭暈後無法自救，室友以為只是洗比較久</div></div>
+          <div class="row now"><div class="k">現況</div><div class="v">房間裡沒有任何偵測，只能等「覺得不舒服」才發現。</div></div>
         </div>
       </div>
       <div class="plan" data-plan="B" data-opts='{"risks":true,"presence":true,"co":true}'></div>
-      <div class="plan-cap"><span>平面示意 ・ 分租套房</span><span>熱水器：屋外式（裝於加窗陽台）</span></div>
+      <div class="risk-legend"><span><i>1</i>屋外式熱水器裝在加窗陽台</span><span><i>2</i>陽台晾衣、空氣不流通</span><span><i>3</i>關窗洗熱水澡</span></div>
+      <div class="plan-cap"><span>平面示意 ・ 分租套房</span><span>紅色濃度＝一氧化碳擴散示意</span></div>
     </div>
     <aside class="notes">第二個要求：對同學、朋友的關心。對象是在外租屋的同學；時間是寒流期間、晚上八點到十二點的洗澡時段；地點是套房浴室，而屋外式熱水器裝在加了窗戶的陽台，浴室窗戶正對著陽台。一氧化碳就從陽台滲進浴室。當事人頭暈後無法自救，隔壁室友只會以為他洗比較久。</aside>
   </section>
@@ -202,36 +205,40 @@
       <h2 class="headline"><span class="mask"><span class="line">我們想要的科技：</span></span><span class="mask"><span class="line">看不見、不打擾，但一定在。</span></span></h2>
       <div class="grid">
         <div class="p">
+          <svg class="ic" viewBox="0 0 64 64"><rect class="ln" x="8" y="20" width="36" height="26" rx="3"/><path class="ln" d="M44 28 L56 22 V44 L44 38"/><path class="acc" d="M6 56 L58 8"/></svg>
           <div class="bar"></div>
           <div class="n">01</div>
           <div class="t">不用鏡頭</div>
-          <div class="d">只量「發生了什麼」，不看「長什麼樣子」。</div>
+          <div class="d">只量「發生什麼」，不看「長什麼樣」。</div>
           <div class="ex">浴室只用雷達、門磁、溫濕度與氣體感測——<b>守護，但不窺視</b>。</div>
-          <svg viewBox="0 0 64 64"><rect class="ln" x="8" y="20" width="36" height="26" rx="3"/><path class="ln" d="M44 28 L56 22 V44 L44 38"/><path class="acc" d="M6 56 L58 8"/></svg>
+          
         </div>
         <div class="p">
+          <svg class="ic" viewBox="0 0 64 64"><path class="ln" d="M22 44 h20 M24 50 h16 M26 56 h12"/><path class="ln" d="M20 40 C 8 30, 14 8, 32 8 C 50 8, 56 30, 44 40 Z"/><circle class="accf" cx="32" cy="24" r="5"/></svg>
           <div class="bar"></div>
           <div class="n">02</div>
           <div class="t">先預防，再偵測</div>
           <div class="d">最好的警報，是不必響的警報。</div>
           <div class="ex">夜燈在跌倒<b>之前</b>亮起；排風扇在中毒<b>之前</b>啟動。</div>
-          <svg viewBox="0 0 64 64"><path class="ln" d="M22 44 h20 M24 50 h16 M26 56 h12"/><path class="ln" d="M20 40 C 8 30, 14 8, 32 8 C 50 8, 56 30, 44 40 Z"/><circle class="accf" cx="32" cy="24" r="5"/></svg>
+          
         </div>
         <div class="p">
+          <svg class="ic" viewBox="0 0 64 64"><path class="ln" d="M8 12 H56 V42 H28 L16 54 V42 H8 Z"/><path class="acc" d="M26 22 C 26 16, 38 16, 38 22 C 38 27, 32 27, 32 32"/><circle class="accf" cx="32" cy="37" r="2.2"/></svg>
           <div class="bar"></div>
           <div class="n">03</div>
           <div class="t">先問本人，再通知別人</div>
-          <div class="d">第一個被問「你還好嗎？」的，是當事人自己。</div>
+          <div class="d">第一個被問「你還好嗎？」的是本人。</div>
           <div class="ex">60 秒內按鈕或說「我沒事」即解除——<b>保留尊嚴</b>，也過濾誤報。</div>
-          <svg viewBox="0 0 64 64"><path class="ln" d="M8 12 H56 V42 H28 L16 54 V42 H8 Z"/><path class="acc" d="M26 22 C 26 16, 38 16, 38 22 C 38 27, 32 27, 32 32"/><circle class="accf" cx="32" cy="37" r="2.2"/></svg>
+          
         </div>
         <div class="p">
+          <svg class="ic" viewBox="0 0 64 64"><path class="ln" d="M6 56 H58"/><rect class="ln" x="8" y="44" width="10" height="12"/><rect class="ln" x="22" y="34" width="10" height="22"/><rect class="ln" x="36" y="22" width="10" height="34"/><path class="acc" d="M50 8 V56"/><circle class="accf" cx="50" cy="8" r="3"/></svg>
           <div class="bar"></div>
           <div class="n">04</div>
           <div class="t">越確定，才越大聲</div>
           <div class="d">動作的成本，跟著把握程度升級。</div>
           <div class="ex">亮燈 → 詢問 → 通知家人朋友 → 求救。<b>低門檻只做低成本的事</b>。</div>
-          <svg viewBox="0 0 64 64"><path class="ln" d="M6 56 H58"/><rect class="ln" x="8" y="44" width="10" height="12"/><rect class="ln" x="22" y="34" width="10" height="22"/><rect class="ln" x="36" y="22" width="10" height="34"/><path class="acc" d="M50 8 V56"/><circle class="accf" cx="50" cy="8" r="3"/></svg>
+          
         </div>
       </div>
     </div>
@@ -241,7 +248,8 @@
   <!-- ================================================================ S8 -->
   <section class="slide" id="s-sensors" data-theme="day" data-chapter="3" data-hold="5">
     <div class="slide-inner">
-      <h2 class="headline"><span class="mask"><span class="line">六種感測器，回答四個問題：</span></span><span class="mask"><span class="line">人在哪？動了沒？倒下了嗎？空氣安全嗎？</span></span></h2>
+      <h2 class="headline" style="font-size:56px"><span class="mask"><span class="line">六種感測器，回答四個問題。</span></span></h2>
+      <div class="qs"><span>人在哪？</span><span>動了沒？</span><span>倒下了嗎？</span><span>空氣安全嗎？</span></div>
       <div class="table">
         <div class="tr th"><div>代號</div><div>感測器</div><div>量測什麼</div><div>為什麼選它</div><div style="text-align:right">情境</div></div>
         <div class="tr"><div><span class="code">R</span></div><div class="nm">60 GHz 毫米波雷達<small>mmWave radar</small></div><div class="ms">位置、姿態變化（跌倒）、呼吸微動</div><div class="why">輸出點雲而非影像；黑暗、水氣中仍可運作<span class="cite">[12][13]</span></div><div class="chips"><span class="chip on">A</span><span class="chip on">B</span></div></div>
@@ -282,18 +290,18 @@
     <div class="slide-inner">
       <h2 class="headline"><span class="mask"><span class="line">對應課堂的五層架構：</span></span><span class="mask"><span class="line">資料往上走，關心往下走。</span></span></h2>
       <div class="layers">
-        <div class="layer" data-l="5"><div class="ln">應用層<small>APPLICATION</small></div><div><div class="lw">家人 LINE 推播＋一鍵回撥、守護圈 App、每週健康摘要；串接緊急救援中心／119</div><div class="lt">SaaS ・ 行動 App ・ 訊息推播</div></div></div>
-        <div class="layer" data-l="4"><div class="ln">資料分析層<small>DATA ANALYTICS</small></div><div><div class="lw">個人作息基準線、異常偵測（停留過久、無動作）、趨勢（夜尿次數、洗澡時 CO 峰值）</div><div class="lt">邊緣 AI 跌倒辨識 ・ 規則引擎 ・ 時間序列分析</div></div></div>
-        <div class="layer" data-l="3"><div class="ln">雲端計算層<small>CLOUD COMPUTING</small></div><div><div class="lw">事件接收、通知派送、加密儲存——只存「事件」，不存原始訊號</div><div class="lt">PaaS 訊息服務 <span class="mono">MQTT</span> ・ IaaS 加密儲存</div></div></div>
-        <div class="layer" data-l="2"><div class="ln">網路層<small>NETWORK</small></div><div><div class="lw">感測器以低功耗網狀網路連到家中閘道；閘道用 Wi-Fi 上傳，斷網時改走 4G／NB-IoT</div><div class="lt"><span class="mono">Zigbee 3.0</span> ・ <span class="mono">Wi-Fi</span> ・ <span class="mono">4G / NB-IoT</span> 備援</div></div></div>
-        <div class="layer" data-l="1"><div class="ln">感知層<small>PERCEPTION</small></div><div><div class="lw">雷達、床墊壓力、紅外線、門磁、溫濕度、CO；致動器：夜燈、語音按鈕盒、排風扇、遮斷閥</div><div class="lt">電池供電節點 ・ 閘道內建備用電池</div></div></div>
+        <div class="layer" data-l="5"><div class="ln">應用層<small>APPLICATION</small></div><div><div class="lw">家人 LINE 推播＋一鍵回撥、守護圈 App、每週摘要、串接 119</div><div class="lt">SaaS ・ 行動 App ・ 訊息推播</div></div></div>
+        <div class="layer" data-l="4"><div class="ln">資料分析層<small>DATA ANALYTICS</small></div><div><div class="lw">個人作息基準線、異常偵測（停留過久、無動作）、夜尿與 CO 趨勢</div><div class="lt">跌倒辨識在閘道（邊緣）執行 ・ 趨勢分析在雲端</div></div></div>
+        <div class="layer" data-l="3"><div class="ln">雲端計算層<small>CLOUD COMPUTING</small></div><div><div class="lw">事件接收、通知派送、加密儲存——只存事件，不存原始訊號</div><div class="lt">PaaS 訊息服務 <span class="mono">MQTT</span> ・ IaaS 加密儲存</div></div></div>
+        <div class="layer" data-l="2"><div class="ln">網路層<small>NETWORK</small></div><div><div class="lw">感測器以低功耗網狀網路連到閘道；Wi-Fi 上傳，斷網改走 4G</div><div class="lt"><span class="mono">Zigbee 3.0</span> ・ <span class="mono">Wi-Fi</span> ・ <span class="mono">4G / NB-IoT</span> 備援</div></div></div>
+        <div class="layer" data-l="1"><div class="ln">感知層<small>PERCEPTION</small></div><div><div class="lw">雷達、床墊、紅外線、門磁、溫濕度、CO＋夜燈、語音盒、排風扇</div><div class="lt">電池供電節點 ・ 致動器另含瓦斯遮斷閥 ・ 閘道內建備用電池</div></div></div>
       </div>
       <div class="flowline up"></div><div class="packet"></div><div class="flowlabel lu">感知資料 ↑</div>
       <div class="flowline down"></div><div class="cmd"></div><div class="flowlabel ld">控制／自動化 ↓</div>
       <div class="bracket b-cloud"></div>
       <div class="bracket-label bl-cloud"><b>雲端：只收到「事件」</b>時間、地點、事件類型與處置狀態；沒有影像、沒有原始訊號。</div>
       <div class="bracket b-edge"></div>
-      <div class="bracket-label bl-edge"><b>住家內：邊緣運算</b>雷達訊號在閘道上即時判斷、不離開家；斷網時夜燈與本地警報照常運作。</div>
+      <div class="bracket-label bl-edge"><b>住家內：邊緣運算</b>跌倒辨識在閘道上即時完成，原始雷達訊號不離開家；斷網時夜燈與本地警報照常運作。</div>
     </div>
     <aside class="notes">把系統放回課堂教的物聯網五層架構。感知層是各種感測器和致動器；網路層用低功耗的 Zigbee 網狀網路連到家中閘道，再用 Wi-Fi 上傳，斷網時改走 4G 或 NB-IoT；雲端計算層用 PaaS 的訊息服務處理事件和通知；資料分析層建立個人作息基準線、偵測異常、追蹤夜尿與 CO 趨勢；應用層是家人的 LINE 推播、守護圈 App 和週報。重點是：資料往上走，關心往下走——分析結果會回頭控制夜燈和排風扇。原始雷達訊號在家裡的閘道就處理完，雲端只收到事件。</aside>
   </section>
@@ -307,7 +315,7 @@
           <div class="simclock">02:13:00</div>
           <div class="simstate"><span class="mono">情境模擬 ・ 時間已壓縮</span><span class="st">夜間模式：監測中</span></div>
         </div>
-        <div class="plan" data-plan="A" data-opts='{"lights":true,"presence":true,"sensors":true,"route":true}'></div>
+        <div class="plan" data-plan="A" data-opts='{"lights":true,"presence":true,"sensors":true,"route":true,"scale":false}'></div>
       </div>
       <div class="ladder">
         <div class="node" data-n="1"><div class="hl"></div><div class="badge">1</div><div><div class="nt">夜間模式 22:00–06:00</div><div class="nd">床墊感測器開始監測離床</div></div><div class="ts"></div></div>
@@ -379,10 +387,10 @@
     <div class="slide-inner">
       <h2 class="headline"><span class="mask"><span class="line">資料留在家；</span></span><span class="mask"><span class="line">離開家的，只有「事件」。</span></span></h2>
       <div class="steps">
-        <div class="stair s0" style="left:0;top:450px"><div class="riser" style="height:0"></div><div class="lv">平常</div><div class="who">本人</div><div class="what">每週摘要（如廁次數、CO 峰值）先給本人看，同意後才分享</div><div class="when">每週一次</div></div>
-        <div class="stair s1" style="left:280px;top:300px"><div class="riser" style="height:150px"></div><div class="lv">L1</div><div class="who">本人</div><div class="what">語音詢問、按鈕閃燈；資料只在家中閘道處理</div><div class="when">偵測到異常時</div></div>
-        <div class="stair s2" style="left:560px;top:150px"><div class="riser" style="height:150px"></div><div class="lv">L2</div><div class="who">家人／守護圈</div><div class="what">事件類型、時間、地點、處置狀態</div><div class="when">本人 60 秒未回應</div></div>
-        <div class="stair s3" style="left:840px;top:0"><div class="riser" style="height:150px"></div><div class="lv">L3</div><div class="who">救援中心／119</div><div class="what">再加上地址、緊急聯絡人與事先同意的病史摘要</div><div class="when">3 分鐘無人確認，或 CO ≥ 100 ppm</div></div>
+        <div class="stair s0" style="left:0;top:390px"><div class="lv">平常</div><div class="who">本人</div><div class="what">每週摘要先給本人看，同意後才分享</div><div class="when">每週一次</div></div>
+        <div class="stair s1" style="left:282px;top:260px"><div class="riser" style="top:0;height:130px"></div><div class="lv">L1</div><div class="who">本人</div><div class="what">語音詢問、按鈕閃燈；只在家中閘道處理</div><div class="when">偵測到異常時</div></div>
+        <div class="stair s2" style="left:564px;top:130px"><div class="riser" style="top:0;height:130px"></div><div class="lv">L2</div><div class="who">家人／守護圈</div><div class="what">事件類型、時間、地點、處置狀態</div><div class="when">本人 60 秒未回應</div></div>
+        <div class="stair s3" style="left:846px;top:0"><div class="riser" style="top:0;height:130px"></div><div class="lv">L3</div><div class="who">救援中心／119</div><div class="what">再加上地址、緊急聯絡人、事先同意的病史摘要</div><div class="when">3 分鐘無人確認，或 CO ≥ 100 ppm</div></div>
       </div>
       <div class="side">
         <h3>永遠不收集</h3>
@@ -430,9 +438,9 @@
       <h2 class="headline"><span class="mask"><span class="line">效益：一套系統，照顧到四種人。</span></span></h2>
       <div class="cols">
         <div class="bc"><div class="who">阿嬤<small>被照顧的人</small></div><ul><li>能繼續住在熟悉的家，<b>獨立生活</b></li><li>不用穿戴、不用學操作</li><li>出事時先被問「你還好嗎」，<b>保有尊嚴</b></li></ul></div>
-        <div class="bc"><div class="who">家人<small>關心的人</small></div><ul><li>從每天打電話「查勤」，變成<b>真正需要時一定知道</b></li><li>夜尿趨勢週報，提早發現健康變化、陪同就醫</li><li>上班、睡覺時都能安心</li></ul></div>
-        <div class="bc"><div class="who">同學與朋友<small>互相照顧的人</small></div><ul><li>冬夜洗澡有人守著，CO <b>在中毒前就被處理</b></li><li>守護圈讓室友、同學彼此照應</li><li>數據指出熱水器安裝問題，<b>事故前</b>就請房東改善</li></ul></div>
-        <div class="bc"><div class="who">社會<small>支持的人</small></div><ul><li>可銜接政府擴大的獨居長者關懷與緊急救援補助<span class="cite">[11]</span></li><li>縮短倒地時間，降低重傷、住院與入住機構的風險<span class="cite">[4]</span></li><li>非影像方案降低隱私疑慮，<b>更多人願意用</b></li></ul></div>
+        <div class="bc"><div class="who">家人<small>關心的人</small></div><ul><li>從每天「查勤」，變成<b>需要時一定知道</b></li><li>夜尿趨勢週報，提早發現健康變化</li><li>上班、睡覺時都能安心</li></ul></div>
+        <div class="bc"><div class="who">同學與朋友<small>互相照顧的人</small></div><ul><li>冬夜洗澡有人守著，<b>中毒前就處理</b></li><li>守護圈讓室友、同學彼此照應</li><li><b>事故前</b>就發現熱水器安裝問題</li></ul></div>
+        <div class="bc"><div class="who">社會<small>支持的人</small></div><ul><li>銜接政府擴大的獨居長者關懷計畫<span class="cite">[11]</span></li><li>縮短倒地時間，降低重傷與住院風險<span class="cite">[4]</span></li><li>非影像方案，<b>更多人願意用</b></li></ul></div>
       </div>
       <div class="themes">
         <div class="k">對應課程主題</div>
@@ -450,7 +458,7 @@
       <h2 class="headline"><span class="mask"><span class="line">誠實面對：還沒解決的問題，</span></span><span class="mask"><span class="line">與下一步。</span></span></h2>
       <div class="lim">
         <div class="lr th"><div>限制</div><div>對策</div></div>
-        <div class="lr"><div class="p">雷達可能誤判或漏判</div><div class="s">「先問本人」過濾誤報；原型實測後調整門檻，並以門磁、床墊交叉確認</div></div>
+        <div class="lr"><div class="p">雷達可能誤判或漏判</div><div class="s">「先問本人」過濾誤報；實測後調整門檻，以門磁、床墊交叉確認</div></div>
         <div class="lr"><div class="p">停電、斷網</div><div class="s">閘道內建備用電池＋4G 備援；本地警報與夜燈不依賴網路</div></div>
         <div class="lr"><div class="p">多人同住、訪客來訪</div><div class="s">以床墊與門磁輔助辨識是誰；家人來訪時可一鍵暫停</div></div>
         <div class="lr"><div class="p">長者與房東的接受度</div><div class="s">電池式感測器免施工、免穿戴；瓦斯遮斷閥列為選配，需房東同意</div></div>

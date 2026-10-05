@@ -10,6 +10,24 @@
 
   gsap.registerPlugin(MotionPathPlugin);
 
+  /* "drive": tween a number and hand it to a function on every render.
+     Unlike onUpdate callbacks, plugin renders also run while seeking with
+     suppressed events — so text, clocks and charts stay correct when the deck
+     jumps to any step, when PDF pages are captured and when video frames are
+     rendered. Usage: tl.to({}, { drive: { fn, from, to }, duration }) */
+  gsap.registerPlugin({
+    name: "drive",
+    rawVars: 1, // keep `fn` as a function (GSAP would otherwise call function-based values)
+    init(target, v) {
+      this.fn = v.fn;
+      this.a = v.from ?? 0;
+      this.b = v.to ?? 1;
+    },
+    render(ratio, data) {
+      data.fn(data.a + (data.b - data.a) * ratio);
+    },
+  });
+
   const params = new URLSearchParams(location.search);
   const MODE = params.has("render") ? "render" : params.has("print") ? "print" : "live";
 
@@ -155,17 +173,15 @@
         q(sel).forEach((e, i) => {
           const to = parseFloat(e.dataset.to);
           const dec = parseInt(e.dataset.dec || "0", 10);
-          const obj = { v: 0 };
-          const fmt = (v) => v.toFixed(dec);
-          e.textContent = fmt(0);
-          tl.to(obj, { v: to, duration: o.d ?? 1.3, ease: o.ease ?? "power2.out", onUpdate: () => (e.textContent = fmt(obj.v)) }, typeof pos === "number" ? pos + i * (o.stagger ?? 0) : pos);
+          const fn = (v) => (e.textContent = v.toFixed(dec));
+          fn(0);
+          tl.to({}, { drive: { fn, from: 0, to }, duration: o.d ?? 1.3, ease: o.ease ?? "power2.out" }, typeof pos === "number" ? pos + i * (o.stagger ?? 0) : pos);
         });
       },
-      /** Drive arbitrary text from a tweened proxy (seek-safe). */
+      /** Drive any function from a tweened number (seek-safe). */
       ticker(fn, from, to, dur, pos, ease = "none") {
-        const obj = { v: from };
         fn(from);
-        tl.to(obj, { v: to, duration: dur, ease, onUpdate: () => fn(obj.v) }, pos);
+        tl.to({}, { drive: { fn, from, to }, duration: dur, ease }, pos);
       },
     };
     return S;
@@ -269,8 +285,7 @@
     }
     t.to($(".hud-progress .fill", hud), { scaleX: progressOf(b), duration: 1.1, ease: E.move }, pos);
     const pg = $(".pg", hud);
-    t.call(() => (pg.textContent = pad2(b)), null, pos + 0.3);
-    t.add(() => {}, pos + 0.31);
+    t.to({}, { drive: { fn: (v) => (pg.textContent = pad2(v < 0.5 ? a : b)), from: 0, to: 1 }, duration: 0.05 }, pos + 0.3);
     if (a === 0) t.fromTo(hud, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: "none", immediateRender: false }, pos + 0.3);
     if (b === 0) t.to(hud, { autoAlpha: 0, duration: 0.3 }, pos);
   }

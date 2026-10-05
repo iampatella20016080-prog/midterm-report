@@ -21,19 +21,17 @@
 
   function sensor(code, x, y, opts = {}) {
     const cls = opts.act ? "sensor act" : "sensor";
-    return `<g class="${cls}" data-code="${code}" transform="translate(${x} ${y})"><circle r="15"/><text>${code}</text></g>`;
+    return `<g class="${cls}" data-code="${code}" transform="translate(${x} ${y})"><g class="s-in"><circle r="15"/><text>${code}</text></g></g>`;
   }
 
   function nightLight(x, y, i) {
     return `<g class="nlight" data-i="${i}" transform="translate(${x} ${y})"><circle class="light-halo" r="30"/><circle class="light-core" r="6"/></g>`;
   }
 
-  function risk(x, y, label, lx, ly, anchor = "start") {
-    return `<g class="risk" transform="translate(${x} ${y})">
-      <circle class="r" r="13"/><circle class="c" r="3.5"/>
-      <line x1="0" y1="0" x2="${lx}" y2="${ly}" style="stroke-dasharray:2 3"/>
-      <text x="${lx + (anchor === "start" ? 8 : -8)}" y="${ly + 6}" text-anchor="${anchor}">${label}</text>
-    </g>`;
+  function risk(x, y, n) {
+    return `<g class="risk" data-n="${n}" transform="translate(${x} ${y})"><g class="r-in">
+      <circle class="r" r="14"/><text class="rn">${n}</text>
+    </g></g>`;
   }
 
   function scaleBar(x, y, unit) {
@@ -47,7 +45,7 @@
   /* ------------------------------------------------------------------ A */
   function planA(opts = {}) {
     const id = "pa" + ++uidCounter;
-    const o = Object.assign({ route: false, risks: false, sensors: false, presence: false, lights: false, labels: true }, opts);
+    const o = Object.assign({ route: false, risks: false, sensors: false, presence: false, lights: false, labels: true, scale: true }, opts);
 
     const walls = `
       <path class="wall" d="M20 20 H780 V540 H420 M350 540 H20 V20"/>
@@ -112,11 +110,7 @@
         <path class="route" d="${routeD}" mask="url(#${id}-rm)"/>`;
     }
     if (o.risks) {
-      extras += `<g class="risks">
-        ${risk(250, 196, "起身頭暈", 30, -96)}
-        ${risk(380, 362, "走廊昏暗", 64, 34)}
-        ${risk(610, 480, "地面濕滑", -40, 44, "end")}
-      </g>`;
+      extras += `<g class="risks">${risk(268, 226, 1)}${risk(380, 362, 2)}${risk(612, 482, 3)}</g>`;
     }
     if (o.sensors) {
       extras += `<defs>
@@ -148,7 +142,7 @@
       <g class="fl-doors">${doors}</g>
       <g class="fl-walls">${walls}</g>
       <g class="fl-labels">${labels}</g>
-      ${scaleBar(612, 0, 75).replace('transform="translate(612 0)"', 'transform="translate(30 590)"')}
+      ${o.scale ? scaleBar(30, 590, 75) : ""}
       <g class="fl-extras">${extras}</g>
     </svg>`;
   }
@@ -156,7 +150,7 @@
   /* ------------------------------------------------------------------ B */
   function planB(opts = {}) {
     const id = "pb" + ++uidCounter;
-    const o = Object.assign({ risks: false, sensors: false, presence: false, co: false, labels: true, fan: true, crop: false }, opts);
+    const o = Object.assign({ risks: false, sensors: false, presence: false, co: false, labels: true, fan: true, crop: false, scale: true }, opts);
 
     const walls = `
       <path class="wall" d="M620 20 H20 V540 H90 M170 540 H620"/>
@@ -217,7 +211,7 @@
     const labels = o.labels
       ? `<g class="labels">
           <text class="plabel strong" x="270" y="420">套房</text>
-          <text class="plabel strong" x="440" y="130">浴室</text>
+          <text class="plabel strong" x="436" y="142">浴室</text>
           <text class="plabel" x="652" y="520">陽台</text>
           <text class="plabel" x="100" y="526" style="font-size:14px">房門</text>
           <text class="plabel" x="694" y="174" style="font-size:14px;letter-spacing:.04em">熱水器</text>
@@ -230,19 +224,16 @@
       let s = 7;
       const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
       let parts = "";
-      for (let i = 0; i < 34; i++) {
+      for (let i = 0; i < 20; i++) {
         const ox = 725 + (rnd() - 0.5) * 30;
         const oy = 60 + rnd() * 20;
-        parts += `<circle class="co-p" cx="${ox.toFixed(1)}" cy="${oy.toFixed(1)}" r="${(2.4 + rnd() * 2.2).toFixed(1)}" data-tx="${(430 + rnd() * 180).toFixed(1)}" data-ty="${(40 + rnd() * 180).toFixed(1)}" data-mx="${(640 + rnd() * 120).toFixed(1)}" data-my="${(60 + rnd() * 140).toFixed(1)}"/>`;
+        parts += `<circle class="co-p" cx="${ox.toFixed(1)}" cy="${oy.toFixed(1)}" r="${(2 + rnd() * 1.6).toFixed(1)}" data-tx="${(440 + rnd() * 160).toFixed(1)}" data-ty="${(50 + rnd() * 150).toFixed(1)}" data-mx="${(645 + rnd() * 110).toFixed(1)}" data-my="${(70 + rnd() * 120).toFixed(1)}"/>`;
       }
+      extras = `<rect class="co-tint bath" x="424" y="24" width="192" height="212"/><rect class="co-tint balc" x="624" y="24" width="152" height="512"/>` + extras;
       extras += `<g class="co-g">${parts}</g>`;
     }
     if (o.risks) {
-      extras += `<g class="risks">
-        ${risk(725, 150, "屋外式熱水器裝在加窗陽台", -30, 104, "end")}
-        ${risk(780, 330, "陽台加窗、晾衣", -24, 60, "end")}
-        ${risk(566, 82, "冬天關窗洗熱水澡", -110, 128, "end")}
-      </g>`;
+      extras += `<g class="risks">${risk(725, 200, 1)}${risk(744, 330, 2)}${risk(520, 170, 3)}</g>`;
     }
     if (o.sensors) {
       extras += `<defs>
@@ -267,14 +258,14 @@
       extras += `<g class="presence-g" transform="translate(566 82)"><circle class="presence-ring" r="10"/><circle class="presence" r="9"/></g>`;
     }
 
-    return `<svg viewBox="${o.crop ? "404 6 392 262" : "0 0 800 612"}" data-plan="B" data-uid="${id}" aria-label="外宿同學套房平面圖">
+    return `<svg viewBox="${o.crop ? "406 12 388 236" : "0 0 800 612"}"${o.crop ? ' style="overflow:hidden"' : ""} data-plan="B" data-uid="${id}" aria-label="外宿同學套房平面圖">
       <g class="fl-furn">${furn}</g>
       <g class="fl-doors">${doors}</g>
       <g class="fl-walls">${walls}${windows}</g>
       <g class="fl-heater">${heater}</g>
       <g class="fl-fan">${fan}</g>
       <g class="fl-labels">${labels}</g>
-      ${scaleBar(0, 0, 100).replace('transform="translate(0 0)"', 'transform="translate(30 590)"')}
+      ${o.scale ? scaleBar(30, 590, 100) : ""}
       <g class="fl-extras">${extras}</g>
     </svg>`;
   }

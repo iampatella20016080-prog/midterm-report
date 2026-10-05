@@ -97,6 +97,8 @@ async function layoutCheck(i) {
         const A = blocks[a];
         const B = blocks[b];
         if (A.e.contains(B.e) || B.e.contains(A.e)) continue;
+        const ha = A.e.closest("h1, h2, .line1, .line2");
+        if (ha && ha === B.e.closest("h1, h2, .line1, .line2")) continue;
         const ox = Math.min(A.r.x + A.r.w, B.r.x + B.r.w) - Math.max(A.r.x, B.r.x);
         const oy = Math.min(A.r.y + A.r.h, B.r.y + B.r.h) - Math.max(A.r.y, B.r.y);
         if (ox > 6 && oy > 6) out.push(`[overlap] "${A.e.textContent.trim().slice(0, 18)}" × "${B.e.textContent.trim().slice(0, 18)}" (${ox.toFixed(0)}×${oy.toFixed(0)})`);

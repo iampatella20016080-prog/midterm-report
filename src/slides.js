@@ -45,9 +45,11 @@
   /** A sensor glyph "fires": ring flash + colour. */
   function flash(S, g, pos, color = AMBER) {
     if (!g) return;
+    const inner = g.querySelector(".s-in") || g;
     const c = g.querySelector("circle");
-    S.tl.fromTo(g, { scale: 1, svgOrigin: originOf(g) }, { scale: 1.45, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1, svgOrigin: originOf(g) }, pos);
+    S.tl.fromTo(inner, { scale: 1, transformOrigin: "50% 50%" }, { scale: 1.45, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1 }, pos);
     S.tl.to(c, { stroke: color, strokeWidth: 3, duration: 0.2 }, pos);
+    S.tl.to(g, { opacity: 1, duration: 0.2 }, pos);
   }
   function originOf(g) {
     const m = /translate\(([-\d.]+)[ ,]+([-\d.]+)\)/.exec(g.getAttribute("transform") || "");
@@ -152,20 +154,26 @@
       const c = Math.cos(r);
       const s = Math.sin(r);
       beam.setAttribute("transform", `rotate(${ang.a.toFixed(2)} 420 120)`);
-      L.setAttribute("transform", `translate(${(420 - 320 * c).toFixed(1)} ${(120 - 320 * s).toFixed(1)})`);
-      R.setAttribute("transform", `translate(${(420 + 320 * c).toFixed(1)} ${(120 + 320 * s).toFixed(1)})`);
+      L.setAttribute("transform", `translate(${(420 - 280 * c).toFixed(1)} ${(120 - 280 * s).toFixed(1)})`);
+      R.setAttribute("transform", `translate(${(420 + 280 * c).toFixed(1)} ${(120 + 280 * s).toFixed(1)})`);
     };
     apply();
     S.draw(S.q(".balance .base, .balance .post"), ">", { d: 0.7 });
     S.draw(S.q(".balance .beam"), "<0.3", { d: 0.8 });
-    S.fade(S.q(".pan-g"), "<0.4", { y: -10, stagger: 0.12 });
-    tl.to(ang, { a: -13, duration: 1.1, ease: "back.inOut(1.6)", onUpdate: apply }, ">0.3");
+    S.pop(S.q(".balance .pivot"), "<0.5", { from: 0 });
+    S.fade(S.q(".pan-in"), "<0.4", { y: -10, stagger: 0.12 });
+    const tilt = (to, d, ease, pos) => {
+      const from = ang.a;
+      ang.a = to;
+      tl.to({}, { drive: { fn: (v) => { ang.a = v; apply(); }, from, to }, duration: d, ease }, pos);
+    };
+    tilt(-13, 1.1, "back.inOut(1.6)", ">0.3");
     tl.to(S.q(".pan-g.left .w-title"), { fill: VERM, duration: 0.4 }, "<0.5");
-    tl.to(ang, { a: 13, duration: 1.3, ease: "back.inOut(1.6)", onUpdate: apply }, ">0.9");
+    tilt(13, 1.3, "back.inOut(1.6)", ">0.9");
     tl.to(S.q(".pan-g.left .w-title"), { fill: "#f2ede4", duration: 0.4 }, "<0.3");
     tl.to(S.q(".pan-g.right .w-title"), { fill: VERM, duration: 0.4 }, "<0.2");
     S.step(2.5);
-    tl.to(ang, { a: 0, duration: 1.3, ease: "back.out(1.5)", onUpdate: apply });
+    tilt(0, 1.3, "back.out(1.5)", ">");
     tl.to(S.q(".pan-g.right .w-title"), { fill: "#f2ede4", duration: 0.4 }, "<");
     tl.to(S.q(".pan-g .w-title"), { fill: AMBER, duration: 0.5 }, "<0.6");
     S.fade(".resolve .k", "<0.1", { y: 8 });
@@ -207,7 +215,7 @@
 
     S.lines(".headline .line", 0);
     S.fade(".dots .caption", 0.5, { y: 6 });
-    tl.fromTo(dots, { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 0.55, duration: 0.45, ease: E.settle, stagger: 0.006 }, 0.65);
+    tl.fromTo(dots, { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 0.55, duration: 0.45, ease: E.settle, stagger: { each: 0.006, grid: [10, 15], from: "start" } }, 0.65);
     tl.to(dots.slice(0, 119), { backgroundColor: AMBER, opacity: 1, duration: 0.35, ease: "power1.out", stagger: 0.005 }, ">0.2");
     S.fade(".dots .legend > div", "<0.3", { stagger: 0.15 });
     S.step(3.5);
@@ -248,7 +256,8 @@
       "<"
     );
     tl.fromTo(svg.querySelector(".presence-ring"), { scale: 1, autoAlpha: 0.9, transformOrigin: "50% 50%" }, { scale: 2.6, autoAlpha: 0, duration: 1.0, ease: "power2.out" }, ">-0.1");
-    S.pop(S.q(svg.querySelectorAll(".risk")), "<", { stagger: 0.28 });
+    S.pop(S.q(svg.querySelectorAll(".risk .r-in")), "<", { stagger: 0.28 });
+    S.fade(".risk-legend span", "<0.1", { stagger: 0.28, y: 8 });
   };
 
   /* ================================================================ S6 */
@@ -293,7 +302,10 @@
     tl.to(svg.querySelectorAll(".heater path"), { stroke: VERM, duration: 0.5 }, t0 + 0.3);
     tl.to(svg.querySelector(".heater rect"), { stroke: VERM, duration: 0.5 }, t0 + 0.3);
     coDrift(S, svg, t0 + 0.6);
-    S.pop(S.q(svg.querySelectorAll(".risk")), t0 + 1.6, { stagger: 0.35 });
+    tl.to(svg.querySelector(".co-tint.balc"), { opacity: 0.1, duration: 2.0, ease: "power1.in" }, t0 + 0.9);
+    tl.to(svg.querySelector(".co-tint.bath"), { opacity: 0.2, duration: 2.6, ease: "power1.in" }, t0 + 1.6);
+    S.pop(S.q(svg.querySelectorAll(".risk .r-in")), t0 + 1.6, { stagger: 0.35 });
+    S.fade(".risk-legend span", t0 + 1.7, { stagger: 0.35, y: 8 });
     // the person slows down: ring fades, dot dims slightly
     tl.to(dot.querySelector(".presence"), { fill: "#c9a46a", duration: 1.2 }, t0 + 3.2);
   };
@@ -304,13 +316,13 @@
     S.lines(".headline .line", 0);
     S.q(".p").forEach((p, i) => {
       const t = 0.7 + i * 0.32;
-      S.rule(p.querySelector(".bar"), t, { d: 0.8 });
+      S.draw(S.q(p.querySelectorAll("svg .ln, svg .acc")), t - 0.1, { d: 0.9, stagger: 0.08 });
+      S.rule(p.querySelector(".bar"), t + 0.2, { d: 0.8 });
       S.fade(p.querySelector(".n"), t + 0.15, { y: 6 });
       S.fade(p.querySelector(".t"), t + 0.22, { y: 18 });
       S.fade(p.querySelector(".d"), t + 0.36);
       S.fade(p.querySelector(".ex"), t + 0.5);
-      S.draw(S.q(p.querySelectorAll("svg .ln, svg .acc")), t + 0.45, { d: 0.9, stagger: 0.08 });
-      S.pop(S.q(p.querySelectorAll("svg .accf")), t + 1.0);
+      S.pop(S.q(p.querySelectorAll("svg .accf")), t + 0.6);
     });
     void tl;
   };
@@ -340,7 +352,7 @@
     svgs.forEach((svg, i) => {
       const sensors = Array.from(svg.querySelectorAll(".sensor"));
       sensors.forEach((g, k) => {
-        tl.fromTo(g, { scale: 0, autoAlpha: 0, svgOrigin: originOf(g) }, { scale: 1, autoAlpha: 1, duration: 0.5, ease: "back.out(2)", svgOrigin: originOf(g) }, t0 + i * 0.5 + k * 0.16);
+        tl.fromTo(g.querySelector(".s-in"), { scale: 0, autoAlpha: 0, transformOrigin: "50% 50%" }, { scale: 1, autoAlpha: 1, duration: 0.5, ease: "back.out(2)" }, t0 + i * 0.5 + k * 0.16);
       });
       svg.querySelectorAll(".cov").forEach((c, k) => {
         tl.fromTo(c, { scale: 0, autoAlpha: 0, svgOrigin: c.dataset.o }, { scale: 1, autoAlpha: 1, duration: 1.0, ease: S.E.enter, svgOrigin: c.dataset.o }, t0 + 0.4 + i * 0.5 + k * 0.3);
@@ -443,7 +455,6 @@
     const C = 2 * Math.PI * 33;
     arc.style.strokeDasharray = `${C} ${C}`;
 
-    const setState = (txt, pos) => tl.call(() => (st.textContent = txt), null, pos);
     const stateTexts = [];
     const stateAt = (txt, pos) => stateTexts.push([pos, txt]);
 
@@ -538,24 +549,25 @@
     // state text as a seek-safe function of time
     stateTexts.sort((a, b) => a[0] - b[0]);
     const states = [[0, "夜間模式：監測中"]].concat(stateTexts);
-    const proxy = { v: 0 };
-    tl.fromTo(
-      proxy,
-      { v: 0 },
+    const total = tl.duration();
+    st.textContent = states[0][1];
+    tl.to(
+      {},
       {
-        v: 1,
-        duration: tl.duration(),
-        ease: "none",
-        onUpdate: () => {
-          const now = proxy.v * tl.duration();
-          let txt = states[0][1];
-          for (const [p, s] of states) if (now >= p) txt = s;
-          if (st.textContent !== txt) st.textContent = txt;
+        drive: {
+          fn: (now) => {
+            let txt = states[0][1];
+            for (const [p, s] of states) if (now >= p) txt = s;
+            if (st.textContent !== txt) st.textContent = txt;
+          },
+          from: 0,
+          to: total,
         },
+        duration: total,
+        ease: "none",
       },
       0
     );
-    void setState;
   };
 
   function wrapCount(chip) {
@@ -635,11 +647,13 @@
       <circle class="head" r="6" cx="${X(0)}" cy="${Y(ppm(0))}"/>
       <g class="marks">
         <g class="mk" data-k="1"><circle class="mark" r="7" cx="${X(210)}" cy="${Y(9.2)}" stroke="${AMBER}"/><text class="mark-t" x="${X(210)}" y="${Y(9.2) - 16}" text-anchor="middle" fill="${AMBER}">L1</text></g>
-        <g class="mk" data-k="2"><circle class="mark" r="7" cx="${X(370)}" cy="${Y(50)}" stroke="${VERM}"/><text class="mark-t" x="${X(370) - 14}" y="${Y(50) + 5}" text-anchor="end" fill="#ec6a52">L2</text></g>
+        <g class="mk" data-k="2"><circle class="mark" r="7" cx="${X(370)}" cy="${Y(50)}" stroke="${VERM}"/><text class="mark-t" x="${X(370) - 12}" y="${Y(50) - 14}" text-anchor="end" fill="#ec6a52">L2</text></g>
         <g class="mk" data-k="3"><circle class="mark" r="7" cx="${X(400)}" cy="${Y(62.5)}" stroke="${VERM}"/><text class="mark-t" x="${X(400)}" y="${Y(62.5) - 16}" text-anchor="middle" fill="#ec6a52">L3 無反應</text></g>
       </g>
     </svg>`;
     const clipR = chartBox.querySelector(".clipr");
+    const tintBath = svg.querySelector(".co-tint.bath");
+    const tintBalc = svg.querySelector(".co-tint.balc");
     const head = chartBox.querySelector(".head");
     const marks = chartBox.querySelectorAll(".mk");
 
@@ -653,6 +667,8 @@
       head.setAttribute("cy", Y(ppm(s)).toFixed(1));
       ppmEl.textContent = Math.round(ppm(s));
       const v = ppm(s);
+      tintBath.style.opacity = Math.min(0.26, v / 240).toFixed(3);
+      tintBalc.style.opacity = Math.min(0.12, v / 400 + (s > 0 && s < 440 ? 0.03 : 0)).toFixed(3);
       head.style.fill = v >= 50 ? VERM : v >= 9 ? AMBER : "";
       ppmEl.parentNode.style.color = v >= 50 ? "#ec6a52" : v >= 9 ? AMBER : "";
       fanS.textContent = s >= 210 ? "運轉中" : "關";
@@ -673,7 +689,8 @@
       if (st.textContent !== txt) st.textContent = txt;
     };
     render();
-    const run = (from, to, dur, pos, ease = "none") => tl.fromTo(sim, { s: from }, { s: to, duration: dur, ease, onUpdate: render, immediateRender: false }, pos);
+    const run = (from, to, dur, pos, ease = "none") =>
+      tl.to({}, { drive: { fn: (v) => { sim.s = v; render(); }, from, to }, duration: dur, ease }, pos);
 
     const lit = (n, pos, ts) => {
       const nd = node(n);
@@ -696,8 +713,8 @@
     notif.style.left = `${chart.x + 300}px`;
     notif.style.top = `${chart.y - 250}px`;
     const chip = S.one(".result-chip");
-    chip.style.left = `${chart.x + 70}px`;
-    chip.style.top = `${chart.y + 18}px`;
+    chip.style.left = `${chart.x + 84}px`;
+    chip.style.top = `${chart.y + 76}px`;
 
     /* ---- seg 0 */
     S.lines(".headline .line", 0);
@@ -759,7 +776,7 @@
     dot.parentNode.appendChild(friend);
     const fCore = friend.querySelector(".presence");
     fCore.style.fill = AMBER;
-    tl.set(friend, { x: 400, y: 186, autoAlpha: 0 }, 0);
+    tl.set(friend, { x: 426, y: 186, autoAlpha: 0 }, 0);
     tl.to(friend, { autoAlpha: 1, duration: 0.3 }, t + 0.6);
     tl.to(friend, { x: 452, y: 186, duration: 0.5, ease: "power2.out" }, t + 0.6);
     tl.to(friend, { x: 540, y: 100, duration: 0.8, ease: "power2.inOut" }, t + 1.1);
@@ -777,7 +794,7 @@
       const t = 0.6 + i * 0.4;
       tl.fromTo(s, { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: E.move }, t);
       const r = s.querySelector(".riser");
-      if (parseFloat(r.style.height)) tl.fromTo(r, { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: E.move, transformOrigin: "50% 100%" }, t - 0.15);
+      if (r) tl.fromTo(r, { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: E.move, transformOrigin: "50% 100%" }, t - 0.15);
       S.fade(S.q(s.querySelectorAll(".lv, .who, .what, .when")), t + 0.25, { stagger: 0.06, y: 8 });
     });
     S.step(3.5);
