@@ -1,0 +1,109 @@
+/* A4 written report — shares the deck's typefaces and plan drawings */
+:root {
+  --ink: #11161d;
+  --fg: #11161d;
+  --fg2: #3f4752;
+  --fg3: #6b7380;
+  --bg: #ffffff;
+  --line: rgba(17, 22, 29, 0.14);
+  --amber: #e8a33d;
+  --amber-deep: #9a5f0c;
+  --verm: #d2462f;
+  --alert-text: #b13a24;
+  --slate: #7f93a8;
+  --f-serif: "AZ Serif", "Noto Serif TC", serif;
+  --f-sans: "AZ Sans", "Noto Sans TC", sans-serif;
+  --f-kai: "AZ Kai", "LXGW WenKai TC", serif;
+  --f-mono: "AZ Mono", "AZ Sans", monospace;
+}
+
+@page { size: A4; margin: 20mm 18mm 20mm 18mm; }
+
+* { box-sizing: border-box; }
+html { background: #e9e5de; }
+body {
+  margin: 0;
+  font-family: var(--f-sans);
+  color: var(--fg);
+  font-size: 10.5pt;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+article { max-width: 174mm; margin: 0 auto; background: #fff; padding: 18mm 0; }
+@media screen { article { padding: 18mm 16mm; margin: 24px auto; box-shadow: 0 2px 18px rgba(0,0,0,.08); } }
+@media print { html { background: none; } article { padding: 0; } }
+
+h1, h2, h3 { font-family: var(--f-serif); font-weight: 600; line-height: 1.35; }
+h2 { font-size: 16pt; margin: 9mm 0 3mm; padding-bottom: 2mm; border-bottom: 1.2pt solid var(--fg); break-after: avoid; }
+h2 .n { font-family: var(--f-mono); font-weight: 500; font-size: 12pt; color: var(--fg3); margin-right: 3mm; }
+h3 { font-size: 12pt; margin: 5mm 0 2mm; break-after: avoid; }
+p { margin: 0 0 2.5mm; text-align: justify; }
+ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+li { margin-bottom: 1.2mm; }
+sup { font-family: var(--f-mono); font-size: 7pt; color: var(--fg3); }
+b { font-weight: 700; }
+
+.cover { padding: 4mm 0 8mm; border-bottom: 1.2pt solid var(--fg); margin-bottom: 4mm; }
+.cover .eyebrow { font-size: 9pt; letter-spacing: .12em; color: var(--fg3); }
+.cover h1 { font-family: var(--f-kai); font-weight: 700; font-size: 40pt; margin: 6mm 0 2mm; letter-spacing: .04em; }
+.cover .title { font-family: var(--f-serif); font-weight: 600; font-size: 16pt; margin: 0; }
+.cover .subtitle { color: var(--fg2); font-size: 11pt; margin: 1mm 0 6mm; }
+.cover .meta { display: flex; gap: 10mm; margin: 0; font-size: 9.5pt; }
+.cover .meta div { display: flex; gap: 3mm; }
+.cover dt { color: var(--fg3); }
+.cover dd { margin: 0; }
+
+.abstract { background: #f6f3ee; padding: 4mm 5mm 2mm; margin: 6mm 0; }
+.abstract h2 { border: none; margin: 0 0 2mm; padding: 0; font-size: 12pt; }
+
+.scn { margin: 4mm 0 5mm; }
+.scn h3 { margin-top: 0; }
+table { width: 100%; border-collapse: collapse; font-size: 9.5pt; line-height: 1.6; margin: 2mm 0 4mm; break-inside: auto; }
+tr { break-inside: avoid; }
+th, td { text-align: left; vertical-align: top; padding: 1.6mm 2mm; border-top: .6pt solid var(--line); }
+thead th { white-space: nowrap; font-weight: 500; color: var(--fg3); font-size: 8.5pt; letter-spacing: .08em; border-top: none; border-bottom: .9pt solid var(--fg); }
+tbody tr:last-child td { border-bottom: .6pt solid var(--line); }
+table.kv th { width: 12mm; color: var(--fg3); font-weight: 500; }
+table.kv b { color: var(--amber-deep); font-weight: 600; }
+table.grid td:first-child { white-space: nowrap; font-weight: 500; }
+table.flow td:nth-child(2) { white-space: nowrap; }
+table.flow td:last-child { font-family: var(--f-mono); font-size: 8.5pt; color: var(--amber-deep); }
+table.layers td:first-child { font-family: var(--f-serif); font-weight: 600; }
+.note { font-size: 9pt; color: var(--fg2); background: #f6f3ee; padding: 2.5mm 3.5mm; }
+
+ol.principles { padding-left: 5mm; }
+
+figure { margin: 0; break-inside: avoid; }
+figcaption { font-size: 8.5pt; color: var(--fg3); margin-top: 1.5mm; line-height: 1.5; }
+.planfig svg { width: 100%; height: auto; display: block; }
+.planfig.pair { display: grid; grid-template-columns: 68mm 68mm; justify-content: space-around; gap: 6mm; margin: 3mm 0; }
+.planfig.pair figcaption { grid-column: 1 / -1; }
+
+/* plan drawing styles (light) */
+.wall { fill: none; stroke: var(--fg); stroke-width: 7; stroke-linecap: square; }
+.win { fill: none; stroke: var(--fg); stroke-width: 1.4; }
+.door { fill: none; stroke: var(--fg2); stroke-width: 1.4; }
+.furn { fill: none; stroke: #9aa1aa; stroke-width: 1.4; }
+.plabel { font-family: var(--f-sans); font-size: 17px; fill: var(--fg3); letter-spacing: .12em; }
+.plabel.strong { fill: var(--fg2); font-weight: 500; }
+.scale text { font-family: var(--f-mono); font-size: 12px; fill: var(--fg3); }
+.scale line { stroke: var(--fg3); stroke-width: 1.2; }
+.route { fill: none; stroke: var(--amber-deep); stroke-width: 2.5; stroke-dasharray: 2 9; stroke-linecap: round; }
+.risk circle.r { fill: #fff; stroke: var(--verm); stroke-width: 2; }
+.risk text.rn { font-family: var(--f-mono); font-size: 16px; font-weight: 500; fill: var(--alert-text); text-anchor: middle; dominant-baseline: central; }
+.cov { fill: var(--slate); fill-opacity: .14; stroke: var(--slate); stroke-opacity: .6; stroke-width: 1.2; stroke-dasharray: 4 5; }
+.sensor circle { fill: #fff; stroke: var(--slate); stroke-width: 2; }
+.sensor text { font-family: var(--f-mono); font-size: 14px; font-weight: 500; fill: var(--fg); text-anchor: middle; dominant-baseline: central; }
+.sensor.act circle { stroke: var(--amber-deep); }
+.light-halo { fill: var(--amber); fill-opacity: .28; }
+.light-core { fill: var(--amber-deep); }
+.heater rect { fill: #fff; stroke: var(--fg2); stroke-width: 1.6; }
+.heater path { fill: none; stroke: var(--fg2); stroke-width: 1.4; }
+.fan circle { fill: none; stroke: #9aa1aa; stroke-width: 1.4; }
+.fan path { fill: #9aa1aa; }
+.wet { fill: none; stroke: var(--slate); stroke-width: 1.2; stroke-linecap: round; }
+.presence { fill: var(--amber); }
+.presence-ring { display: none; }
+
+.refs ol { font-size: 8.8pt; line-height: 1.6; padding-left: 7mm; word-break: break-all; }
+.refs li { margin-bottom: 1.6mm; }

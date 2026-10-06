@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安在 AnZai｜期中書面報告</title>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="report.css">
+</head>
+<body>
+<article>
+
+<header class="cover">
+  <div class="eyebrow">健康物聯網趨勢與創新 ・ 期中報告 ・ 課堂：設計與應用</div>
+  <h1><span class="kai">你還好嗎？</span></h1>
+  <p class="title">安在 AnZai——不用鏡頭的浴室安全守護系統</p>
+  <p class="subtitle">給夜裡起身的阿嬤，與冬夜洗澡的外宿同學</p>
+  <dl class="meta">
+    <div><dt>學期</dt><dd data-cfg="term">115 學年度第 1 學期</dd></div>
+    <div><dt>學校</dt><dd data-cfg="school">臺北醫學大學</dd></div>
+    <div class="who"><dt>報告人</dt><dd data-cfg="who"></dd></div>
+  </dl>
+</header>
+
+<section class="abstract">
+  <h2>摘要</h2>
+  <p>本報告依課堂「設計與應用」的六項要求，從「對家人的關心」與「對同學、朋友的關心」出發，設計一套具人文關懷的健康物聯網應用「安在」。兩個情境——獨居祖母的夜間如廁（凌晨，臥室→浴室）與外宿同學的冬夜洗澡（晚間，租屋浴室）——都落在同一個地點：浴室。浴室並非跌倒次數最多的地方，卻是最私密、門會關上、最難被發現，也最不可能裝攝影機的空間。據此提出人文關懷議題「守護，但不窺視」：全系統不使用鏡頭，以毫米波雷達、門磁、床墊壓力、溫濕度與一氧化碳感測器構成感知層，依課堂五層架構設計網路、雲端、資料分析與應用層；監測流程採「先預防、先問本人、越確定才越大聲」的分級通報。預計結果以可驗證的設計目標呈現，核心是把「跌倒後倒地超過一小時」縮短為「兩分鐘內家人知道」。</p>
+</section>
+
+<section>
+  <h2><span class="n">1</span>問題與人文關懷議題</h2>
+  <h3>1.1 兩個我們不在場的時刻</h3>
+  <p>凌晨 02:13，78 歲獨居的阿嬤第三次起身上廁所，走廊沒有開燈；晚上 22:40，寒流來襲，外宿的同學關緊窗戶，洗了一場很久的熱水澡。兩個時刻，家人與朋友都不在場；兩個地點，都是浴室。</p>
+  <h3>1.2 家人端的證據：跌倒之後，最危險的是沒有人知道</h3>
+  <ul>
+    <li>臺灣 2025 年底 65 歲以上人口 4,673,155 人，占 20.06%，正式進入超高齡社會<sup>[1]</sup>；65 歲以上長者中，一人戶約 118.2 萬人（25.8%）<sup>[2]</sup>。</li>
+    <li>約每 6 位長者就有 1 位在一年內跌倒；跌倒為長者事故傷害死亡第 2 位。室內跌倒地點以臥室（35.6%）最多、客廳（30.8%）次之、浴室（17%）第三<sup>[3]</sup>——夜間「臥室→浴室」動線即涵蓋 52.6%。</li>
+    <li>英國 90 歲以上長者追蹤研究：跌倒者中 80% 至少一次無法自行起身，30% 曾倒地 1 小時以上；獨自跌倒並長時間倒地的事件中，80% 沒有使用隨身緊急呼叫器。長時間倒地與重傷、住院、轉入長照機構強烈相關<sup>[4]</sup>。</li>
+    <li>每晚夜尿 ≥ 3 次者，3 年內新發生跌倒風險上升（調整後 RR = 1.26）<sup>[7]</sup>。</li>
+  </ul>
+  <h3>1.3 朋友端的證據：一氧化碳中毒，當事人往往來不及察覺</h3>
+  <ul>
+    <li>民國 107–111 年（2018–2022）共 149 件一氧化碳中毒，24 人死亡、436 人送醫；約 80%（119 件）因屋外式熱水器裝在通風不良處；每年 12 月至隔年 2 月為高峰，冬季洗澡時門窗緊閉<sup>[5]</sup>。消防單位並提醒陽台勿加裝窗戶或晾曬大量衣物<sup>[8]</sup>。</li>
+    <li>一氧化碳無色無味；睡著、酒醉或意識不清者可能在出現症狀前就中毒死亡<sup>[6]</sup>。</li>
+  </ul>
+  <h3>1.4 議題：守護，但不窺視</h3>
+  <p>如果只顧安全而裝設攝影機，就犧牲了最需要被尊重的隱私與尊嚴；如果只顧尊嚴而什麼都不裝，出事時就沒有人知道。本設計的人文關懷議題，是在最私密的空間裡找到兩者兼顧的方法：只量「發生了什麼」，不看「長什麼樣子」；而且系統的終點不是警報，是讓「人」更早說出一句「你還好嗎？」。</p>
+</section>
+
+<section>
+  <h2><span class="n">2</span>情境設計：時間與地點</h2>
+  <figure class="planfig pair">
+    <div data-plan="A" data-opts='{"route":true,"risks":true,"scale":false}'></div>
+    <div data-plan="B" data-opts='{"risks":true,"scale":false}'></div>
+    <figcaption>圖 1　情境平面示意（左：阿嬤家夜間動線；右：分租套房）。紅色編號對應下表「風險」。</figcaption>
+  </figure>
+  <div class="scn">
+    <div class="scn-t">
+      <h3>情境 A ・ 對家人的關心：夜裡起身的阿嬤</h3>
+      <table class="kv">
+        <tr><th>誰</th><td>阿嬤，78 歲，獨居老公寓；子女在外地，週末才回家。</td></tr>
+        <tr><th>時間</th><td><b>每晚 22:00–06:00</b>，夜裡起身如廁 2–3 次；情境時刻 <b>02:13</b>。</td></tr>
+        <tr><th>地點</th><td><b>臥室 → 走廊 → 浴室</b>，約 9 公尺的夜間動線。</td></tr>
+        <tr><th>風險</th><td>① 剛起身頭暈 ② 走廊昏暗 ③ 浴室地面濕滑；跌倒後爬不起來，可能到早上才被發現。</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="scn">
+    <div class="scn-t">
+      <h3>情境 B ・ 對同學、朋友的關心：冬夜洗澡的外宿同學</h3>
+      <table class="kv">
+        <tr><th>誰</th><td>外宿的同學，在學校附近分租套房，室友住隔壁。</td></tr>
+        <tr><th>時間</th><td><b>寒流期間（12–2 月）20:00–24:00</b> 的洗澡時段；情境時刻 <b>22:40</b>。</td></tr>
+        <tr><th>地點</th><td><b>套房浴室</b>；屋外式熱水器裝在加了窗戶的陽台，浴室窗戶對著陽台。</td></tr>
+        <tr><th>風險</th><td>① 熱水器裝在加窗陽台 ② 陽台晾衣、不通風 ③ 關窗洗熱水澡 → 一氧化碳滲入浴室；頭暈後無法自救。</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">3</span>設計原則與感測器</h2>
+  <h3>3.1 四個設計原則</h3>
+  <ol class="principles">
+    <li><b>不用鏡頭</b>：浴室只用雷達、門磁、溫濕度與氣體感測——守護，但不窺視。</li>
+    <li><b>先預防，再偵測</b>：夜燈在跌倒之前亮起；排風扇在中毒之前啟動。</li>
+    <li><b>先問本人，再通知別人</b>：異常時先以語音詢問「你還好嗎？」，60 秒內按鈕或回答即解除，保留尊嚴，也過濾誤報。</li>
+    <li><b>越確定，才越大聲</b>：亮燈 → 詢問 → 通知家人朋友 → 求救；低門檻只做低成本的動作。</li>
+  </ol>
+  <h3>3.2 感測器選擇</h3>
+  <table class="grid">
+    <thead><tr><th>代號</th><th>感測器</th><th>量測什麼</th><th>選用理由</th><th>情境</th></tr></thead>
+    <tbody>
+      <tr><td>R</td><td>60 GHz 毫米波雷達</td><td>位置、姿態變化（跌倒）、呼吸微動</td><td>輸出點雲而非影像；黑暗、水氣中仍可運作<sup>[12][13]</sup></td><td>A B</td></tr>
+      <tr><td>B</td><td>床墊壓力感測帶</td><td>在床／離床</td><td>離床瞬間即可點亮夜燈</td><td>A</td></tr>
+      <tr><td>P</td><td>人體紅外線感測器（PIR）</td><td>走廊有人經過</td><td>便宜、省電，確認夜間動線</td><td>A</td></tr>
+      <tr><td>D</td><td>門磁感測器</td><td>浴室門開關、停留時間</td><td>計算每晚如廁次數與停留時間</td><td>A B</td></tr>
+      <tr><td>H</td><td>溫濕度感測器</td><td>濕度驟升＝正在洗澡</td><td>判斷情境，調整停留時間門檻</td><td>A B</td></tr>
+      <tr><td>C</td><td>電化學式一氧化碳感測器</td><td>CO 濃度（ppm）</td><td>比半導體式準確、穩定、耗電低</td><td>B</td></tr>
+      <tr><td>＋</td><td>致動器</td><td>夜燈 L、語音按鈕盒 S、排風扇 F、瓦斯遮斷閥 V</td><td>讓系統能「先預防」與「先問本人」</td><td>A B</td></tr>
+    </tbody>
+  </table>
+  <figure class="planfig pair">
+    <div data-plan="A" data-opts='{"sensors":true,"lights":true}'></div>
+    <div data-plan="B" data-opts='{"sensors":true}'></div>
+    <figcaption>圖 2　感測器擺放（左：阿嬤家；右：分租套房）。G 為家中閘道；扇形為雷達與紅外線的感測範圍。</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="n">4</span>系統架構：對應課堂五層架構</h2>
+  <table class="grid layers">
+    <thead><tr><th>層級</th><th>本系統的內容</th><th>技術</th></tr></thead>
+    <tbody>
+      <tr><td>應用層</td><td>家人 LINE 推播與一鍵回撥、守護圈 App、每週健康摘要、串接緊急救援中心／119</td><td>SaaS、行動 App</td></tr>
+      <tr><td>資料分析層</td><td>個人作息基準線、異常偵測（停留過久、無動作）、夜尿次數與洗澡 CO 峰值趨勢</td><td>跌倒辨識在閘道（邊緣）執行；趨勢分析在雲端</td></tr>
+      <tr><td>雲端計算層</td><td>事件接收、通知派送、加密儲存——只存事件，不存原始訊號</td><td>PaaS 訊息服務（MQTT）、IaaS 加密儲存</td></tr>
+      <tr><td>網路層</td><td>感測器以低功耗網狀網路連到家中閘道；閘道以 Wi-Fi 上傳，斷網時改走 4G／NB-IoT</td><td>Zigbee 3.0、Wi-Fi、4G／NB-IoT</td></tr>
+      <tr><td>感知層</td><td>雷達、床墊壓力、紅外線、門磁、溫濕度、CO；致動器：夜燈、語音按鈕盒、排風扇、瓦斯遮斷閥</td><td>電池供電節點、閘道內建備用電池</td></tr>
+    </tbody>
+  </table>
+  <p>資料由感知層往上傳遞（感知／辨識資訊），分析結果再往下控制夜燈與排風扇（控制／自動化），對應講義中物聯網架構的雙向流動<sup>[14]</sup>。原始雷達訊號在住家閘道完成判斷後即丟棄，離開住家的只有「事件」。</p>
+</section>
+
+<section>
+  <h2><span class="n">5</span>監測流程</h2>
+  <h3>5.1 流程 A：夜間如廁（跌倒與久滯）</h3>
+  <table class="grid flow">
+    <thead><tr><th>#</th><th>步驟</th><th>條件與動作</th><th>情境模擬時間</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>夜間模式</td><td>22:00–06:00，床墊感測器開始監測離床</td><td>22:00</td></tr>
+      <tr><td>2</td><td>離床 → 夜燈亮起</td><td>先預防：沿臥室到浴室的動線依序點亮夜燈</td><td>02:13:05</td></tr>
+      <tr><td>3</td><td>進入浴室 → 計時</td><td>門磁記錄進出時間與每晚如廁次數</td><td>02:13:41</td></tr>
+      <tr><td>4</td><td>判斷異常</td><td>雷達偵測跌倒姿態，或停留 &gt; 15 分鐘且無明顯動作</td><td>02:19:12</td></tr>
+      <tr><td>5</td><td>L1 先問本人</td><td>語音「阿嬤，妳還好嗎？」；60 秒內按鈕或回答即解除</td><td>02:19:13</td></tr>
+      <tr><td>6</td><td>L2 通知家人</td><td>推播時間、地點、呼吸微動有無；一鍵回撥</td><td>02:20:13</td></tr>
+      <tr><td>7</td><td>L3 升級求救</td><td>3 分鐘內無人確認 → 撥打緊急聯絡人、通知緊急救援中心／119</td><td>（本次家人 45 秒內確認，未觸發）</td></tr>
+      <tr><td>8</td><td>每週趨勢</td><td>夜尿 ≥ 3 次／夜持續一週 → 提醒家人陪同就醫<sup>[7]</sup></td><td>每週</td></tr>
+    </tbody>
+  </table>
+  <h3>5.2 流程 B：冬夜洗澡的一氧化碳</h3>
+  <table class="grid flow">
+    <thead><tr><th>#</th><th>步驟</th><th>條件與動作</th><th>情境模擬時間</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>偵測洗澡</td><td>浴室濕度驟升 → 判定「洗澡中」，CO 每 10 秒取樣</td><td>22:40:00</td></tr>
+      <tr><td>2</td><td>L1 CO ≥ 9 ppm</td><td>自動開排風扇、手機提醒開窗（室內空氣品質標準 8 小時值 9 ppm<sup>[9]</sup>）</td><td>22:43:30</td></tr>
+      <tr><td>3</td><td>L2 CO ≥ 50 ppm</td><td>浴室聲光警報、語音提醒離開、遮斷瓦斯（一般住宅警報器在 50 ppm 可延至 60–90 分鐘才響<sup>[10]</sup>）</td><td>22:46:10</td></tr>
+      <tr><td>4</td><td>L3 CO ≥ 100 ppm 或本人無反應</td><td>雷達 30 秒無動作且未回應 → 通知守護圈（室友、同學、房東）＋一鍵 119</td><td>22:46:40</td></tr>
+      <tr><td>5</td><td>事後改善</td><td>週報指出「每次洗澡 CO 都上升」＝安裝問題 → 提醒請房東依熱水器「5 要」改善<sup>[5]</sup></td><td>週報</td></tr>
+    </tbody>
+  </table>
+  <p class="note">設計要點：一般警報器為了避免誤報而刻意延遲；本設計把「動作成本」與「門檻」配對——低門檻只做低成本的自動排風，高門檻才通知他人。L3 由 CO 濃度與雷達「本人無反應」兩種訊號共同觸發，體現多感測器融合。</p>
+</section>
+
+<section>
+  <h2><span class="n">6</span>隱私與資料分級</h2>
+  <table class="grid">
+    <thead><tr><th>層級</th><th>誰會知道</th><th>分享的資料</th><th>觸發時機</th></tr></thead>
+    <tbody>
+      <tr><td>平常</td><td>本人</td><td>每週摘要（如廁次數、CO 峰值），先給本人看，同意後才分享</td><td>每週一次</td></tr>
+      <tr><td>L1</td><td>本人</td><td>語音詢問、按鈕閃燈；資料只在家中閘道處理</td><td>偵測到異常</td></tr>
+      <tr><td>L2</td><td>家人／守護圈</td><td>事件類型、時間、地點、處置狀態</td><td>本人 60 秒未回應</td></tr>
+      <tr><td>L3</td><td>救援中心／119</td><td>加上地址、緊急聯絡人、事先同意的病史摘要</td><td>3 分鐘無人確認，或 CO ≥ 100 ppm</td></tr>
+    </tbody>
+  </table>
+  <p>永遠不收集：影像（系統沒有鏡頭）、錄音（語音只在本機辨識「我沒事」）、原始雷達點雲（閘道判斷後即丟棄）。本人可決定守護圈名單與通知順序、家人來訪時一鍵暫停，並查看誰在何時看過哪些事件。</p>
+</section>
+
+<section>
+  <h2><span class="n">7</span>預計結果及效益</h2>
+  <h3>7.1 預計結果（設計目標，將於原型階段實測驗證）</h3>
+  <table class="grid">
+    <thead><tr><th>指標</th><th>目標值</th><th>驗證方式</th></tr></thead>
+    <tbody>
+      <tr><td>跌倒 → 家人收到通知</td><td>≤ 2 分鐘（含 60 秒詢問本人）</td><td>以軟墊與假人模擬跌倒 30 次，記錄每段時間；對照研究中 30% 的高齡跌倒者倒地 ≥ 60 分鐘<sup>[4]</sup></td></tr>
+      <tr><td>離床 → 夜燈亮起</td><td>≤ 1 秒</td><td>實測 50 次離床，記錄延遲</td></tr>
+      <tr><td>CO 開始處置的濃度</td><td>9 ppm（自動排風）</td><td>以校正氣體測試 9／50／100 ppm 三段門檻是否正確觸發</td></tr>
+      <tr><td>家人收到的誤報</td><td>&lt; 1 次／週</td><td>自家試行 2 週，逐筆標記每次通知是否為真</td></tr>
+      <tr><td>影像與錄音上傳</td><td>0</td><td>硬體不含鏡頭；語音辨識只在本機執行</td></tr>
+    </tbody>
+  </table>
+  <h3>7.2 效益</h3>
+  <table class="grid">
+    <thead><tr><th>對象</th><th>效益</th></tr></thead>
+    <tbody>
+      <tr><td>阿嬤（被照顧的人）</td><td>能繼續住在熟悉的家、獨立生活；不用穿戴、不用學操作；出事時先被問「你還好嗎」，保有尊嚴。</td></tr>
+      <tr><td>家人（關心的人）</td><td>從每天打電話「查勤」，變成真正需要時一定知道；夜尿趨勢週報可提早發現健康變化。</td></tr>
+      <tr><td>同學與朋友（互相照顧的人）</td><td>冬夜洗澡有人守著，CO 在中毒前就被處理；守護圈讓室友、同學彼此照應；數據在事故前揭露熱水器安裝問題。</td></tr>
+      <tr><td>社會（支持的人）</td><td>可銜接行政院 2026 年擴大的獨居老人關懷服務與緊急救援補助（7 萬名）<sup>[11]</sup>；縮短倒地時間，降低重傷與住院風險<sup>[4]</sup>；非影像方案降低隱私疑慮，提高使用意願。</td></tr>
+    </tbody>
+  </table>
+  <p>對應課程主題特色：以<b>智慧照護</b>為主軸（居家安全監測與即時通報），延伸至<b>數位醫療</b>（夜尿與 CO 暴露紀錄可提供醫師參考）與<b>智慧輔具</b>（夜燈與語音按鈕盒，免穿戴、免操作）<sup>[14]</sup>。</p>
+</section>
+
+<section>
+  <h2><span class="n">8</span>限制與下一步</h2>
+  <table class="grid">
+    <thead><tr><th>限制</th><th>對策</th></tr></thead>
+    <tbody>
+      <tr><td>雷達可能誤判或漏判</td><td>「先問本人」過濾誤報；實測後調整門檻，並以門磁、床墊交叉確認</td></tr>
+      <tr><td>停電、斷網</td><td>閘道內建備用電池＋4G 備援；本地警報與夜燈不依賴網路</td></tr>
+      <tr><td>多人同住、訪客來訪</td><td>以床墊與門磁輔助辨識；家人來訪時一鍵暫停</td></tr>
+      <tr><td>長者與房東的接受度</td><td>電池式感測器免施工、免穿戴；瓦斯遮斷閥列為選配，需房東同意</td></tr>
+      <tr><td>資安與個資</td><td>傳輸加密、只上傳事件；守護圈名單與分享範圍由本人決定</td></tr>
+    </tbody>
+  </table>
+  <p>下一步：第 10–11 週以 Raspberry Pi 閘道、60 GHz 雷達模組與電化學 CO 感測器完成原型；第 12–14 週在家人同意下自家試行 2 週，記錄誤報率與通知時間；第 15–18 週到同學租屋處驗證 CO 分級與排風連動，並完成期末報告與實機展示。</p>
+</section>
+
+<section class="refs">
+  <h2>參考資料</h2>
+  <p class="note">說明：情境中的人物、平面圖與模擬時間軸為設計示意；所有統計數字皆來自下列來源。</p>
+  <ol>
+    <li>內政部（2026-01-09）。民國114年12月戶口統計資料分析。https://www.moi.gov.tw/News_Content.aspx?n=9&amp;s=335870</li>
+    <li>內政部統計處（2025-11-29）。114年第48週內政統計通報：114年6月底65歲以上長者457萬人，其中一人戶占25.8%。https://www.moi.gov.tw/News_Content.aspx?n=2905&amp;s=334815</li>
+    <li>衛生福利部（2019-09-24）。長者跌倒新聞稿（2017 年國民健康訪問調查）。https://mohw.gov.tw/cp-16-49428-1.html</li>
+    <li>Fleming, J., &amp; Brayne, C. (2008). Inability to get up after falling, subsequent time on floor, and summoning help: Prospective cohort study in people over 90. <i>BMJ, 337</i>, a2227. https://doi.org/10.1136/bmj.a2227</li>
+    <li>內政部（2023-11-24）。今年一氧化碳中毒已奪3命，內政部提醒：使用瓦斯熱水器要注意通風。https://www.moi.gov.tw/News_Content.aspx?n=4&amp;s=298370</li>
+    <li>U.S. Centers for Disease Control and Prevention (2026-01-12). <i>Carbon monoxide poisoning basics</i>. https://www.cdc.gov/carbon-monoxide/about/index.html</li>
+    <li>Vaughan, C. P., Brown, C. J., Goode, P. S., et al. (2010). The association of nocturia with incident falls in an elderly community-dwelling cohort. <i>International Journal of Clinical Practice, 64</i>(5), 577–583.</li>
+    <li>臺南市政府消防局（2026-02-06）。熱水器安裝「五要」宣導。聯合新聞網報導。https://udn.com/news/story/7320/9314085</li>
+    <li>環境部（原行政院環境保護署）（2012）。室內空氣品質標準。</li>
+    <li>EN 50291-1 Gas detectors — Electrical apparatus for the detection of carbon monoxide in domestic premises；UL 2034 Standard for Single and Multiple Station Carbon Monoxide Alarms。</li>
+    <li>行政院（2026-03-20）。獨居老人關懷服務計畫。聯合新聞網報導。https://udn.com/news/story/7266/9391629</li>
+    <li>Texas Instruments (2019). <i>Non-contact and private stance detection with TI mmWave sensors</i> (IWR6843).</li>
+    <li>Wang, H., Wang, Y., Wang, X., Miao, Y., Zhang, Y., Zhang, Y., &amp; Mansoor, A. (2025). P2MFDS: A privacy-preserving multimodal fall detection system for elderly people in bathroom environments. arXiv:2506.17332.</li>
+    <li>健康物聯網趨勢與創新課程講義：物聯網簡介（1150910）、物聯網的架構（1150917）。</li>
+  </ol>
+</section>
+
+</article>
+<script src="../src/config.js"></script>
+<script src="../src/plans.js"></script>
+<script>
+  (function () {
+    var cfg = window.DECK_CONFIG || {};
+    var q = new URLSearchParams(location.search);
+    if (q.get("name")) cfg.presenter = q.get("name");
+    if (q.get("id")) cfg.studentId = q.get("id");
+    var who = [cfg.presenter || "", cfg.studentId || ""].filter(Boolean).join("　");
+    document.querySelectorAll("[data-cfg]").forEach(function (n) {
+      var k = n.dataset.cfg;
+      if (k === "who") { n.textContent = who; if (!who) n.closest(".who").style.display = "none"; }
+      else if (cfg[k]) n.textContent = cfg[k];
+    });
+    document.querySelectorAll("[data-plan]").forEach(function (el) {
+      var opts = el.dataset.opts ? JSON.parse(el.dataset.opts) : {};
+      var svg = el.dataset.plan === "A" ? PLANS.planA(opts) : PLANS.planB(opts);
+      el.insertAdjacentHTML("afterbegin", svg);
+    });
+    document.body.dataset.ready = "1";
+  })();
+</script>
+</body>
+</html>
