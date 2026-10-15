@@ -123,5 +123,106 @@
     return `<svg viewBox="0 0 1680 700" class="sensor-map" role="img" aria-label="感測器關係圖">${defs}${iface}${flow}${top}${net}${bottom}${trunk}${grp}</svg>`;
   }
 
-  window.DIAGRAM = { sensorMap };
+  /* ==========================================================================
+     橫向關係圖（課堂練習：核心議題 → 子議題 → 感測器）
+     中間：核心議題　左：情境 A 的子議題　右：情境 B 的子議題
+     外側：每個子議題用到的感測器。viewBox 0 0 1680 700
+     ========================================================================== */
+  function issueMap() {
+    const id = "im" + ++uid;
+    const core = { x: 840, y: 375, r: 132 };
+    const R = 80;
+    const sides = [
+      {
+        key: "a",
+        cx: 525,
+        title: "情境 A：對家人的關心",
+        tx: 40,
+        anchor: "start",
+        items: [
+          [150, ["夜間跌倒"], [["R", "毫米波雷達"], ["P", "紅外線"], ["B", "床墊壓力"]]],
+          [375, ["起身頭暈"], [["M", "藍牙血壓計"], ["B", "床墊壓力"]]],
+          [600, ["夜尿變多"], [["D", "門磁"], ["B", "床墊壓力"]]],
+        ],
+      },
+      {
+        key: "b",
+        cx: 1155,
+        title: "情境 B：對同學、朋友的關心",
+        tx: 1640,
+        anchor: "end",
+        items: [
+          [150, ["一氧化碳", "累積"], [["C", "一氧化碳模組"], ["H", "溫濕度"]]],
+          [375, ["昏倒", "沒有反應"], [["R", "毫米波雷達"], ["S", "語音按鈕盒"]]],
+          [600, ["洗澡太久"], [["D", "門磁"], ["H", "溫濕度"]]],
+        ],
+      },
+    ];
+    const BW = 270;
+    const BH = 46;
+    const GAP = 12;
+
+    const defs = `<defs>
+      <marker id="${id}-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 Z" class="im-head"/>
+      </marker>
+    </defs>`;
+
+    let spokes = "";
+    let subs = "";
+    let sensors = "";
+    let heads = "";
+    sides.forEach((sd) => {
+      heads += `<text class="im-side ${sd.key}" x="${sd.tx}" y="26" text-anchor="${sd.anchor}">${sd.title}</text>`;
+      sd.items.forEach(([cy, label, list], k) => {
+        // spoke: core edge → sub-issue edge
+        const dx = sd.cx - core.x;
+        const dy = cy - core.y;
+        const d = Math.hypot(dx, dy);
+        const ux = dx / d;
+        const uy = dy / d;
+        spokes += `<line class="im-spoke ${sd.key}" x1="${(core.x + ux * core.r).toFixed(1)}" y1="${(core.y + uy * core.r).toFixed(1)}" x2="${(sd.cx - ux * R).toFixed(1)}" y2="${(cy - uy * R).toFixed(1)}"/>`;
+        const lh = 30;
+        const t0 = cy - ((label.length - 1) * lh) / 2;
+        subs += `<g class="im-sub ${sd.key}" data-k="${k}"><circle cx="${sd.cx}" cy="${cy}" r="${R}"/>${label
+          .map((t, i) => `<text x="${sd.cx}" y="${(t0 + i * lh).toFixed(1)}">${t}</text>`)
+          .join("")}</g>`;
+        // sensor boxes stacked on the outer side
+        const top = cy - (list.length * BH + (list.length - 1) * GAP) / 2;
+        const bx = sd.key === "a" ? 40 : 1640 - BW;
+        const group = list
+          .map(([code, name], j) => {
+            const by = top + j * (BH + GAP);
+            const my = by + BH / 2;
+            const ex = sd.key === "a" ? bx + BW : bx; // box edge facing the circle
+            const vx = sd.cx - ex;
+            const vy = cy - my;
+            const vd = Math.hypot(vx, vy);
+            const px = sd.cx - (vx / vd) * (R + 4);
+            const py = cy - (vy / vd) * (R + 4);
+            const sx = ex + (sd.key === "a" ? 6 : -6);
+            return `<g class="im-sensor">
+              <rect x="${bx}" y="${by.toFixed(1)}" width="${BW}" height="${BH}"/>
+              <circle class="im-code" cx="${bx + 28}" cy="${my.toFixed(1)}" r="15"/>
+              <text class="im-code-t" x="${bx + 28}" y="${my.toFixed(1)}">${code}</text>
+              <text class="im-name" x="${bx + 56}" y="${my.toFixed(1)}">${name}</text>
+              <line class="im-arrow" x1="${sx}" y1="${my.toFixed(1)}" x2="${px.toFixed(1)}" y2="${py.toFixed(1)}" marker-start="url(#${id}-ah)" marker-end="url(#${id}-ah)"/>
+            </g>`;
+          })
+          .join("");
+        sensors += `<g class="im-sensors ${sd.key}" data-k="${k}">${group}</g>`;
+      });
+    });
+
+    const coreG = `<g class="im-core">
+        <circle cx="${core.x}" cy="${core.y}" r="${core.r}"/>
+        <text class="im-core-k" x="${core.x}" y="${core.y - 42}">核心議題</text>
+        <text class="im-core-t" x="${core.x}" y="${core.y + 2}">浴室裡出事</text>
+        <text class="im-core-t" x="${core.x}" y="${core.y + 42}">外面不知道</text>
+      </g>`;
+
+    return `<svg viewBox="0 0 1680 700" class="issue-map" role="img" aria-label="橫向關係圖：核心議題、子議題與感測器">${defs}${heads}${spokes}${sensors}${subs}${coreG}</svg>`;
+  }
+
+  window.DIAGRAM = { sensorMap, issueMap };
 })();

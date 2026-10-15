@@ -500,10 +500,11 @@ body { font-family: var(--f-sans); }
 #s-place .legend i.act { border-color: var(--amber); }
 
 /* ---------- S10 architecture */
+#s-arch .tri-cap { position: absolute; left: 120px; top: 268px; font-size: 17px; color: var(--fg3); }
 #s-arch .layers { position: absolute; left: 120px; top: 318px; width: 1180px; }
 #s-arch .layer { position: relative; display: grid; grid-template-columns: 210px 1fr; gap: 30px; padding: 18px 130px 18px 26px; border: 1px solid var(--line-strong); margin-top: -1px; background: var(--bg); }
 #s-arch .layer .ln { font-family: var(--f-serif); font-weight: 600; font-size: 29px; line-height: 1.2; }
-#s-arch .layer .ln small { display: block; font-family: var(--f-mono); font-weight: 400; font-size: 13px; letter-spacing: 0.12em; color: var(--fg3); margin-top: 6px; }
+#s-arch .layer .ln small { display: block; font-family: var(--f-sans); font-weight: 400; font-size: 15px; letter-spacing: 0.04em; color: var(--fg3); margin-top: 6px; }
 #s-arch .layer .lw { font-size: 22px; line-height: 1.5; }
 #s-arch .layer .lt { font-size: 18px; color: var(--fg2); margin-top: 6px; line-height: 1.5; }
 #s-arch .layer .lt .mono { font-size: 16px; }
@@ -718,7 +719,7 @@ body { font-family: var(--f-sans); }
 #s-topic .why .wp .n { flex: none; width: 30px; height: 30px; margin-top: 2px; border-radius: 50%; border: 1.5px solid var(--fg); display: inline-flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: 14px; font-weight: 500; }
 
 /* ---------- 感測器關係圖 */
-#s-diagram .dg-note { position: absolute; right: 120px; top: 146px; font-size: 18px; color: var(--fg3); }
+.dg-note { position: absolute; right: 120px; top: 146px; font-size: 18px; color: var(--fg3); }
 #s-diagram .diagram { position: absolute; left: 120px; top: 246px; width: 1680px; }
 .sensor-map { display: block; width: 100%; height: auto; overflow: visible; }
 .sensor-map .dg-frame { fill: none; stroke: var(--fg); stroke-width: 2; }
@@ -745,16 +746,46 @@ body { font-family: var(--f-sans); }
 .sensor-map .dg-flowpath { fill: none; stroke: none; }
 .sensor-map .dg-pulse { fill: var(--slate); stroke: var(--bg); stroke-width: 3; }
 
+/* ---------- 橫向關係 */
+#s-issues .issues { position: absolute; left: 120px; top: 246px; width: 1680px; }
+.issue-map { display: block; width: 100%; height: auto; overflow: visible; }
+.issue-map text { font-family: var(--f-sans); text-anchor: middle; dominant-baseline: central; fill: var(--fg); }
+.issue-map .im-side { font-size: 20px; font-weight: 500; letter-spacing: 0.06em; fill: var(--accent-text); dominant-baseline: auto; }
+.issue-map .im-side.a { text-anchor: start; }
+.issue-map .im-side.b { text-anchor: end; }
+.issue-map .im-core circle { fill: var(--fg); }
+.issue-map .im-core text { fill: var(--bg); }
+.issue-map .im-core-k { font-size: 18px; letter-spacing: 0.2em; opacity: 0.7; }
+.issue-map .im-core-t { font-family: var(--f-serif); font-weight: 700; font-size: 34px; }
+.issue-map .im-spoke { stroke: var(--fg2); stroke-width: 2; }
+.issue-map .im-sub circle { fill: var(--bg); stroke: var(--fg); stroke-width: 2.5; }
+.issue-map .im-sub text { font-size: 25px; font-weight: 700; }
+.issue-map .im-sensor rect { fill: var(--bg); stroke: var(--slate); stroke-width: 2; }
+.issue-map .im-code { fill: none; stroke: var(--slate); stroke-width: 2; }
+.issue-map .im-code-t { font-family: var(--f-mono); font-size: 15px; font-weight: 500; }
+.issue-map .im-name { font-size: 21px; text-anchor: start; }
+.issue-map .im-arrow { stroke: var(--slate); stroke-width: 1.8; }
+.issue-map .im-head { fill: var(--slate); }
+
+/* ---------- SMART */
+#s-smart .smart { position: absolute; left: 120px; right: 120px; top: 320px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 44px; }
+#s-smart .sm .l { font-family: var(--f-serif); font-weight: 700; font-size: 124px; line-height: 1.1; margin-bottom: 0; }
+#s-smart .sm .en { font-family: var(--f-mono); font-size: 17px; letter-spacing: 0.06em; margin-top: 18px; color: var(--fg); }
+#s-smart .sm .zh { font-size: 19px; color: var(--fg3); margin-top: 6px; }
+#s-smart .sm .rl { height: 2px; background: var(--fg); margin: 18px 0 18px; }
+#s-smart .sm .d { font-size: 22px; line-height: 1.6; }
+#s-smart .smart-note { position: absolute; left: 120px; right: 120px; top: 810px; font-size: 21px; color: var(--fg2); padding-top: 18px; border-top: 1px solid var(--line); }
+
 /* ---------- 市售比較 */
 #s-compare .cmp { position: absolute; left: 120px; right: 120px; top: 270px; }
-#s-compare .cr { display: grid; grid-template-columns: 300px 1fr 1.3fr 1.35fr; gap: 40px; padding: 22px 0; border-top: 1px solid var(--line); align-items: start; font-size: 20px; line-height: 1.55; color: var(--fg2); }
+#s-compare .cr { display: grid; grid-template-columns: 300px 1fr 1.3fr 1.35fr; gap: 40px; padding: 16px 0; border-top: 1px solid var(--line); align-items: start; font-size: 20px; line-height: 1.55; color: var(--fg2); }
 #s-compare .cr:last-child { border-bottom: 1px solid var(--line); }
 #s-compare .cr.th { border-top: none; padding-bottom: 10px; font-size: 16px; letter-spacing: 0.14em; color: var(--fg3); }
 #s-compare .cr.th > div:last-child { color: var(--accent-text); font-weight: 500; }
 #s-compare .cr .p { font-size: 25px; font-weight: 700; color: var(--fg); line-height: 1.35; }
 #s-compare .cr .p small { display: block; font-size: 16px; font-weight: 400; color: var(--fg3); margin-top: 4px; }
 #s-compare .cr .me { color: var(--fg); padding-left: 18px; border-left: 3px solid var(--amber); }
-#s-compare .cmp-note { position: absolute; left: 120px; right: 120px; top: 920px; font-size: 21px; color: var(--fg2); }
+#s-compare .cmp-note { position: absolute; left: 120px; right: 120px; top: 930px; font-size: 21px; color: var(--fg2); }
 
 /* ---------- 觀察規劃 */
 #s-plan .phases { position: absolute; left: 120px; right: 120px; top: 276px; display: grid; grid-template-columns: 1fr 1fr 2fr 1.15fr; gap: 0; }
@@ -803,12 +834,13 @@ body { font-family: var(--f-sans); }
 #s-signal .pa .ln::after { content: ""; position: absolute; right: -10px; top: -6px; border-left: 12px solid var(--slate); border-top: 7.5px solid transparent; border-bottom: 7.5px solid transparent; }
 #s-signal .pa span { position: absolute; left: 14px; right: 20px; top: 18px; text-align: center; font-family: var(--f-mono); font-size: 14px; line-height: 1.4; color: var(--fg3); }
 #s-signal .pipe .pk { position: absolute; left: 0; top: -6px; width: 14px; height: 14px; background: var(--slate); }
-#s-signal .stbl { position: absolute; left: 120px; top: 470px; width: 1060px; }
+#s-signal .pipe-note { position: absolute; left: 120px; right: 120px; top: 410px; font-size: 17px; color: var(--fg3); }
+#s-signal .stbl { position: absolute; left: 120px; top: 480px; width: 1060px; }
 #s-signal .sr { display: grid; grid-template-columns: 230px 170px 1fr 1fr; gap: 28px; padding: 14px 0; border-top: 1px solid var(--line); font-size: 19px; line-height: 1.5; color: var(--fg2); align-items: baseline; }
 #s-signal .sr:last-child { border-bottom: 1px solid var(--line); }
 #s-signal .sr.th { border-top: none; padding-bottom: 8px; font-size: 16px; letter-spacing: 0.12em; color: var(--fg3); }
 #s-signal .sr .s { font-size: 21px; font-weight: 700; color: var(--fg); }
-#s-signal .rec { position: absolute; left: 1260px; right: 120px; top: 470px; }
+#s-signal .rec { position: absolute; left: 1260px; right: 120px; top: 480px; }
 #s-signal .rec .rh { font-size: 16px; letter-spacing: 0.12em; color: var(--fg3); padding-bottom: 12px; }
 #s-signal .rec .rec-rule { display: block; height: 2px; background: var(--fg); }
 #s-signal .rec .rr { display: grid; grid-template-columns: 70px 1fr; gap: 16px; padding: 13px 0; border-bottom: 1px dashed var(--line-strong); font-size: 21px; align-items: baseline; }

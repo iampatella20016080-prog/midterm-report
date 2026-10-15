@@ -35,7 +35,7 @@ article { max-width: 174mm; margin: 0 auto; background: #fff; padding: 18mm 0; }
 @media print {
   html { background: none; }
   article { padding: 0; max-width: none; }
-  section.landscape { page: wide; }
+  section.landscape { page: wide; break-before: page; }
 }
 
 h1, h2, h3 { font-family: var(--f-serif); font-weight: 600; line-height: 1.35; }
@@ -149,6 +149,27 @@ table.cmp { font-size: 9pt; line-height: 1.5; }
 .sensor-map .dg-bus { fill: var(--slate); }
 .sensor-map .dg-big { fill: var(--amber); }
 .sensor-map .dg-flowpath { fill: none; stroke: none; }
+
+/* horizontal relationship map (light) */
+.issue-map { display: block; width: 100%; height: auto; overflow: visible; }
+.issue-map text { font-family: var(--f-sans); text-anchor: middle; dominant-baseline: central; fill: var(--fg); }
+.issue-map .im-side { font-size: 20px; font-weight: 500; fill: var(--amber-deep); dominant-baseline: auto; }
+.issue-map .im-side.a { text-anchor: start; }
+.issue-map .im-side.b { text-anchor: end; }
+.issue-map .im-core circle { fill: var(--fg); }
+.issue-map .im-core text { fill: #fff; }
+.issue-map .im-core-k { font-size: 18px; letter-spacing: .2em; opacity: .7; }
+.issue-map .im-core-t { font-family: var(--f-serif); font-weight: 700; font-size: 34px; }
+.issue-map .im-spoke { stroke: var(--fg2); stroke-width: 2; }
+.issue-map .im-sub circle { fill: #fff; stroke: var(--fg); stroke-width: 2.5; }
+.issue-map .im-sub text { font-size: 25px; font-weight: 700; }
+.issue-map .im-sensor rect { fill: #fff; stroke: var(--slate); stroke-width: 2; }
+.issue-map .im-sensor.shared rect { stroke: var(--amber); stroke-width: 3; }
+.issue-map .im-code { fill: none; stroke: var(--slate); stroke-width: 2; }
+.issue-map .im-code-t { font-family: var(--f-mono); font-size: 15px; font-weight: 500; }
+.issue-map .im-name { font-size: 21px; text-anchor: start; }
+.issue-map .im-arrow { stroke: var(--slate); stroke-width: 1.8; }
+.issue-map .im-head { fill: var(--slate); }
 
 .refs ol { font-size: 8.8pt; line-height: 1.6; padding-left: 7mm; overflow-wrap: anywhere; }
 .refs li { margin-bottom: 1.6mm; }

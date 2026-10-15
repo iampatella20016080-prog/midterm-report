@@ -1004,4 +1004,62 @@
     S.lines(".line1 .line", 0.9, { d: 1.2 });
     S.lines(".line2 .line", 1.6);
   };
+  /* ================================================================ 橫向關係 */
+  B["s-issues"] = (S) => {
+    const { tl, E } = S;
+    const box = S.one(".issues");
+    box.innerHTML = DIAGRAM.issueMap();
+    const svg = box.querySelector("svg");
+    const g = (sel) => S.q(svg.querySelectorAll(sel));
+
+    /* ---- seg 0: the core issue */
+    S.lines(".headline .line", 0);
+    S.fade(".dg-note", 0.4, { y: 6 });
+    S.pop(g(".im-core"), 0.6, { from: 0.6, d: 0.7 });
+    S.step(2);
+
+    /* ---- seg 1: spokes grow out to the sub-issues, family side first */
+    let t = tl.duration();
+    ["a", "b"].forEach((k, si) => {
+      const ts = t + si * 0.9;
+      S.fade(g(`.im-side.${k}`), ts, { y: 8 });
+      S.draw(g(`.im-spoke.${k}`), ts, { d: 0.5, stagger: 0.12 });
+      S.pop(g(`.im-sub.${k}`), ts + 0.35, { from: 0.5, stagger: 0.12 });
+    });
+    S.step(3);
+
+    /* ---- seg 2: each sub-issue reaches out to its sensors */
+    t = tl.duration();
+    g(".im-sensors").forEach((grp, i) => {
+      const k = grp.classList.contains("a") ? -1 : 1;
+      const ti = t + i * 0.22;
+      const items = Array.from(grp.querySelectorAll(".im-sensor"));
+      tl.fromTo(items, { autoAlpha: 0, x: 24 * k }, { autoAlpha: 1, x: 0, duration: 0.55, ease: E.soft, stagger: 0.08 }, ti);
+    });
+    // the shared radar: both of its boxes light up together
+    const radar = g(".im-sensor").filter((n) => n.querySelector(".im-code-t").textContent === "R");
+    const tr = tl.duration() + 0.2;
+    radar.forEach((n) => {
+      tl.to(n.querySelector("rect"), { stroke: AMBER, strokeWidth: 3, duration: 0.3 }, tr);
+    });
+    S.fade(".foot", tr + 0.2, { y: 6 });
+  };
+
+  /* ================================================================ SMART */
+  B["s-smart"] = (S) => {
+    const { tl, E } = S;
+    S.lines(".headline .line", 0);
+    S.fade(".dg-note", 0.4, { y: 6 });
+    // the acronym spells itself out, then each letter is explained
+    S.lines(".sm .l .line", 0.6, { stagger: 0.14, d: 0.8 });
+    S.q(".sm").forEach((c, i) => {
+      const t = 1.3 + i * 0.22;
+      S.fade(S.q(c.querySelectorAll(".en, .zh")), t, { stagger: 0.06, y: 8 });
+      S.rule(c.querySelector(".rl"), t + 0.1, { d: 0.6 });
+      S.fade(c.querySelector(".d"), t + 0.3, { y: 10 });
+    });
+    S.fade(".smart-note", tl.duration() + 0.1, { y: 8 });
+    // the only element already designed: S stays marked
+    tl.to(S.one(".sm .l .line"), { color: "#9a5f0c", duration: 0.4 }, tl.duration() + 0.2);
+  };
 })();

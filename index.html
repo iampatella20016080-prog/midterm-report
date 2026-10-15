@@ -163,6 +163,17 @@
     <aside class="notes">情境 B 的人是外宿的同學，在學校附近分租套房，室友住隔壁。時間是寒流期間晚上八點到十二點洗澡的時候。場域是套房浴室，屋外式熱水器裝在加了窗戶的陽台，浴室窗戶又對著陽台，所以一氧化碳可能從陽台飄進浴室。頭暈之後很難自己出來，室友也只會以為他洗比較久。</aside>
   </section>
 
+  <!-- ================================================================ 02 橫向關係 -->
+  <section class="slide" id="s-issues" data-theme="day" data-chapter="2" data-hold="4">
+    <div class="slide-inner">
+      <h2 class="headline" style="font-size:52px"><span class="mask"><span class="line">橫向關係：議題與感測器</span></span></h2>
+      <div class="dg-note">依課堂練習「橫向關係的建構」：核心議題 → 子議題 → 感測器<span class="cite">[14]</span></div>
+      <div class="issues"></div>
+      <div class="foot">橘色框：同一個感測器用在兩個情境（毫米波雷達同時偵測跌倒與昏倒）。</div>
+    </div>
+    <aside class="notes">第二個項目是工具。我先照老師的練習畫橫向關係圖，中間的核心議題是浴室裡出事，外面不知道。（下一步）左邊是阿嬤的三個子議題：夜間跌倒、起身頭暈、夜尿變多；右邊是同學的三個子議題：一氧化碳累積、昏倒沒有反應、洗澡太久。（下一步）每個子議題再連到感測器，例如起身頭暈用血壓計和床墊感測帶。橘色框的毫米波雷達同時用在兩個情境。</aside>
+  </section>
+
   <!-- ================================================================ 02 工具 -->
   <section class="slide" id="s-sensors" data-theme="day" data-chapter="2" data-hold="4">
     <div class="slide-inner">
@@ -180,7 +191,7 @@
       </div>
       <div class="foot">型號只是舉例，實作時依價格與取得難易度再選。</div>
     </div>
-    <aside class="notes">第二個項目是要用的工具。浴室不能裝攝影機，所以主要用 60 GHz 毫米波雷達，它可以偵測人的位置、跌倒的姿勢，還有呼吸和心跳。其他有床墊壓力感測帶偵測離床、紅外線偵測走廊有人經過、門磁計算上廁所次數、溫濕度判斷是不是在洗澡、電化學式一氧化碳模組，再加上市售的藍牙血壓計。這些資料都送到一台 Raspberry Pi 閘道處理，閘道也控制夜燈、語音按鈕盒、排風扇和瓦斯遮斷閥。</aside>
+    <aside class="notes">這是感測器和元件的清單。浴室不能裝攝影機，所以主要用 60 GHz 毫米波雷達，偵測位置、跌倒姿勢和呼吸心跳。另外有床墊壓力感測帶、紅外線、門磁、溫濕度、一氧化碳模組和市售的藍牙血壓計。資料都送到 Raspberry Pi 閘道，閘道也控制夜燈、語音按鈕盒、排風扇和瓦斯遮斷閥。</aside>
   </section>
 
   <!-- ================================================================ 02 擺放 -->
@@ -223,11 +234,12 @@
         <div class="cr"><div class="p">智慧手錶跌倒偵測</div><div>跌倒後自動發出求救</div><div>要戴著才有用，很多人晚上把手錶拿下來充電</div><div class="me">浴室和走廊用不需配戴的雷達、門磁</div></div>
         <div class="cr"><div class="p">緊急救援按鈕<small>政府補助方案</small></div><div>按下後由中心 24 小時處理<span class="cite">[11]</span></div><div>本人要清醒、按得到；研究中 80% 獨自跌倒時沒有使用<span class="cite">[4]</span></div><div class="me">自動偵測，先用語音問本人，沒有回應才通知</div></div>
         <div class="cr"><div class="p">住宅用一氧化碳警報器</div><div>濃度高時在現場鳴叫</div><div>50 ppm 時可到 60–90 分鐘才響；不會通知別人，也不會開排風<span class="cite">[10]</span></div><div class="me">分三段：9 ppm 開排風、50 ppm 警報並遮斷瓦斯、沒反應時通知室友</div></div>
+        <div class="cr"><div class="p">指夾式血氧機</div><div>用紅光與紅外光（660、940 nm）<br>量血氧與脈搏<span class="cite">[14]</span></div><div>一氧化碳中毒時會把碳氧血紅素當成含氧血紅素，數值偏高，看起來正常<span class="cite">[20]</span></div><div class="me">不靠血氧判斷，直接量浴室空氣中的一氧化碳</div></div>
         <div class="cr"><div class="p">居家監視攝影機</div><div>家人可以看即時畫面</div><div>浴室、臥室不適合裝，會侵犯隱私</div><div class="me">不用影像，只傳送事件</div></div>
       </div>
       <div class="cmp-note">市售產品大多各自運作。本設計把這些資料接到同一個閘道，再加上「先問本人」的步驟。</div>
     </div>
-    <aside class="notes">接著和市售產品比較。藍牙血壓計可以量血壓，但要自己記得量，數字也看不出和半夜頭暈的關係；智慧手錶有跌倒偵測，但要戴著才有用，很多人晚上會拿下來充電；政府補助的緊急救援按鈕要本人按得到；住宅用一氧化碳警報器只在現場響，而且 50 ppm 時可以到 60 到 90 分鐘才響；監視器不能裝在浴室。（下一步）我的做法是把這些資料接到同一個閘道，自動偵測，先問本人，沒有回應才通知別人。</aside>
+    <aside class="notes">接著和市售產品比較。血壓計要自己記得量；智慧手錶要戴著才有用；緊急救援按鈕要本人按得到；一氧化碳警報器只在現場響，而且 50 ppm 時可以到 60 到 90 分鐘才響；課堂教的指夾式血氧機，在一氧化碳中毒時數值反而偏高、看起來正常；監視器不能裝在浴室。（下一步）我的做法是把資料接到同一個閘道，自動偵測，先問本人，沒有回應才通知別人。</aside>
   </section>
 
   <!-- ================================================================ 03 觀察規劃 -->
@@ -344,7 +356,7 @@
         <div class="ir th"><div>類別</div><div>觀察項目</div><div>感測器</div><div>單位、頻率</div><div>判斷依據</div><div style="text-align:right">情境</div></div>
         <div class="ir g1"><div class="cat">生理</div><div class="it">血壓、脈搏</div><div>藍牙血壓計</div><div>mmHg、次/分；早晚各 2 遍</div><div>居家平均 ≥ 130/80 mmHg 要注意<span class="cite">[15]</span></div><div class="sc">A</div></div>
         <div class="ir g1"><div class="cat"></div><div class="it">臥站血壓差</div><div>藍牙血壓計</div><div>每週 1 次</div><div>站起 3 分鐘內收縮壓降 ≥ 20 或舒張壓降 ≥ 10 mmHg<span class="cite">[16][17]</span></div><div class="sc">A</div></div>
-        <div class="ir g1"><div class="cat"></div><div class="it">呼吸、心跳</div><div>毫米波雷達</div><div>次/分，約 3 秒一筆<span class="cite">[18]</span></div><div>跌倒後用來確認是否還有呼吸</div><div class="sc">A B</div></div>
+        <div class="ir g1"><div class="cat"></div><div class="it">呼吸、心跳</div><div>毫米波雷達</div><div>次/分，約 3 秒一筆<span class="cite">[18]</span></div><div>靜息心率約 50–100 次/分<span class="cite">[14]</span>；跌倒後確認還有沒有呼吸</div><div class="sc">A B</div></div>
         <div class="ir g2"><div class="cat">行為</div><div class="it">離床時間與次數</div><div>床墊壓力</div><div>事件（含時間）</div><div>和第 2 週基準期比較</div><div class="sc">A</div></div>
         <div class="ir g2"><div class="cat"></div><div class="it">夜間如廁次數</div><div>門磁、床墊</div><div>次/晚</div><div>每晚 ≥ 3 次連續一週，提醒就醫<span class="cite">[7]</span></div><div class="sc">A</div></div>
         <div class="ir g2"><div class="cat"></div><div class="it">浴室停留時間</div><div>門磁、雷達</div><div>分鐘</div><div>&gt; 15 分鐘且沒有動作，先詢問本人</div><div class="sc">A</div></div>
@@ -354,7 +366,7 @@
         <div class="ir g3"><div class="cat"></div><div class="it">浴室溫濕度</div><div>溫濕度感測器</div><div>°C、%RH，每 30 秒</div><div>濕度快速上升表示正在洗澡</div><div class="sc">A B</div></div>
       </div>
     </div>
-    <aside class="notes">第四個項目是觀察項目，分成生理、行為和環境三類。生理有血壓和脈搏、躺著到站起來的血壓差，以及雷達量的呼吸和心跳。（下一步）行為有離床時間、每晚上廁所次數、在浴室停留多久、跌倒姿勢，還有同學洗澡時有沒有動作。（下一步）環境有一氧化碳濃度和浴室溫濕度。右邊是判斷依據，例如居家血壓平均超過 130/80 要注意，站起來 3 分鐘內收縮壓降 20 以上就是姿勢性低血壓。</aside>
+    <aside class="notes">第四個項目是觀察項目，分成三類。生理有血壓、脈搏、臥站血壓差，以及雷達量的呼吸和心跳，靜息心率大約每分鐘 50 到 100 下。（下一步）行為有離床時間、上廁所次數、浴室停留時間、跌倒姿勢，還有洗澡時有沒有動作。（下一步）環境有一氧化碳和溫濕度。右邊是判斷依據，例如居家血壓平均超過 130/80 要注意。</aside>
   </section>
 
   <!-- ================================================================ 05 訊號收集 -->
@@ -370,9 +382,10 @@
         <div class="pa"><span>推播</span></div>
         <div class="pn"><b>家屬、室友手機</b><span>通知與週報</span></div>
       </div>
+      <div class="pipe-note">與課堂「健康照護物聯網（應用）」範例相同：測量儀器 → 整合終端機 → 資料中心；家中閘道就是整合終端機<span class="cite">[14]</span></div>
       <div class="stbl">
         <div class="sr th"><div>訊號來源</div><div>傳到閘道</div><div>頻率</div><div>保存什麼</div></div>
-        <div class="sr"><div class="s">毫米波雷達</div><div>UART（有線）</div><div>呼吸心跳約 3 秒一筆；跌倒立即送出</div><div>事件與呼吸次數；原始點雲不保存</div></div>
+        <div class="sr"><div class="s">毫米波雷達</div><div>UART（有線）</div><div>呼吸心跳約 3 秒一筆；<br>跌倒立即送出</div><div>事件與呼吸次數；原始點雲不保存</div></div>
         <div class="sr"><div class="s">床墊、門磁、紅外線</div><div>Zigbee</div><div>狀態改變時才送</div><div>事件與時間</div></div>
         <div class="sr"><div class="s">溫濕度</div><div>Zigbee</div><div>每 30 秒</div><div>數值，保留 30 天</div></div>
         <div class="sr"><div class="s">一氧化碳模組</div><div>UART（有線）</div><div>每 10 秒</div><div>數值，保留 30 天</div></div>
@@ -387,19 +400,20 @@
         <div class="rr"><span>處置</span><b>L1 語音詢問中</b></div>
       </div>
     </div>
-    <aside class="notes">第五個項目是訊號的收集。雷達和一氧化碳模組用有線的 UART 接到閘道，床墊、門磁、紅外線和溫濕度用 Zigbee，血壓計用藍牙。床墊和門磁是狀態改變才送資料，溫濕度每 30 秒、一氧化碳每 10 秒、雷達的呼吸心跳大約每 3 秒一筆。雷達的原始資料在閘道判斷完就刪除，上傳到雲端的只有事件，右邊是事件的格式。</aside>
+    <aside class="notes">第五個項目是訊號的收集。雷達和一氧化碳模組用有線的 UART，床墊、門磁、紅外線和溫濕度用 Zigbee，血壓計用藍牙。這條路徑和課堂的健康照護物聯網範例一樣，家中閘道就是範例裡的整合終端機。雷達原始資料在閘道判斷完就刪除，上傳到雲端的只有事件，右邊是事件的格式。</aside>
   </section>
 
   <!-- ================================================================ 05 五層架構 -->
   <section class="slide" id="s-arch" data-theme="day" data-chapter="5" data-hold="4">
     <div class="slide-inner">
-      <h2 class="headline"><span class="mask"><span class="line">對應課堂的物聯網五層架構</span></span></h2>
+      <h2 class="headline"><span class="mask"><span class="line">縱向關係：對應課堂的物聯網架構</span></span></h2>
+      <div class="tri-cap">灰色小字：課堂三層圖（感知層／傳輸層／應用層）中的對應位置<span class="cite">[14]</span></div>
       <div class="layers">
-        <div class="layer" data-l="5"><div class="ln">應用層</div><div><div class="lw">家屬 LINE 通知與一鍵回撥、室友通知、每週週報、聯絡 119</div><div class="lt">SaaS、手機 App</div></div></div>
-        <div class="layer" data-l="4"><div class="ln">資料分析層</div><div><div class="lw">算出個人平常作息，找出停留過久、沒有動作等異常，整理如廁次數與 CO 趨勢</div><div class="lt">跌倒判斷在閘道執行，趨勢分析在雲端</div></div></div>
-        <div class="layer" data-l="3"><div class="ln">雲端計算層</div><div><div class="lw">接收事件、發送通知、加密儲存，只存事件，不存原始資料</div><div class="lt">PaaS 訊息服務（<span class="mono">MQTT</span>）、IaaS 儲存</div></div></div>
-        <div class="layer" data-l="2"><div class="ln">網路層</div><div><div class="lw">感測器用 Zigbee、藍牙或有線連到閘道；閘道用 Wi-Fi 上傳，斷網改用 4G</div><div class="lt"><span class="mono">Zigbee 3.0</span>、<span class="mono">BLE</span>、<span class="mono">Wi-Fi</span>、<span class="mono">4G / NB-IoT</span></div></div></div>
-        <div class="layer" data-l="1"><div class="ln">感知層</div><div><div class="lw">雷達、床墊、紅外線、門磁、溫濕度、CO、血壓計；夜燈、語音盒、排風扇</div><div class="lt">電池供電節點；閘道有備用電池</div></div></div>
+        <div class="layer" data-l="5"><div class="ln">應用層<small>應用層・跨領域整合</small></div><div><div class="lw">家屬 LINE 通知與一鍵回撥、室友通知、每週週報、聯絡 119</div><div class="lt">SaaS、手機 App</div></div></div>
+        <div class="layer" data-l="4"><div class="ln">資料分析層<small>應用層・跨領域整合</small></div><div><div class="lw">算出個人平常作息，找出停留過久、沒有動作等異常，整理如廁次數與 CO 趨勢</div><div class="lt">跌倒判斷在閘道執行，趨勢分析在雲端</div></div></div>
+        <div class="layer" data-l="3"><div class="ln">雲端計算層<small>應用層・跨領域整合</small></div><div><div class="lw">接收事件、發送通知、加密儲存，只存事件，不存原始資料</div><div class="lt">PaaS 訊息服務（<span class="mono">MQTT</span>）、IaaS 儲存</div></div></div>
+        <div class="layer" data-l="2"><div class="ln">網路層<small>傳輸層・醫學資訊</small></div><div><div class="lw">感測器用 Zigbee、藍牙或有線連到閘道；閘道用 Wi-Fi 上傳，斷網改用 4G</div><div class="lt"><span class="mono">Zigbee 3.0</span>、<span class="mono">BLE</span>、<span class="mono">Wi-Fi</span>、<span class="mono">4G / NB-IoT</span></div></div></div>
+        <div class="layer" data-l="1"><div class="ln">感知層<small>感知層・醫學工程</small></div><div><div class="lw">雷達、床墊、紅外線、門磁、溫濕度、CO、血壓計；夜燈、語音盒、排風扇</div><div class="lt">電池供電節點；閘道有備用電池</div></div></div>
       </div>
       <div class="flowline up"></div><div class="packet"></div><div class="flowlabel lu">感知資料 ↑</div>
       <div class="flowline down"></div><div class="cmd"></div><div class="flowlabel ld">控制、自動化 ↓</div>
@@ -408,7 +422,7 @@
       <div class="bracket b-edge"></div>
       <div class="bracket-label bl-edge"><b>家中</b>跌倒在閘道判斷，雷達原始資料不離開家；斷網時，夜燈和現場警報照常運作。</div>
     </div>
-    <aside class="notes">把收集的路徑放回課堂的五層架構。感知層是感測器和輸出裝置；網路層是 Zigbee、藍牙和 Wi-Fi，斷網時用 4G；雲端計算層用 PaaS 的訊息服務接收事件和發通知；資料分析層算出每個人的平常作息，找出異常和趨勢；應用層是家屬的通知和週報。分析結果也會往下控制夜燈和排風扇。</aside>
+    <aside class="notes">接著是老師練習的縱向關係。五層架構對到課堂的三層圖：感知層是醫學工程，網路層是傳輸層，也就是醫學資訊，上面三層合起來是應用層的跨領域整合。資料從感知層往上送，雲端只收事件；分析的結果也會往下控制夜燈和排風扇。</aside>
   </section>
 
   <!-- ================================================================ 06 資料分析 -->
@@ -468,6 +482,23 @@
       </div>
     </div>
     <aside class="notes">效益方面，阿嬤可以繼續住在自己家，不用戴裝置；家人不用每天打電話確認，還有週報可以帶去回診；同學洗澡時一氧化碳太高會先排風再警報，沒反應時室友會知道；對社會來說，可以和政府的獨居長者關懷計畫搭配。對應課程的主題主要是智慧照護，也和數位醫療、智慧輔具有關。</aside>
+  </section>
+
+  <!-- ================================================================ 07 SMART -->
+  <section class="slide" id="s-smart" data-theme="day" data-chapter="7" data-hold="4">
+    <div class="slide-inner">
+      <h2 class="headline"><span class="mask"><span class="line">討論：用 SMART 五要素檢查可行性</span></span></h2>
+      <div class="dg-note">課堂：智慧健康產業的關鍵發展因素<span class="cite">[14]</span></div>
+      <div class="smart">
+        <div class="sm"><div class="l mask"><span class="line">S</span></div><div class="en">Sensor</div><div class="zh">感測器</div><div class="rl"></div><div class="d">毫米波雷達、門磁、床墊、溫濕度、一氧化碳模組，加上市售藍牙血壓計</div></div>
+        <div class="sm"><div class="l mask"><span class="line">M</span></div><div class="en">Model</div><div class="zh">可行的營運模式</div><div class="rl"></div><div class="d">設備由家庭購買或租用；獨居長者可以搭配政府的緊急救援補助<span class="cite">[11]</span></div></div>
+        <div class="sm"><div class="l mask"><span class="line">A</span></div><div class="en">Alliance / API</div><div class="zh">跨業的合作模式</div><div class="rl"></div><div class="d">用 API 串接 LINE 通知與緊急救援中心；週報可以匯出給醫師</div></div>
+        <div class="sm"><div class="l mask"><span class="line">R</span></div><div class="en">Relationship</div><div class="zh">串聯產業夥伴</div><div class="rl"></div><div class="d">感測器與閘道廠商、電信業者（4G 備援）、緊急救援服務、社區診所</div></div>
+        <div class="sm"><div class="l mask"><span class="line">T</span></div><div class="en">Trial / Test bed</div><div class="zh">透過試驗建立營運模式</div><div class="rl"></div><div class="d">第 12–14 週在家試用，第 15–18 週到同學租屋處測試，再依結果調整</div></div>
+      </div>
+      <div class="smart-note">目前完成的是 S（感測器）的設計；M、A、R 還是構想，要靠 T 的試用結果確認。</div>
+    </div>
+    <aside class="notes">接著用課堂的 SMART 五要素檢查可行性。S 是感測器，就是前面的設計。M 是營運模式，設備可以購買或租用，獨居長者可以搭配政府的緊急救援補助。A 是跨業合作，用 API 串接 LINE 和救援中心。R 是產業夥伴，例如感測器廠商和電信業者。T 是試驗，也就是下一步的在家試用。目前完成的是 S，其他要靠試用結果確認。</aside>
   </section>
 
   <!-- ================================================================ 07 隱私 -->
@@ -540,12 +571,13 @@
         <div class="ref"><span class="i">[11]</span><span><b>行政院</b>（2026-03-20）。獨居老人關懷服務計畫，聯合新聞網報導。</span></div>
         <div class="ref"><span class="i">[12]</span><span><b>Texas Instruments</b> (2019). <i>Non-contact and private stance detection with TI mmWave sensors</i>.</span></div>
         <div class="ref"><span class="i">[13]</span><span><b>Wang H, et al.</b> (2025). P2MFDS: A privacy-preserving multimodal fall detection system for elderly people in bathroom environments. arXiv:2506.17332.</span></div>
-        <div class="ref"><span class="i">[14]</span><span><b>課程講義</b>。物聯網簡介（1150910）、物聯網的架構（1150917）、期中報告說明與感測器關係圖練習（IEEE 1451 範例）。</span></div>
+        <div class="ref"><span class="i">[14]</span><span><b>課程講義</b>。物聯網簡介（1150910）、物聯網的架構（1150917）、穿戴感測系統（1151015，含 ECG 與血氧、SMART、期中報告與關係圖練習）。</span></div>
         <div class="ref"><span class="i">[15]</span><span><b>衛生福利部國民健康署</b>（2023-05-15）。量血壓「722」原則（依 2022 台灣高血壓指引）。<span class="u">mohw.gov.tw/cp-16-74604-1.html</span></span></div>
         <div class="ref"><span class="i">[16]</span><span><b>臺大醫院健康電子報</b>（2023-10，第 215 期）。姿勢性低血壓護理指導。</span></div>
         <div class="ref"><span class="i">[17]</span><span><b>Freeman R, et al.</b> (2011). Consensus statement on the definition of orthostatic hypotension. <i>Clin Auton Res</i>, 21(2), 69–72.</span></div>
         <div class="ref"><span class="i">[18]</span><span><b>Seeed Studio</b>. 60GHz mmWave Sensor MR60BHA1 wiki（呼吸與心跳偵測模組）。</span></div>
         <div class="ref"><span class="i">[19]</span><span><b>Winsen（煒盛科技）</b>. ZE07-CO electrochemical CO module manual（0–500 ppm）。</span></div>
+        <div class="ref"><span class="i">[20]</span><span><b>Hampson NB.</b> (1998). Pulse oximetry in severe carbon monoxide poisoning. <i>Chest</i>, 114(4), 1036–1041.</span></div>
       </div>
       <div class="note">情境中的人物、平面圖與模擬時間軸是設計示意；統計數字都來自上列資料。</div>
     </div>
@@ -568,7 +600,7 @@
     <div class="hud-chapter"></div>
     <div class="hud-where"></div>
     <div class="hud-progress"><div class="fill"></div></div>
-    <div class="hud-page"><b class="pg">01</b> / <span class="pt">22</span></div>
+    <div class="hud-page"><b class="pg">01</b> / <span class="pt">24</span></div>
   </div>
   <div id="playhead"></div>
 </div>

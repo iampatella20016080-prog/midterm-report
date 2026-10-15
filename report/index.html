@@ -81,15 +81,35 @@
       <tr><td>G</td><td>閘道與輸出裝置（Raspberry Pi 4）</td><td>控制夜燈 L、語音按鈕盒 S、排風扇 F、瓦斯遮斷閥 V</td><td>收集資料、在家中判斷、控制裝置</td><td>A B</td></tr>
     </tbody>
   </table>
-  <figure class="planfig pair compact">
+  <figure class="planfig pair">
     <div data-plan="A" data-opts='{"sensors":true,"lights":true}'></div>
     <div data-plan="B" data-opts='{"sensors":true}'></div>
     <figcaption>圖 2　感測器擺放位置（代號同上表）。左：阿嬤家；右：分租套房，浴室與熱水器旁各一個一氧化碳模組。扇形為雷達與紅外線的偵測範圍；血壓計隨身使用，未畫出。</figcaption>
   </figure>
 </section>
 
+
+
+<section class="landscape">
+  <h3>2.2 橫向關係圖：議題與感測器</h3>
+  <p>依課堂練習「橫向關係的建構」<sup>[14]</sup>，先把核心議題拆成子議題，再把每個子議題連到需要的感測器。核心議題是「浴室裡出事，外面不知道」；情境 A 拆成夜間跌倒、起身頭暈、夜尿變多，情境 B 拆成一氧化碳累積、昏倒沒有反應、洗澡太久。毫米波雷達同時用在兩個情境（圖中橘色框）。</p>
+  <figure class="diagramfig">
+    <div class="issues"></div>
+    <figcaption>圖 3　橫向關係圖。中間為核心議題，左右為兩個情境的子議題，外側為各子議題使用的感測器（代號同 2.1 表格）。</figcaption>
+  </figure>
+</section>
+
+<section class="landscape">
+  <h3>2.3 感測器關係圖</h3>
+  <p>參考課堂練習的範例（IEEE 1451 火災偵測與逃生系統）<sup>[14]</sup>畫出本設計的感測器關係圖。對應方式：範例的「受信總機」對應家屬手機與雲端；「傳感器介面」對應閘道與雲端之間的網路介面；「中繼器」對應家中閘道，內有通訊模組、嵌入式處理系統與感測器資料表（TEDS）；「火警探測器」與「警報裝置」分別對應下方的感測器群組與輸出裝置。</p>
+  <figure class="diagramfig">
+    <div class="diagram"></div>
+    <figcaption>圖 4　感測器關係圖。資料由右下的感測器經家中閘道往上送到受信端，再經網路通知救援中心、室友、其他家屬或醫師；控制指令沿相反方向傳到輸出裝置。</figcaption>
+  </figure>
+</section>
+
 <section>
-  <h3>2.2 與市售感知層感測系統的比較</h3>
+  <h3>2.4 與市售感知層感測系統的比較</h3>
   <p>市售產品大多各自運作。本設計把這些資料接到同一個閘道，再加上「先問本人」的步驟，減少不必要的通知。</p>
   <table class="grid cmp">
     <thead><tr><th>市售感測系統</th><th>可以做到</th><th>不足的地方</th><th>本設計搭配的做法</th></tr></thead>
@@ -98,18 +118,10 @@
       <tr><td>智慧手錶跌倒偵測</td><td>跌倒後自動發出求救</td><td>要戴著才有用，很多人晚上把手錶拿下來充電</td><td>浴室和走廊用不需配戴的雷達、門磁</td></tr>
       <tr><td>緊急救援按鈕（政府補助方案）</td><td>按下後由中心 24 小時處理<sup>[11]</sup></td><td>本人要清醒、按得到；研究中 80% 獨自跌倒時沒有使用<sup>[4]</sup></td><td>自動偵測，先用語音問本人，沒有回應才通知</td></tr>
       <tr><td>住宅用一氧化碳警報器</td><td>濃度高時在現場鳴叫</td><td>50 ppm 時可到 60–90 分鐘才響；不會通知別人，也不會開排風<sup>[10]</sup></td><td>分三段：9 ppm 開排風、50 ppm 警報並遮斷瓦斯、沒反應時通知室友</td></tr>
+      <tr><td>指夾式血氧機</td><td>用紅光與紅外光（660、940 nm）量血氧與脈搏<sup>[14]</sup></td><td>一氧化碳中毒時會把碳氧血紅素當成含氧血紅素，數值偏高，看起來正常<sup>[20]</sup></td><td>不靠血氧判斷，直接量浴室空氣中的一氧化碳</td></tr>
       <tr><td>居家監視攝影機</td><td>家人可以看即時畫面</td><td>浴室、臥室不適合裝，會侵犯隱私</td><td>不用影像，只傳送事件</td></tr>
     </tbody>
   </table>
-</section>
-
-<section class="landscape">
-  <h3>2.3 感測器關係圖</h3>
-  <p>參考課堂練習的範例（IEEE 1451 火災偵測與逃生系統）<sup>[14]</sup>畫出本設計的感測器關係圖。對應方式：範例的「受信總機」對應家屬手機與雲端；「傳感器介面」對應閘道與雲端之間的網路介面；「中繼器」對應家中閘道，內有通訊模組、嵌入式處理系統與感測器資料表（TEDS）；「火警探測器」與「警報裝置」分別對應下方的感測器群組與輸出裝置。</p>
-  <figure class="diagramfig">
-    <div class="diagram"></div>
-    <figcaption>圖 3　感測器關係圖。資料由右下的感測器經家中閘道往上送到受信端，再經網路通知救援中心、室友、其他家屬或醫師；控制指令沿相反方向傳到輸出裝置。</figcaption>
-  </figure>
 </section>
 
 
@@ -139,6 +151,7 @@
     </tbody>
   </table>
   <h3>3.3 監測流程 A：夜間如廁</h3>
+  <p>流程的寫法參考課堂的流程圖範例（步驟 S310–S350）<sup>[14]</sup>：偵測環境參數 → 偵測使用者的生理現象 → 記錄次數與時間 → 判斷健康狀態是否異常 → 異常時警示使用者或通知照護者。本設計在「判斷異常」之後多加一步「先問本人」，再分級通知。</p>
   <table class="grid flow">
     <thead><tr><th>#</th><th>步驟</th><th>條件與動作</th><th>模擬時間</th></tr></thead>
     <tbody>
@@ -173,7 +186,7 @@
     <tbody>
       <tr class="g"><td class="cat" rowspan="3">生理</td><td class="it">血壓、脈搏</td><td class="sn">藍牙血壓計</td><td>mmHg、次/分；早晚各 2 遍</td><td>居家血壓平均 ≥ 130/80 mmHg 要注意<sup>[15]</sup></td><td>A</td></tr>
       <tr><td class="it">臥站血壓差</td><td class="sn">藍牙血壓計</td><td>mmHg；每週 1 次</td><td>站起 3 分鐘內收縮壓下降 ≥ 20 或舒張壓下降 ≥ 10 mmHg<sup>[16][17]</sup></td><td>A</td></tr>
-      <tr><td class="it">呼吸、心跳</td><td class="sn">毫米波雷達</td><td>次/分，約 3 秒一筆<sup>[18]</sup></td><td>跌倒後用來確認是否還有呼吸</td><td>A B</td></tr>
+      <tr><td class="it">呼吸、心跳</td><td class="sn">毫米波雷達</td><td>次/分，約 3 秒一筆<sup>[18]</sup></td><td>靜息心率約 50–100 次/分<sup>[14]</sup>；跌倒後確認還有沒有呼吸</td><td>A B</td></tr>
       <tr class="g"><td class="cat" rowspan="5">行為</td><td class="it">離床時間與次數</td><td class="sn">床墊壓力</td><td>事件（含時間）</td><td>和第 2 週基準期比較</td><td>A</td></tr>
       <tr><td class="it">夜間如廁次數</td><td class="sn">門磁、床墊</td><td>次/晚</td><td>每晚 ≥ 3 次連續一週，提醒就醫<sup>[7]</sup></td><td>A</td></tr>
       <tr><td class="it">浴室停留時間</td><td class="sn">門磁、雷達</td><td>分鐘</td><td>超過 15 分鐘且沒有動作，先詢問本人</td><td>A</td></tr>
@@ -184,13 +197,14 @@
     </tbody>
   </table>
   <p>15 分鐘、30 秒等時間門檻是初步設定，會在第 2 週基準期與第 3–4 週試用後依誤報情形調整。</p>
+  <p>心跳的量測方式有三種<sup>[14]</sup>：心電圖（ECG）量心臟的電位變化，用相鄰兩個 R 波的間隔（RR 間期）換算心率，靜息時 RR 間期約 0.6–1.2 秒，也就是每分鐘 50–100 下；智慧手錶和指夾式血氧機用紅光與紅外光照射皮膚，從光訊號的週期算出脈搏；本設計用的毫米波雷達則量胸口的微小起伏，不需要接觸身體。雷達的心率只用來確認「還有沒有呼吸心跳」，不做心律不整的判斷。</p>
 </section>
 
 <!-- ============================================================ 5 -->
 <section>
   <h2><span class="n">5</span>感測器訊號的收集</h2>
   <h3>5.1 收集路徑</h3>
-  <p>感測器 →（Zigbee／UART／藍牙 BLE）→ 家中閘道（Raspberry Pi 4，在家中判斷事件）→（MQTT，經 Wi-Fi，斷網時改用 4G）→ 雲端（接收事件、加密儲存）→ 推播到家屬與室友手機（通知與週報）。</p>
+  <p>感測器 →（Zigbee／UART／藍牙 BLE）→ 家中閘道（Raspberry Pi 4，在家中判斷事件）→（MQTT，經 Wi-Fi，斷網時改用 4G）→ 雲端（接收事件、加密儲存）→ 推播到家屬與室友手機（通知與週報）。這條路徑與課堂「健康照護物聯網（應用）」的範例相同<sup>[14]</sup>：測量儀器經 RS232、USB 或藍牙把資料送到整合終端機，再經無線或乙太網路上傳到資料中心，由醫院、家人查看。本設計的家中閘道就是範例中的整合終端機。</p>
   <table class="grid">
     <thead><tr><th>訊號來源</th><th>傳到閘道</th><th>頻率</th><th>保存什麼</th></tr></thead>
     <tbody>
@@ -209,15 +223,16 @@
     <tr><th>呼吸</th><td>有，每分鐘 16 次</td></tr>
     <tr><th>處置</th><td>L1 語音詢問中</td></tr>
   </table>
-  <h3>5.3 對應課堂的物聯網五層架構</h3>
+  <h3>5.3 縱向關係：對應課堂的物聯網架構</h3>
+  <p>依課堂練習「縱向關係的建構」<sup>[14]</sup>，把本設計放進物聯網架構。下表同時列出五層架構與課堂三層圖（感知層／傳輸層／應用層）的對應。</p>
   <table class="grid layers">
-    <thead><tr><th>層級</th><th>本設計的內容</th><th>技術</th></tr></thead>
+    <thead><tr><th>五層架構</th><th>三層圖</th><th>本設計的內容</th><th>技術</th></tr></thead>
     <tbody>
-      <tr><td>應用層</td><td>家屬 LINE 通知與一鍵回撥、室友通知、每週週報、聯絡 119</td><td>SaaS、手機 App</td></tr>
+      <tr><td>應用層</td><td rowspan="3">應用層<br><span class="small">跨領域整合</span></td><td>家屬 LINE 通知與一鍵回撥、室友通知、每週週報、聯絡 119</td><td>SaaS、手機 App</td></tr>
       <tr><td>資料分析層</td><td>算出個人平常作息，找出停留過久、沒有動作等異常，整理如廁次數與 CO 趨勢</td><td>跌倒判斷在閘道執行，趨勢分析在雲端</td></tr>
       <tr><td>雲端計算層</td><td>接收事件、發送通知、加密儲存；只存事件，不存原始資料</td><td>PaaS 訊息服務（MQTT）、IaaS 儲存</td></tr>
-      <tr><td>網路層</td><td>感測器用 Zigbee、藍牙或有線連到閘道；閘道用 Wi-Fi 上傳，斷網改用 4G</td><td>Zigbee 3.0、BLE、Wi-Fi、4G／NB-IoT</td></tr>
-      <tr><td>感知層</td><td>雷達、床墊、紅外線、門磁、溫濕度、CO、血壓計；夜燈、語音盒、排風扇</td><td>電池供電節點；閘道有備用電池</td></tr>
+      <tr><td>網路層</td><td>傳輸層<br><span class="small">醫學資訊</span></td><td>感測器用 Zigbee、藍牙或有線連到閘道；閘道用 Wi-Fi 上傳，斷網改用 4G</td><td>Zigbee 3.0、BLE、Wi-Fi、4G／NB-IoT</td></tr>
+      <tr><td>感知層</td><td>感知層<br><span class="small">醫學工程</span></td><td>雷達、床墊、紅外線、門磁、溫濕度、CO、血壓計；夜燈、語音盒、排風扇</td><td>電池供電節點；閘道有備用電池</td></tr>
     </tbody>
   </table>
   <p>資料由感知層往上送，分析結果再往下控制夜燈與排風扇，對應講義中物聯網架構的雙向流動<sup>[14]</sup>。雷達的原始資料在閘道判斷完就刪除，離開家裡的只有事件。</p>
@@ -265,7 +280,20 @@
     </tbody>
   </table>
   <p>對應課程主題：主要是<b>智慧照護</b>（居家安全監測與通報），也和<b>數位醫療</b>（如廁次數、血壓與 CO 紀錄可提供醫師參考）、<b>智慧輔具</b>（夜燈與語音按鈕盒）有關<sup>[14]</sup>。</p>
-  <h3>7.3 隱私與資料分享</h3>
+  <h3>7.3 用 SMART 五要素檢查可行性</h3>
+  <p>課堂提到智慧健康產業的關鍵發展因素是 SMART 五要素<sup>[14]</sup>。用它檢查本設計：</p>
+  <table class="grid">
+    <thead><tr><th>要素</th><th>課堂說明</th><th>本設計</th></tr></thead>
+    <tbody>
+      <tr><td>S　Sensor</td><td>感測器</td><td>毫米波雷達、門磁、床墊、溫濕度、一氧化碳模組，加上市售藍牙血壓計</td></tr>
+      <tr><td>M　Model</td><td>可行的營運模式</td><td>設備由家庭購買或租用；獨居長者可以搭配政府的緊急救援補助<sup>[11]</sup></td></tr>
+      <tr><td>A　Alliance／API</td><td>跨業的合作模式</td><td>用 API 串接 LINE 通知與緊急救援中心；週報可以匯出給醫師</td></tr>
+      <tr><td>R　Relationship</td><td>串聯產業夥伴</td><td>感測器與閘道廠商、電信業者（4G 備援）、緊急救援服務、社區診所</td></tr>
+      <tr><td>T　Trial／Test bed</td><td>透過試驗建立營運模式</td><td>第 12–14 週在家試用，第 15–18 週到同學租屋處測試，再依結果調整</td></tr>
+    </tbody>
+  </table>
+  <p>目前完成的是 S（感測器）的設計；M、A、R 還是構想，要靠 T 的試用結果確認。</p>
+  <h3>7.4 隱私與資料分享</h3>
   <table class="grid">
     <thead><tr><th>層級</th><th>誰會知道</th><th>分享的資料</th><th>什麼時候</th></tr></thead>
     <tbody>
@@ -276,7 +304,7 @@
     </tbody>
   </table>
   <p>系統不收集影像（沒有鏡頭）、錄音（語音只在本機辨識「我沒事」）與雷達原始資料（閘道判斷完就刪除）。本人可以決定通知名單和順序、家人來訪時暫停偵測，也可以查看誰看過哪些事件。</p>
-  <h3>7.4 限制與下一步</h3>
+  <h3>7.5 限制與下一步</h3>
   <table class="grid">
     <thead><tr><th>限制</th><th>對策</th></tr></thead>
     <tbody>
@@ -308,12 +336,13 @@
     <li>行政院（2026-03-20）。獨居老人關懷服務計畫。聯合新聞網報導。https://udn.com/news/story/7266/9391629</li>
     <li>Texas Instruments (2019). <i>Non-contact and private stance detection with TI mmWave sensors</i> (IWR6843).</li>
     <li>Wang, H., Wang, Y., Wang, X., Miao, Y., Zhang, Y., Zhang, Y., &amp; Mansoor, A. (2025). P2MFDS: A privacy-preserving multimodal fall detection system for elderly people in bathroom environments. arXiv:2506.17332.</li>
-    <li>健康物聯網趨勢與創新課程講義：物聯網簡介（1150910）、物聯網的架構（1150917）、期中報告說明與感測器關係圖練習（IEEE 1451 火災偵測與逃生系統範例）。</li>
+    <li>健康物聯網趨勢與創新課程講義：物聯網簡介（1150910）、物聯網的架構（1150917）、穿戴感測系統（1151015，含心電圖與血氧、智慧健康產業的 SMART 要素、健康照護物聯網應用與流程圖範例、期中報告說明、橫向與縱向關係練習、感測器關係圖練習）。</li>
     <li>衛生福利部國民健康署（2023-05-15）。量血壓「722」原則（依 2022 台灣高血壓指引）。https://www.mohw.gov.tw/cp-16-74604-1.html</li>
     <li>臺大醫院健康電子報（2023-10，第 215 期）。姿勢性低血壓護理指導。</li>
     <li>Freeman, R., Wieling, W., Axelrod, F. B., et al. (2011). Consensus statement on the definition of orthostatic hypotension, neurally mediated syncope and the postural tachycardia syndrome. <i>Clinical Autonomic Research, 21</i>(2), 69–72.</li>
     <li>Seeed Studio. 60GHz mmWave Sensor: Breathing and Heartbeat Module (MR60BHA1) wiki.</li>
     <li>Winsen（鄭州煒盛電子科技）. ZE07-CO electrochemical CO module user manual（0–500 ppm）.</li>
+    <li>Hampson, N. B. (1998). Pulse oximetry in severe carbon monoxide poisoning. <i>Chest, 114</i>(4), 1036–1041. https://doi.org/10.1378/chest.114.4.1036</li>
   </ol>
 </section>
 
@@ -337,6 +366,13 @@
       var opts = el.dataset.opts ? JSON.parse(el.dataset.opts) : {};
       var svg = el.dataset.plan === "A" ? PLANS.planA(opts) : PLANS.planB(opts);
       el.insertAdjacentHTML("afterbegin", svg);
+    });
+    document.querySelectorAll(".issues").forEach(function (el) {
+      el.innerHTML = DIAGRAM.issueMap();
+      // the radar serves both scenarios: mark it, as in the slide
+      el.querySelectorAll(".im-sensor").forEach(function (n) {
+        if (n.querySelector(".im-code-t").textContent === "R") n.classList.add("shared");
+      });
     });
     document.querySelectorAll(".diagram").forEach(function (el) {
       el.innerHTML = DIAGRAM.sensorMap();
