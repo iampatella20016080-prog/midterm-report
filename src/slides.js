@@ -71,112 +71,13 @@
     const { tl, E } = S;
     tl.fromTo(S.one(".cover-dot"), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.7, ease: "back.out(2.2)" }, 0.25);
     tl.fromTo(S.one(".cover-halo"), { scale: 0.1, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 2.2, ease: "power2.out" }, 0.45);
-    const chars = S.q(".q .ch");
-    tl.fromTo(chars.slice(0, -1), { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 1.2, ease: E.enter, stagger: 0.12 }, 0.9);
-    // the question mark arrives last and settles — follow-through
-    tl.fromTo(chars.slice(-1), { autoAlpha: 0, y: -46, rotation: -8 }, { autoAlpha: 1, y: 0, rotation: 0, duration: 0.9, ease: "back.out(2)" }, 1.5);
-    S.lines(".name .line", 2.0);
-    S.lines(".sub .line", 2.2);
-    S.rule(".meta-rule", 2.4, { d: 1.3 });
-    S.fade(".eyebrow", 2.6, { y: 8 });
-    S.fade(".meta > div", 2.7, { stagger: 0.12, y: 10 });
-  };
-
-  /* ================================================================ S1 */
-  B["s-hook"] = (S) => {
-    const { tl, E } = S;
-    // measure the two 「浴室」 before any tween moves them
-    const merge = S.one(".merge");
-    const mr = DECK.rectIn(merge);
-    const target = { x: 960, y: mr.y + mr.h / 2 };
-    const baths = S.q(".bath");
-    const flights = baths.map((b) => {
-      const r = DECK.rectIn(b);
-      return { el: b, dx: target.x - (r.x + r.w / 2), dy: target.y - (r.y + r.h / 2), k: 220 / parseFloat(getComputedStyle(b).fontSize) };
-    });
-
-    S.fade(".h-eyebrow", 0, { y: 8 });
-    S.q(".clock").forEach((c, ci) => {
-      const strips = DECK.makeRoller(c, c.dataset.time);
-      const t0 = 0.2 + ci * 0.45;
-      tl.fromTo(c, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, ease: "power1.out" }, t0);
-      // odometer: each digit spins through a full turn and settles (fast start, long follow-through)
-      strips.forEach((st, k) => {
-        tl.fromTo(st.s, { yPercent: 0 }, { yPercent: -(10 + st.d) * 5, duration: 1.3 + k * 0.16, ease: "expo.out" }, t0);
-      });
-    });
-    tl.fromTo(S.one(".divider"), { scaleY: 0 }, { scaleY: 1, duration: 1.1, ease: E.move }, 0.4);
-    S.fade(".moment.a .where", 1.0);
-    S.fade(".moment.a .story", 1.2);
-    S.fade(".moment.b .where", 1.45);
-    S.fade(".moment.b .story", 1.65);
-    S.lines(".punch .line", 2.3);
-    S.step(4);
-
-    // the shared place surfaces — everything else steps back
-    const rest = S.q(".dimmable, .clock, .punch, .h-eyebrow, .where .k, .divider");
-    tl.to(rest, { autoAlpha: 0.12, duration: 0.6, ease: "power1.inOut" });
-    tl.to(baths, { color: AMBER, duration: 0.5, ease: "power1.inOut" }, "<0.1");
-    // anticipation: a small dip before the flight
-    tl.to(baths, { y: 6, duration: 0.22, ease: "power2.out" }, ">0.15");
-    flights.forEach((f, i) => {
-      tl.to(f.el, { x: f.dx, y: f.dy, scale: f.k, duration: 1.15, ease: "power3.inOut" }, i === 0 ? ">" : "<0.07");
-    });
-    tl.to(rest, { autoAlpha: 0, duration: 0.5, ease: "power1.in" }, "<0.3");
-    tl.set(merge, { autoAlpha: 1 }, ">-0.05");
-    tl.to(baths, { autoAlpha: 0, duration: 0.25 }, "<");
-  };
-
-  /* ================================================================ S2 */
-  B["s-issue"] = (S) => {
-    const { tl, E } = S;
-    const big = S.one(".big");
-    const br = DECK.rectIn(big);
-    const pr = DECK.rectIn(S.one(".title-rest .ph"));
-    const dx = pr.x + pr.w / 2 - 960;
-    const dy = pr.y + pr.h / 2 - (br.y + br.h / 2);
-
-    tl.to(big, { x: dx, y: dy, scale: 60 / 220, duration: 1.15, ease: "power3.inOut" }, 0.25);
-    S.lines(".title-rest .line", 0.95);
-    S.q(".fact").forEach((f, i) => {
-      S.fade(f, 1.45 + i * 0.18);
-    });
-    S.step(3);
-
-    // balance: anticipation → tilt → counter-tilt → settle
-    const beam = S.one(".beam-g");
-    const L = S.one(".pan-g.left");
-    const R = S.one(".pan-g.right");
-    const ang = { a: 0 };
-    const apply = () => {
-      const r = (ang.a * Math.PI) / 180;
-      const c = Math.cos(r);
-      const s = Math.sin(r);
-      beam.setAttribute("transform", `rotate(${ang.a.toFixed(2)} 420 120)`);
-      L.setAttribute("transform", `translate(${(420 - 280 * c).toFixed(1)} ${(120 - 280 * s).toFixed(1)})`);
-      R.setAttribute("transform", `translate(${(420 + 280 * c).toFixed(1)} ${(120 + 280 * s).toFixed(1)})`);
-    };
-    apply();
-    S.draw(S.q(".balance .base, .balance .post"), ">", { d: 0.7 });
-    S.draw(S.q(".balance .beam"), "<0.3", { d: 0.8 });
-    S.pop(S.q(".balance .pivot"), "<0.5", { from: 0 });
-    S.fade(S.q(".pan-in"), "<0.4", { y: -10, stagger: 0.12 });
-    const tilt = (to, d, ease, pos) => {
-      const from = ang.a;
-      ang.a = to;
-      tl.to({}, { drive: { fn: (v) => { ang.a = v; apply(); }, from, to }, duration: d, ease }, pos);
-    };
-    tilt(-13, 1.1, "back.inOut(1.6)", ">0.3");
-    tl.to(S.q(".pan-g.left .w-title"), { fill: VERM, duration: 0.4 }, "<0.5");
-    tilt(13, 1.3, "back.inOut(1.6)", ">0.9");
-    tl.to(S.q(".pan-g.left .w-title"), { fill: "#f2ede4", duration: 0.4 }, "<0.3");
-    tl.to(S.q(".pan-g.right .w-title"), { fill: VERM, duration: 0.4 }, "<0.2");
-    S.step(2.5);
-    tilt(0, 1.3, "back.out(1.5)", ">");
-    tl.to(S.q(".pan-g.right .w-title"), { fill: "#f2ede4", duration: 0.4 }, "<");
-    tl.to(S.q(".pan-g .w-title"), { fill: AMBER, duration: 0.5 }, "<0.6");
-    S.fade(".resolve .k", "<0.1", { y: 8 });
-    tl.fromTo(S.one(".resolve .v"), { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: E.move }, "<0.2");
+    // title characters land one by one, like the night lights switching on along the route
+    tl.fromTo(S.q(".q .ch"), { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 1.0, ease: E.enter, stagger: 0.09 }, 0.9);
+    S.lines(".name .line", 1.9);
+    S.lines(".sub .line", 2.1);
+    S.rule(".meta-rule", 2.3, { d: 1.3 });
+    S.fade(".eyebrow", 2.5, { y: 8 });
+    S.fade(".meta > div", 2.6, { stagger: 0.12, y: 10 });
   };
 
   /* ================================================================ S3 */
@@ -307,22 +208,6 @@
     S.fade(".risk-legend span", t0 + 1.7, { stagger: 0.35, y: 8 });
     // the person slows down: ring fades, dot dims slightly
     tl.to(dot.querySelector(".presence"), { fill: "#c9a46a", duration: 1.2 }, t0 + 3.2);
-  };
-
-  /* ================================================================ S7 */
-  B["s-principles"] = (S) => {
-    S.lines(".headline .line", 0);
-    S.q(".p").forEach((p, i) => {
-      const t = 0.7 + i * 0.32;
-      S.draw(S.q(p.querySelectorAll("svg .ln, svg .acc")), t - 0.1, { d: 0.9, stagger: 0.08 });
-      S.rule(p.querySelector(".bar"), t + 0.2, { d: 0.8 });
-      S.fade(p.querySelector(".n"), t + 0.15, { y: 6 });
-      S.fade(p.querySelector(".t"), t + 0.22, { y: 18 });
-      S.fade(p.querySelector(".d"), t + 0.36);
-      S.fade(p.querySelector(".ex"), t + 0.5);
-      S.fade(p.querySelector(".impl"), t + 0.7, { y: 8 });
-      S.pop(S.q(p.querySelectorAll("svg .accf")), t + 0.6);
-    });
   };
 
   /* ================================================================ S8 */
@@ -489,7 +374,7 @@
     tl.fromTo(dot, { autoAlpha: 0, scale: 0, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, t + 0.55);
     flash(S, sensor("B"), t + 0.6);
     lit(2, t + 0.7, "02:13:05");
-    stateAt("離床：夜燈沿路亮起", t + 0.7);
+    stateAt("離床，夜燈依序亮起", t + 0.7);
     lightsOn(S, svg, t + 0.8, 0.25);
     tl.to(route, { autoAlpha: 0.9, duration: 0.5 }, t + 0.8);
     t += 1.5;
@@ -499,7 +384,7 @@
     t += 2.4;
     flash(S, sensor("D"), t);
     lit(3, t, "02:13:41");
-    stateAt("進入浴室：計時中", t);
+    stateAt("進入浴室，開始計時", t);
     tl.to(dot, { motionPath: { path: route, align: route, alignOrigin: [0.5, 0.5], start: 0.6, end: 1 }, duration: 1.0, ease: "power2.out" }, t + 0.1);
     S.step(2.5);
 
@@ -514,12 +399,12 @@
     flash(S, sensor("R"), t, VERM);
     tl.to(svg.querySelector('.cov[data-code="R"]'), { autoAlpha: 0.9, fill: VERM, duration: 0.3 }, t);
     lit(4, t + 0.1, "02:19:12");
-    stateAt("雷達：偵測到跌倒姿態", t + 0.1);
+    stateAt("雷達偵測到跌倒姿勢", t + 0.1);
     t += 1.0;
     flash(S, sensor("S"), t);
     tl.fromTo(bubble, { autoAlpha: 0, y: 14, scale: 0.96, transformOrigin: "0% 100%" }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, ease: E.enter }, t);
     lit(5, t, "02:19:13");
-    stateAt("等待本人回應⋯", t + 0.4);
+    stateAt("等待本人回應", t + 0.4);
     t += 0.7;
     tl.fromTo(cd, { autoAlpha: 0, scale: 0.6, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, t);
     const cdNum = cd.querySelector(".num");
@@ -536,17 +421,17 @@
     t += 1.2;
     tl.to(notif.querySelector(".a2"), { backgroundColor: AMBER, borderColor: AMBER, color: "#11161d", duration: 0.25 }, t);
     tl.fromTo(notif.querySelector(".a2"), { scale: 1 }, { scale: 0.95, duration: 0.12, yoyo: true, repeat: 1, ease: "power1.inOut" }, t);
-    stateAt("家人已確認：正在回撥", t);
+    stateAt("家人已確認，正在回撥", t);
     tl.to(node(7), { opacity: 0.55, duration: 0.4 }, t + 0.2);
     S.fade(node(7).querySelector(".skip"), t + 0.3, { y: 4 });
     tl.fromTo(chip, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: E.enter }, t + 0.5);
     S.count(chip.querySelector(".v").firstChild ? wrapCount(chip) : chip, t + 0.5, { d: 1.0 });
     lit(8, t + 1.2, "每週");
-    stateAt("事件已記錄：納入每週趨勢", t + 1.3);
+    stateAt("已記錄，列入週報", t + 1.3);
 
     // state text as a seek-safe function of time
     stateTexts.sort((a, b) => a[0] - b[0]);
-    const states = [[0, "夜間模式：監測中"]].concat(stateTexts);
+    const states = [[0, "夜間模式，監測中"]].concat(stateTexts);
     const total = tl.duration();
     st.textContent = states[0][1];
     tl.to(
@@ -628,7 +513,7 @@
     const thr = [
       [9, "t1", "9 ppm ・ L1 排風"],
       [50, "t2", "50 ppm ・ L2 警報"],
-      [100, "t3", "100 ppm ・ L3 求救"],
+      [100, "t3", "100 ppm ・ L3 通報"],
     ];
     const xt = [0, 120, 240, 360, 480];
     const chartBox = S.one(".cochart");
@@ -674,13 +559,13 @@
       perS.textContent = s >= 440 ? "室友已趕到" : s >= 400 ? "無動作 30 秒" : s >= 0.5 ? "洗澡中・有動作" : "—";
       perS.style.color = s >= 400 && s < 440 ? "#ec6a52" : "";
       const states = [
-        [0, "待機：監測中"],
-        [1, "濕度驟升：判定洗澡中"],
-        [210, "L1：已開排風扇、提醒開窗"],
-        [370, "L2：警報中，瓦斯已遮斷"],
-        [400, "L3：本人無反應，通知守護圈"],
+        [0, "待機，監測中"],
+        [1, "濕度突然升高，判斷正在洗澡"],
+        [210, "L1：已開排風扇，提醒開窗"],
+        [370, "L2：警報中，已遮斷瓦斯"],
+        [400, "L3：本人沒有反應，通知室友"],
         [440, "室友已趕到，開窗通風"],
-        [479, "事件已記錄：列入週報"],
+        [479, "已記錄，列入週報"],
       ];
       let txt = states[0][1];
       for (const [p, t] of states) if (s >= p) txt = t;
@@ -857,21 +742,266 @@
     });
   };
 
-  /* ================================================================ S17 */
-  B["s-close"] = (S) => {
-    const { tl } = S;
-    tl.fromTo(S.one(".cdot"), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.7, ease: "back.out(2.2)" }, 0.2);
-    tl.fromTo(S.one(".chalo"), { scale: 0.1, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 2.0, ease: "power2.out" }, 0.4);
-    S.lines(".line1 .line", 0.9, { d: 1.2 });
-    S.lines(".line2 .line", 1.7, { stagger: 0.2 });
-    S.fade(".sig .n", 2.6, { y: 12 });
-    S.fade(".sig .t", 2.9, { y: 8 });
-  };
-
   /* ================================================================ S18 */
   B["s-refs"] = (S) => {
     S.lines(".headline .line", 0);
     S.fade(".ref", 0.4, { stagger: 0.04, y: 8 });
     S.fade(".note", 1.2, { y: 6 });
+  };
+  /* ================================================================ 主題 */
+  B["s-topic"] = (S) => {
+    const { tl, E } = S;
+    S.lines(".headline .line", 0);
+    const rows = S.q(".tbl .tr");
+    // each row gets its own top rule so the table is drawn, not just faded in
+    rows.forEach((r) => {
+      const rl = document.createElement("i");
+      rl.className = "rl";
+      r.appendChild(rl);
+    });
+    const last = document.createElement("i");
+    last.className = "rl bot";
+    rows[rows.length - 1].appendChild(last);
+    S.fade(S.q(".tbl .th > div"), 0.5, { stagger: 0.12, y: 10 });
+    rows.slice(1).forEach((r, i) => {
+      const t = 0.85 + i * 0.32;
+      S.rule(r.querySelector(".rl"), t, { d: 0.8 });
+      S.fade(r.querySelector(".k"), t + 0.05, { x: -10, y: 0 });
+      S.fade(S.q(r.querySelectorAll(":scope > div:not(.k)")), t + 0.15, { stagger: 0.12, y: 10 });
+    });
+    S.rule(last, 0.85 + (rows.length - 1) * 0.32, { d: 0.8 });
+    S.step(3);
+    // both places are the bathroom: underline the shared word, then explain why
+    const t0 = tl.duration();
+    tl.fromTo(S.q(".tbl b"), { backgroundSize: "0% 3px" }, { backgroundSize: "100% 3px", duration: 0.6, ease: E.move, stagger: 0.2 }, t0);
+    S.fade(".why .wh", t0 + 0.5, { y: 8 });
+    S.q(".why .wp").forEach((w, i) => {
+      S.pop(w.querySelector(".n"), t0 + 0.8 + i * 0.25, { from: 0.3 });
+      S.fade(w, t0 + 0.8 + i * 0.25, { x: -8, y: 0 });
+    });
+  };
+
+  /* ================================================================ 關係圖 */
+  B["s-diagram"] = (S) => {
+    const { tl, E } = S;
+    const box = S.one(".diagram");
+    box.innerHTML = DIAGRAM.sensorMap();
+    const svg = box.querySelector("svg");
+    const g = (sel) => S.q(svg.querySelectorAll(sel));
+    const rects = (sel) => g(`${sel} rect`);
+    const texts = (sel) => g(`${sel} text`);
+
+    /* ---- seg 0: 受信端 + 網路 */
+    S.lines(".headline .line", 0);
+    S.fade(".dg-note", 0.4, { y: 6 });
+    S.draw(g(".dg-top .dg-frame"), 0.5, { d: 1.2 });
+    S.fade(texts(".dg-top"), 1.0, { y: 8 });
+    g(".dg-top-subs .dg-sub").forEach((b, i) => S.pop(b, 0.8 + i * 0.18, { from: 0.85 }));
+    S.show(g(".dg-top-arrows line"), 1.3, { d: 0.3, stagger: 0.15 });
+    S.draw(g(".dg-net .dg-line"), 1.5, { d: 0.5, stagger: 0.06 });
+    tl.fromTo(g(".dg-bus"), { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.8, ease: E.move }, 1.55);
+    S.fade(texts(".dg-net-labels"), 1.9, { x: -8, y: 0, stagger: 0.1 });
+    S.step(2.5);
+
+    /* ---- seg 1: 網路介面 + 家中閘道 */
+    let t = tl.duration();
+    tl.fromTo(g(".dg-big"), { scaleY: 0, transformOrigin: "50% 50%" }, { scaleY: 1, duration: 0.6, ease: E.enter }, t);
+    S.fade(texts(".dg-iface"), t + 0.3, { x: -8, y: 0 });
+    S.draw(g(".dg-bottom .dg-frame"), t + 0.4, { d: 1.4 });
+    S.fade(texts(".dg-bottom"), t + 0.9, { y: 8 });
+    g(".dg-bot-subs .dg-sub").forEach((b, i) => S.pop(b, t + 0.7 + i * 0.18, { from: 0.85 }));
+    S.show(g(".dg-bot-arrows line"), t + 1.2, { d: 0.3, stagger: 0.15 });
+    S.pop(g(".dg-teds .dg-sub"), t + 1.4, { from: 0.85 });
+    S.show(g(".dg-teds line"), t + 1.6, { d: 0.3 });
+    S.step(3);
+
+    /* ---- seg 2: 感測器與輸出裝置，資料往上送 */
+    t = tl.duration();
+    S.draw(g(".dg-trunk .dg-line"), t, { d: 0.9 });
+    S.show(g(".dg-trunk line"), t + 0.6, { d: 0.25, stagger: 0.1 });
+    g(".dg-group-row").forEach((r, i) => {
+      const ti = t + 0.7 + i * 0.22;
+      S.pop(r.querySelector(".dg-group"), ti, { from: 0.85 });
+      S.show(r.querySelector("line"), ti + 0.15, { d: 0.25 });
+      tl.fromTo(r.querySelector(".dg-item"), { autoAlpha: 0, x: -14 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: E.soft }, ti + 0.2);
+    });
+    // one reading travels from a sensor to the family's phone
+    t = tl.duration() + 0.3;
+    const path = svg.querySelector(".dg-flowpath");
+    const pulse = svg.querySelector(".dg-pulse");
+    tl.set(pulse, { autoAlpha: 0 }, 0);
+    tl.fromTo(pulse, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, t);
+    tl.fromTo(
+      pulse,
+      { motionPath: { path, align: path, alignOrigin: [0.5, 0.5], start: 0, end: 0 } },
+      { motionPath: { path, align: path, alignOrigin: [0.5, 0.5], start: 0, end: 1 }, duration: 2.6, ease: "power1.inOut", immediateRender: false },
+      t
+    );
+    const radar = svg.querySelectorAll(".dg-item rect")[0];
+    tl.fromTo(radar, { stroke: "#11161d" }, { stroke: SLATE, strokeWidth: 3, duration: 0.3 }, t);
+    const phone = svg.querySelectorAll(".dg-top-subs rect")[0];
+    tl.to(phone, { stroke: AMBER, strokeWidth: 3.5, duration: 0.3 }, t + 2.5);
+    tl.to(pulse, { autoAlpha: 0, duration: 0.2 }, t + 2.6);
+  };
+
+  /* ================================================================ 市售比較 */
+  B["s-compare"] = (S) => {
+    const { tl, E } = S;
+    S.lines(".headline .line", 0);
+    S.fade(S.q(".cmp .th > div:not(:last-child)"), 0.5, { stagger: 0.08, y: 8 });
+    const rows = S.q(".cmp .cr:not(.th)");
+    rows.forEach((r, i) => {
+      const t = 0.8 + i * 0.3;
+      S.fade(r, t, { y: 12 });
+    });
+    S.step(3);
+    // what this design adds: the last column is written in row by row
+    const t0 = tl.duration();
+    S.fade(".cmp .th > div:last-child", t0, { y: 8 });
+    rows.forEach((r, i) => {
+      const me = r.querySelector(".me");
+      const ti = t0 + 0.2 + i * 0.26;
+      tl.fromTo(me, { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: E.move }, ti);
+      tl.fromTo(r.querySelector(":scope > div:nth-child(3)"), { color: "#49525d" }, { color: "#b13a24", duration: 0.3, yoyo: true, repeat: 1 }, ti - 0.1);
+    });
+    S.fade(".cmp-note", tl.duration() + 0.1, { y: 8 });
+  };
+
+  /* ================================================================ 觀察規劃 */
+  B["s-plan"] = (S) => {
+    const { tl, E } = S;
+    S.lines(".headline .line", 0);
+    // a Gantt-like strip: the weeks fill in as time passes
+    S.q(".phases .ph").forEach((p, i) => {
+      const t = 0.6 + i * 0.45;
+      const bar = p.querySelector(".bar");
+      if (p.classList.contains("rev")) {
+        bar.innerHTML = "<i></i><i></i><i></i><i></i>";
+        S.pop(S.q(bar.querySelectorAll("i")), t, { from: 0, stagger: 0.1 });
+      } else {
+        tl.fromTo(bar, { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: p.classList.contains("wide") ? 0.9 : 0.5, ease: "power1.inOut" }, t);
+      }
+      S.fade(p.querySelector(".w"), t + 0.1, { y: 6 });
+      S.fade(p.querySelector(".t"), t + 0.2, { y: 10 });
+      S.fade(p.querySelector(".d"), t + 0.32, { y: 8 });
+    });
+    S.step(3);
+    const t0 = tl.duration();
+    S.q(".daily .dc").forEach((c, i) => {
+      const t = t0 + i * 0.35;
+      const rl = document.createElement("i");
+      rl.className = "dh-rule";
+      c.querySelector(".dh").appendChild(rl);
+      S.rule(c.querySelector(".dh-rule"), t, { d: 0.8 });
+      S.fade(c.querySelector(".dh"), t, { y: 8 });
+      S.fade(S.q(c.querySelectorAll(".di")), t + 0.25, { stagger: 0.12, y: 10 });
+    });
+  };
+
+  /* ================================================================ 觀察項目 */
+  B["s-items"] = (S) => {
+    const { tl, E } = S;
+    const wrap = S.one(".itbl");
+    S.lines(".headline .line", 0);
+    S.fade(".itbl .th", 0.5, { y: 6 });
+    const groups = ["g1", "g2", "g3"].map((g) => S.q(`.itbl .ir.${g}`));
+    // a coloured spine per group, measured from the laid-out rows
+    const wr = DECK.rectIn(wrap);
+    const spines = groups.map((rows, gi) => {
+      const a = DECK.rectIn(rows[0]);
+      const b = DECK.rectIn(rows[rows.length - 1]);
+      const sp = document.createElement("i");
+      sp.className = `gspine g${gi + 1}`;
+      sp.style.top = `${a.y - wr.y + 10}px`;
+      sp.style.height = `${b.y + b.h - a.y - 20}px`;
+      wrap.appendChild(sp);
+      return sp;
+    });
+    groups.forEach((rows, gi) => {
+      if (gi > 0) S.step(3);
+      const t = gi === 0 ? 0.7 : tl.duration();
+      tl.fromTo(spines[gi], { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.3 + rows.length * 0.12, ease: "power1.inOut" }, t);
+      rows.forEach((r, i) => {
+        S.fade(r, t + 0.1 + i * 0.14, { y: 10 });
+      });
+    });
+  };
+
+  /* ================================================================ 訊號收集 */
+  B["s-signal"] = (S) => {
+    const { tl, E } = S;
+    S.lines(".headline .line", 0);
+    const nodes = S.q(".pipe .pn");
+    const arrows = S.q(".pipe .pa");
+    arrows.forEach((a) => {
+      const ln = document.createElement("i");
+      ln.className = "ln";
+      a.prepend(ln);
+    });
+    nodes.forEach((n, i) => {
+      const t = 0.5 + i * 0.4;
+      tl.fromTo(n, { borderTopColor: "rgba(17,22,29,0)" }, { borderTopColor: "rgba(17,22,29,1)", duration: 0.3 }, t);
+      S.fade(S.q(n.children), t, { stagger: 0.08, y: 10 });
+      if (arrows[i]) {
+        S.rule(arrows[i].querySelector(".ln"), t + 0.25, { d: 0.45, ease: "power1.inOut" });
+        S.fade(arrows[i].querySelector("span"), t + 0.35, { y: 6 });
+      }
+    });
+    // one packet runs the whole pipe, left to right
+    const pipe = DECK.rectIn(S.one(".pipe"));
+    const pk = document.createElement("i");
+    pk.className = "pk";
+    S.one(".pipe").appendChild(pk);
+    const p0 = DECK.rectIn(nodes[0]);
+    const p3 = DECK.rectIn(nodes[nodes.length - 1]);
+    const tp = tl.duration() + 0.1;
+    tl.fromTo(pk, { autoAlpha: 0, x: p0.x - pipe.x }, { autoAlpha: 1, duration: 0.2 }, tp);
+    tl.to(pk, { x: p3.x - pipe.x + 6, duration: 2.0, ease: "power1.inOut" }, tp);
+    tl.to(pk, { autoAlpha: 0, duration: 0.25 }, tp + 1.95);
+    S.step(2.5);
+
+    const t0 = tl.duration();
+    S.fade(".stbl .th", t0, { y: 6 });
+    S.fade(".stbl .sr:not(.th)", t0 + 0.15, { stagger: 0.12, y: 10 });
+    // the uploaded event record types itself out, field by field
+    const rr = document.createElement("i");
+    rr.className = "rec-rule";
+    S.one(".rec .rh").after(rr);
+    S.fade(".rec .rh", t0 + 0.5, { y: 6 });
+    S.rule(".rec .rec-rule", t0 + 0.5, { d: 0.7 });
+    let tt = t0 + 0.8;
+    S.q(".rec .rr").forEach((r) => {
+      const v = r.querySelector("b");
+      const full = v.textContent;
+      S.fade(r, tt, { d: 0.3, y: 0 });
+      const n = full.length;
+      S.ticker((k) => (v.textContent = full.slice(0, Math.round(k))), 0, n, n * 0.035, tt + 0.1);
+      tt += 0.15 + n * 0.035;
+    });
+  };
+
+  /* ================================================================ 資料分析 */
+  B["s-analysis"] = (S) => {
+    const { tl, E } = S;
+    S.lines(".headline .line", 0);
+    S.fade(".atbl .th > div", 0.5, { stagger: 0.06, y: 6 });
+    const rows = S.q(".atbl .ar:not(.th)");
+    const row = (r, t) => {
+      S.fade(r, t, { y: 12 });
+      tl.fromTo(r.querySelector(".u"), { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: E.move }, t + 0.45);
+    };
+    rows.slice(0, 2).forEach((r, i) => row(r, 0.8 + i * 0.4));
+    S.step(3);
+    const t0 = tl.duration();
+    rows.slice(2).forEach((r, i) => row(r, t0 + i * 0.35));
+  };
+
+  /* ================================================================ 謝謝 */
+  B["s-thanks"] = (S) => {
+    const { tl } = S;
+    tl.fromTo(S.one(".cdot"), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.7, ease: "back.out(2.2)" }, 0.2);
+    tl.fromTo(S.one(".chalo"), { scale: 0.1, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 2.0, ease: "power2.out" }, 0.4);
+    S.lines(".line1 .line", 0.9, { d: 1.2 });
+    S.lines(".line2 .line", 1.6);
   };
 })();

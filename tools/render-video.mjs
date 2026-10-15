@@ -4,7 +4,7 @@
  * Opens the deck in ?render mode (one master GSAP timeline: animations +
  * narration-paced holds + transitions), seeks it frame by frame and pipes
  * JPEG frames into ffmpeg → H.264 MP4.
- * Usage: node tools/render-video.mjs [--fps=30] [--from=0] [--to=<sec>] [--out=exports/AnZai-autoplay.mp4]
+ * Usage: node tools/render-video.mjs [--fps=30] [--from=0] [--to=<sec>] [--out=exports/midterm-autoplay.mp4]
  */
 import { chromium } from "playwright";
 import { spawn } from "node:child_process";
@@ -18,7 +18,7 @@ const arg = (k, d) => {
   return a ? a.split("=")[1] : d;
 };
 const FPS = +arg("fps", 30);
-const OUTFILE = path.resolve(ROOT, arg("out", "exports/AnZai-autoplay.mp4"));
+const OUTFILE = path.resolve(ROOT, arg("out", "exports/midterm-autoplay.mp4"));
 fs.mkdirSync(path.dirname(OUTFILE), { recursive: true });
 
 const browser = await chromium.launch();

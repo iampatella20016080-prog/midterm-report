@@ -47,12 +47,14 @@
 
   const CHAPTERS = [
     { n: "00", label: "封面" },
-    { n: "01", label: "問題與人文關懷議題" },
-    { n: "02", label: "情境：時間與地點" },
-    { n: "03", label: "系統設計" },
-    { n: "04", label: "監測流程" },
-    { n: "05", label: "預計結果及效益" },
-    { n: "06", label: "結語" },
+    { n: "01", label: "主題：關懷對象、時間、場域" },
+    { n: "02", label: "使用的感測系統與元件" },
+    { n: "03", label: "檢測觀察過程的規劃" },
+    { n: "04", label: "檢測觀察項目" },
+    { n: "05", label: "感測器訊號的收集" },
+    { n: "06", label: "資料整理分析" },
+    { n: "07", label: "討論" },
+    { n: "08", label: "參考資料" },
   ];
 
   const D = (window.DECK = { builders: {}, E, MODE, slides: [], ready: false });
@@ -221,7 +223,7 @@
     where.innerHTML = D.slides
       .map((s) =>
         s.time
-          ? `<div class="hud-row" style="position:absolute;right:0;top:0"><span class="k">時間</span><span class="t">${s.time}</span><span class="sep"></span><span class="k">地點</span><span class="p">${s.place}</span></div>`
+          ? `<div class="hud-row" style="position:absolute;right:0;top:0"><span class="k">時間</span><span class="t">${s.time}</span><span class="sep"></span><span class="k">場域</span><span class="p">${s.place}</span></div>`
           : `<div class="hud-row" style="position:absolute;right:0;top:0"></div>`
       )
       .join("");

@@ -1,8 +1,8 @@
 {
-  "name": "anzai-midterm-report",
+  "name": "health-iot-midterm-report",
   "version": "1.0.0",
   "private": true,
-  "description": "你還好嗎？安在 AnZai — 不用鏡頭的浴室安全守護系統（健康物聯網趨勢與創新・期中報告）",
+  "description": "浴室安全監測系統：健康物聯網趨勢與創新期中報告（動態簡報與書面報告）",
   "scripts": {
     "serve": "npx --yes http-server -p 8080 -c-1 .",
     "fonts": "python3 tools/build-fonts.py",
