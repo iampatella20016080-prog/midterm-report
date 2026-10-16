@@ -862,7 +862,7 @@
       const me = r.querySelector(".me");
       const ti = t0 + 0.2 + i * 0.26;
       tl.fromTo(me, { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7, ease: E.move }, ti);
-      tl.fromTo(r.querySelector(":scope > div:nth-child(3)"), { color: "#49525d" }, { color: "#b13a24", duration: 0.3, yoyo: true, repeat: 1 }, ti - 0.1);
+      tl.fromTo(r.querySelector(":scope > div:nth-child(2)"), { color: "#49525d" }, { color: "#b13a24", duration: 0.3, yoyo: true, repeat: 1 }, ti - 0.1);
     });
     S.fade(".cmp-note", tl.duration() + 0.1, { y: 8 });
   };

@@ -2,16 +2,14 @@
   "name": "health-iot-midterm-report",
   "version": "1.0.0",
   "private": true,
-  "description": "浴室安全監測系統：健康物聯網趨勢與創新期中報告（動態簡報與書面報告）",
+  "description": "浴室安全監測系統：健康物聯網趨勢與創新期中報告（上台簡報）",
   "scripts": {
     "serve": "npx --yes http-server -p 8080 -c-1 .",
     "fonts": "python3 tools/build-fonts.py",
     "check": "node tools/inspect.mjs --quick",
     "inspect": "node tools/inspect.mjs",
     "export:pdf": "node tools/export-pdf.mjs",
-    "export:report": "node tools/export-report.mjs",
-    "export:video": "node tools/render-video.mjs",
-    "export": "npm run export:pdf && npm run export:report && npm run export:video"
+    "export": "npm run export:pdf"
   },
   "devDependencies": {
     "@expo-google-fonts/ibm-plex-mono": "^0.4.1",

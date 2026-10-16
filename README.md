@@ -4,7 +4,9 @@
 
 內容依老師公布的期中報告八個項目編排：主題（人、時間、場域）、使用的感測系統與元件、檢測觀察過程的規劃、檢測觀察項目、感測器訊號的收集、資料整理分析、討論、參考資料。另外包含講義 1151015 的四個練習：橫向關係、縱向關係、與市售感知層感測系統比較、感測器關係圖（仿 IEEE 1451 範例），以及講義中的血氧、心電圖與 SMART 五要素。
 
-繳交物：動態網頁簡報（25 頁，講稿約 12 分鐘）、簡報 PDF、A4 書面報告 PDF、自動播放影片、講稿。
+繳交物：上台用的網頁簡報（25 頁，講稿約 12 分鐘）、簡報 PDF、講稿。
+
+簡報為上台投影設計：每頁只放重點，內文字級 24–38 px（以 1920×1080 畫面計），細節與數字出處放在講稿（按 N 顯示）。
 
 ---
 
@@ -32,7 +34,7 @@
 改了中文姓名後執行一次 `npm run fonts`，姓名才會使用內嵌字型。
 
 ### 時間不夠時
-講稿約 12 分鐘。需要縮短時，可以跳過第 2–3 頁（背景資料）與第 8 頁（擺放位置），約省 1.5 分鐘；這三頁的內容在書面報告裡都有。
+講稿約 12 分鐘。需要縮短時，可以跳過第 2–3 頁（背景資料）與第 8 頁（擺放位置），約省 1.5 分鐘。
 
 ---
 
@@ -56,8 +58,6 @@
 | 檔案 | 內容 |
 |---|---|
 | `exports/midterm-slides.pdf` | 簡報 PDF，25 頁，每頁為完成狀態；向量、文字可搜尋 |
-| `exports/midterm-report.pdf` | A4 書面報告，12 頁（橫向關係圖與感測器關係圖為橫式頁），含參考資料 |
-| `exports/midterm-autoplay.mp4` | 自動播放影片（1920×1080、30 fps），節奏依講稿長度 |
 | `docs/speaker-notes.md` | 逐頁講稿與預估秒數 |
 
 ---
@@ -72,8 +72,6 @@ npm run fonts                # 修改任何中文文字後都要執行（重新�
 npm run check                # 每頁完成狀態截圖，並檢查 console 錯誤、版面、缺字
 npm run inspect              # 每頁每一步驟截圖（輸出到 shots/）
 npm run export:pdf           # → exports/midterm-slides.pdf
-npm run export:report        # → exports/midterm-report.pdf
-npm run export:video         # → exports/midterm-autoplay.mp4（逐格輸出，約 20 分鐘；需要 ffmpeg）
 python3 tools/build-notes.py # → docs/speaker-notes.md（由簡報內的講稿產生）
 ```
 
@@ -87,15 +85,14 @@ python3 tools/build-notes.py # → docs/speaker-notes.md（由簡報內的講稿
 index.html              簡報內容與講稿
 src/
   styles.css            版面與各頁樣式
-  deck.js               簡報引擎：縮放、步驟導覽、轉場、頁首資訊列、自動播放、影片與 PDF 輸出介面
+  deck.js               簡報引擎：縮放、步驟導覽、轉場、頁首資訊列、自動播放、PDF 輸出介面
   slides.js             每頁的動畫時間軸（GSAP）
   plans.js              平面圖產生器（SVG）：阿嬤家、分租套房、感測器、動線、CO 擴散
-  diagram.js            感測器關係圖產生器（SVG），簡報與書面報告共用
+  diagram.js            橫向關係圖與感測器關係圖產生器（SVG）
   config.js             報告人資訊
 assets/fonts/           子集化字型（Noto Sans TC、Noto Serif TC、霞鶩文楷 TC、IBM Plex Mono）
 vendor/                 GSAP 3.15（含 MotionPathPlugin）
-report/                 A4 書面報告（HTML + CSS）
-tools/                  字型子集化、檢查、PDF、影片、講稿產生
+tools/                  字型子集化、檢查、PDF、講稿產生
 exports/                繳交檔案
 docs/
   01-spec.md            作業規格（老師的要求整理）
@@ -114,7 +111,7 @@ docs/
 - 每個情境都寫清楚人、時間、場域；情境與流程頁的頁首會顯示目前的時間與場域。
 - 浴室不能裝攝影機，所以只用不產生影像的感測器，資料在家中閘道判斷，只把事件上傳。
 - 架構依講義的五層架構（感知、網路、雲端計算、資料分析、應用）設計。
-- 動畫用來表達內容：時間經過（時鐘、動線）、先後順序（流程步驟依序亮起）、資料流向（關係圖與訊號收集頁的資料點）。所有動畫都可以跳到任一時間點，PDF 和影片由同一條時間軸輸出。
+- 動畫用來表達內容：時間經過（時鐘、動線）、先後順序（流程步驟依序亮起）、資料流向（關係圖與訊號收集頁的資料點）。所有動畫都可以跳到任一時間點，PDF 由同一條時間軸輸出每頁的完成狀態。
 - 統計數字都有出處（`docs/02-research.md`）；預計結果標示為待實測的設計目標；情境人物與模擬時間軸是示意。
 
 ## 7. 授權
