@@ -2,7 +2,7 @@
 /**
  * Export the deck as a vector PDF: one page per slide, each at its final
  * (fully built) state. Text stays selectable/searchable.
- * Output: exports/AnZai-slides.pdf
+ * Output: exports/midterm-slides.pdf
  */
 import { chromium } from "playwright";
 import { PDFDocument } from "pdf-lib";
@@ -24,9 +24,9 @@ await page.evaluate(() => document.body.classList.add("idle"));
 const n = await page.evaluate(() => DECK.slides.length);
 
 const merged = await PDFDocument.create();
-merged.setTitle("你還好嗎？安在 AnZai — 健康物聯網期中報告");
-merged.setSubject("不用鏡頭的浴室安全守護系統");
-merged.setCreator("AnZai deck · tools/export-pdf.mjs");
+merged.setTitle("浴室安全監測系統：健康物聯網期中報告");
+merged.setSubject("獨居長者夜間如廁跌倒、外宿同學洗澡一氧化碳中毒的監測設計");
+merged.setCreator("tools/export-pdf.mjs");
 for (let i = 0; i < n; i++) {
   await page.evaluate((i) => DECK.goto(i, "end"), i);
   await page.waitForTimeout(60);
@@ -36,7 +36,7 @@ for (let i = 0; i < n; i++) {
   merged.addPage(p);
   process.stdout.write(`\rpage ${i + 1}/${n}`);
 }
-const file = path.join(OUT, "AnZai-slides.pdf");
+const file = path.join(OUT, "midterm-slides.pdf");
 fs.writeFileSync(file, await merged.save());
 await browser.close();
 console.log(`\n${file} (${(fs.statSync(file).size / 1024 / 1024).toFixed(2)} MB)`);
