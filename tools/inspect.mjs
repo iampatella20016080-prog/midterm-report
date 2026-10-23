@@ -7,7 +7,7 @@
  *  - the full autoplay master timeline at 0 / 25 / 50 / 75 / 100 %  (--master)
  *  - layout checks: elements leaving the safe area, clipped text, overlapping text blocks
  *  - glyph coverage against the embedded font subset
- * Usage: node tools/inspect.mjs [--quick] [--fractions] [--master] [--only=3,4]
+ * Usage: node tools/inspect.mjs [--quick] [--fractions] [--master] [--only=3,4] [--file=final-draft.html]
  */
 import { chromium } from "playwright";
 import fs from "node:fs";
@@ -22,7 +22,8 @@ const QUICK = args.has("--quick");
 const OUT = path.join(ROOT, "shots");
 fs.mkdirSync(OUT, { recursive: true });
 
-const url = pathToFileURL(path.join(ROOT, "index.html")).href;
+const fileArg = [...args].find((a) => a.startsWith("--file="));
+const url = pathToFileURL(path.join(ROOT, fileArg ? fileArg.slice(7) : "index.html")).href;
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
 const problems = [];

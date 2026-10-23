@@ -15,9 +15,9 @@ TITLES = {
     "s-issues": "2 橫向關係：議題與感測器", "s-sensors": "感測系統與元件", "s-place": "感測器擺放位置", "s-diagram": "感測器關係圖",
     "s-compare": "與市售感測系統比較", "s-plan": "3 檢測觀察過程的規劃", "s-flowA": "監測流程 A：夜間如廁",
     "s-flowB": "監測流程 B：洗澡時的一氧化碳", "s-items": "4 檢測觀察項目", "s-signal": "5 感測器訊號的收集",
-    "s-arch": "縱向關係：對應課堂的物聯網架構", "s-analysis": "6 資料整理分析與文獻佐證", "s-results": "7 討論：預計結果",
+    "s-arch": "縱向關係：我的健康物聯網", "s-analysis": "6 資料整理分析與文獻佐證", "s-results": "7 討論：預計結果",
     "s-benefits": "討論：效益", "s-smart": "討論：SMART 五要素", "s-privacy": "討論：隱私與資料分享", "s-limits": "討論：限制與下一步",
-    "s-refs": "8 參考資料", "s-thanks": "謝謝聆聽",
+    "s-next": "期末報告：接下來要完成的項目", "s-refs": "參考資料", "s-thanks": "謝謝聆聽",
 }
 out = ["# 講稿（Speaker Notes）", "",
        "> 由 `index.html` 內每頁的 `<aside class=\"notes\">` 自動產生（`python3 tools/build-notes.py`）。",

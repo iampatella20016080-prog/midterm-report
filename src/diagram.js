@@ -224,5 +224,95 @@
     return `<svg viewBox="0 0 1680 700" class="issue-map" role="img" aria-label="橫向關係圖：核心議題、子議題與感測器">${defs}${heads}${spokes}${sensors}${subs}${coreG}</svg>`;
   }
 
-  window.DIAGRAM = { sensorMap, issueMap };
+  /* ==========================================================================
+     縱向關係圖（課堂練習：三層圖 應用層／傳輸層／感知層）
+     中軸 x=900：終端設備 → 物聯網閘道 → Wi-Fi 路由器 → 網際網路 → 雲端
+     viewBox 0 0 1680 700
+     ========================================================================== */
+  function layerMap() {
+    const id = "lm" + ++uid;
+    const X = 900;
+    const defs = `<defs>
+      <marker id="${id}-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 Z" class="lm-head"/>
+      </marker>
+    </defs>`;
+    const bands = [
+      ["app", 0, 200, ["應", "用", "層"], "跨領域整合", "五層架構：應用層、資料分析層、雲端計算層"],
+      ["net", 230, 420, ["傳", "輸", "層"], "醫學資訊", "五層架構：網路層"],
+      ["dev", 450, 700, ["感", "知", "層"], "醫學工程", "五層架構：感知層（終端設備與物聯網閘道）"],
+    ];
+    const bandSvg = bands
+      .map(([k, y0, y1, label, tag, note]) => {
+        const cy = (y0 + y1) / 2;
+        const name = label.map((c, i) => `<text class="lm-name" x="46" y="${cy + (i - 1) * 38}">${c}</text>`).join("");
+        return `<g class="lm-band ${k}">
+          <rect class="lm-plane" x="110" y="${y0}" width="1570" height="${y1 - y0}"/>
+          ${name}
+          <text class="lm-note" x="140" y="${y0 + 32}">${note}</text>
+          <text class="lm-tag" x="1656" y="${y0 + 34}">${tag}</text>
+        </g>`;
+      })
+      .join("");
+
+    const box = (x, y, w, h, t, sub, cls = "") =>
+      `<g class="lm-box ${cls}"><rect x="${x}" y="${y}" width="${w}" height="${h}"/>` +
+      `<text class="lm-t" x="${x + w / 2}" y="${sub ? y + h / 2 - 14 : y + h / 2}">${t}</text>` +
+      (sub ? `<text class="lm-s" x="${x + w / 2}" y="${y + h / 2 + 18}">${sub}</text>` : "") +
+      `</g>`;
+
+    /* ---- 應用層 */
+    const app = `<g class="lm-app">
+        ${box(190, 64, 420, 96, "數據分析", "個人作息、找異常、看趨勢")}
+        ${box(X - 210, 64, 420, 96, "雲端計算", "收事件、加密儲存（MQTT）", "hub")}
+        ${box(1190, 64, 420, 96, "應用", "家屬與室友通知、週報、119")}
+        <line class="lm-arrow" x1="${X - 212}" y1="112" x2="614" y2="112" marker-end="url(#${id}-ah)"/>
+        <line class="lm-arrow" x1="${X + 212}" y1="112" x2="1186" y2="112" marker-end="url(#${id}-ah)"/>
+      </g>`;
+
+    /* ---- 傳輸層 */
+    const net = `<g class="lm-net">
+        <rect class="lm-bus" x="140" y="282" width="1520" height="42" rx="21"/>
+        <text class="lm-bus-t" x="300" y="303">網際網路</text>
+        ${box(X - 150, 350, 300, 56, "Wi-Fi 路由器")}
+        ${box(1270, 350, 330, 56, "4G 基地台（斷網時）", "", "backup")}
+        <line class="lm-link" x1="${X}" y1="350" x2="${X}" y2="324"/>
+        <line class="lm-link dash" x1="1435" y1="350" x2="1435" y2="324"/>
+        <line class="lm-link" x1="${X}" y1="282" x2="${X}" y2="160"/>
+      </g>`;
+
+    /* ---- 感知層 */
+    const sensors = [["R", "雷達"], ["B", "床墊"], ["P", "紅外線"], ["D", "門磁"], ["H", "溫濕度"], ["C", "一氧化碳"], ["M", "血壓計"]];
+    const outputs = [["L", "夜燈"], ["S", "語音盒"], ["F", "排風扇"], ["V", "遮斷閥"]];
+    const sx = (i) => 200 + i * 120;
+    const ox = (i) => 1190 + i * 120;
+    const CY = 630;
+    const chip = (x, code, name, cls) =>
+      `<g class="lm-chip ${cls}" data-code="${code}"><circle cx="${x}" cy="${CY}" r="24"/>` +
+      `<text class="lm-code" x="${x}" y="${CY}">${code}</text><text class="lm-cname" x="${x}" y="${CY + 48}">${name}</text></g>`;
+    const gw = { x0: X - 210, x1: X + 210, y0: 492, y1: 552 };
+    const fan = (x, cls) => {
+      const tx = Math.max(gw.x0 + 20, Math.min(gw.x1 - 20, x));
+      return `<line class="lm-wire ${cls}" x1="${x}" y1="${CY - 26}" x2="${tx}" y2="${gw.y1}"/>`;
+    };
+    const dev = `<g class="lm-dev">
+        <g class="lm-wires">${sensors.map((_, i) => fan(sx(i), "in")).join("")}</g>
+        <g class="lm-wires-out">${outputs.map((_, i) => fan(ox(i), "out")).join("")}</g>
+        ${box(gw.x0, gw.y0, gw.x1 - gw.x0, gw.y1 - gw.y0, "物聯網閘道（Raspberry Pi 4）", "", "hub gw")}
+        <line class="lm-link" x1="${X}" y1="${gw.y0}" x2="${X}" y2="406"/>
+        <line class="lm-link dash" x1="${gw.x1}" y1="520" x2="1435" y2="406"/>
+        <text class="lm-wire-t" x="140" y="572">Zigbee／藍牙／UART</text>
+        <text class="lm-wire-t out" x="1660" y="572">控制</text>
+        ${sensors.map(([c, n], i) => chip(sx(i), c, n, "in")).join("")}
+        ${outputs.map(([c, n], i) => chip(ox(i), c, n, "out")).join("")}
+      </g>`;
+
+    /* ---- one reading goes up from the radar to the family's phone (drawn under the boxes) */
+    const flow = `<path class="lm-flowpath" d="M${sx(0)} ${CY - 26} L${X - 40} ${gw.y1} L${X} ${gw.y0} L${X} 112 L1400 112"/>
+      <circle class="lm-pulse" r="11" cx="0" cy="0"/>`;
+
+    return `<svg viewBox="0 0 1680 700" class="layer-map" role="img" aria-label="縱向關係圖：感知層、傳輸層、應用層">${defs}${bandSvg}${flow}${net}${app}${dev}</svg>`;
+  }
+
+  window.DIAGRAM = { sensorMap, issueMap, layerMap };
 })();

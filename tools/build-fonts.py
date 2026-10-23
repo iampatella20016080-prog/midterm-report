@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Subset the OFL fonts to the characters actually used and embed them.
 
-Scans index.html and src/*.js for characters, subsets each
+Scans index.html, final-draft.html and src/*.js for characters, subsets each
 font with fontTools, writes WOFF2 files to assets/fonts/ and a fonts.css
 that embeds them as base64 data URIs (so file:// opening works everywhere).
 
@@ -36,7 +36,7 @@ FONTS = [
     ("AZ Mono", 500, "ibm-plex-mono", "500Medium/IBMPlexMono_500Medium.ttf"),
 ]
 
-SCAN = ["index.html", "src/*.js"]
+SCAN = ["index.html", "final-draft.html", "src/*.js"]
 
 
 def used_chars():
