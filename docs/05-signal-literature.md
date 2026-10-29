@@ -16,8 +16,8 @@
 | # | 文獻 | 雷達 | 訊號圖與重點 |
 |---|---|---|---|
 | R1 | Jin F, Sengupta A, Cao S. (2022). mmFall: Fall detection using 4-D mmWave radar and a hybrid variational RNN autoencoder. *IEEE Trans Autom Sci Eng*, 19(2), 1245–1257. doi:10.1109/TASE.2020.3042158。全文：[arXiv 2003.02386](https://arxiv.org/abs/2003.02386) | 77 GHz（TI AWR1843） | **Fig. 7（有圖檔）**：藍線是身體重心高度，橘線是異常分數，橫軸約 100 秒。走路時重心在 1.1–1.4 公尺上下跳動；四種跌倒時重心在 1 秒左右掉到約 0.2–0.5 公尺，並停在低處幾秒；坐下、蹲下、彎腰也會讓重心降到約 0.5–0.8 公尺。**只看高度，坐下和跌倒很像**，所以作者再加上「動作突然變快」的異常分數，兩者同時出現才算跌倒。重心下降門檻 0.6 公尺；50 次跌倒偵測到 98%，誤報 2 次 |
-| R2 | Chen HH, Lin JD, Lin SH, Wu CW, Chen HC. (2026). Millimeter-wave technology for multi-person fall detection validated through wearable sensors and real-life scenarios. *Scientific Reports*, 16, 8859. doi:10.1038/s41598-026-40330-y。全文：[PMC12988233](https://pmc.ncbi.nlm.nih.gov/articles/PMC12988233/) | **60–64 GHz**（TI IWR6843） | 判斷分兩階段：先找「快速往下的動作＋姿勢變低」，再等身體穩定後確認最後的姿勢。**Fig. 9**：雷達量到的高度（z 軸）和穿戴式加速度計的訊號對照。1–10 人同時在場，準確度 97.9%；但做「像跌倒的日常動作」時準確度只有 76.8%（調整門檻後 86.5%）。10 位健康成人模擬 |
-| R3 | Diraco G, Leone A, Siciliano P. (2017). A radar-based smart sensor for unobtrusive elderly monitoring in ambient assisted living applications. *Biosensors*, 7(4), 55. doi:10.3390/bios7040055。全文：[PMC5746778](https://pmc.ncbi.nlm.nih.gov/articles/PMC5746778/) | UWB（4.3 GHz） | **Fig. 13**：一段連續紀錄，先越走越快、在樣本 T = 16,000 跌倒，之後一直躺著不動，到 T = 24,000 才起來。跌倒那一下和前面走路的訊號明顯不同。跌倒偵測敏感度 98.26%、特異度 91.75%。30 位健康受試者 |
+| R2 | Chen HH, Lin JD, Lin SH, Wu CW, Chen HC. (2026). Millimeter-wave technology for multi-person fall detection validated through wearable sensors and real-life scenarios. *Scientific Reports*, 16, 8859. doi:10.1038/s41598-026-40330-y。全文：[PMC12988233](https://pmc.ncbi.nlm.nih.gov/articles/PMC12988233/) | **60–64 GHz**（TI IWR6843） | 判斷分兩階段：先找「快速往下的動作＋姿勢變低」，再等身體穩定後確認最後的姿勢。**Fig. 9（有截圖）**：一次跌倒的 8 秒紀錄。橘線是穿戴式加速度計，約第 1.7–3 秒出現撞擊的尖峰；藍線是雷達量到的身體高度，從約 1.35 公尺開始往下，大約 2 秒內降到約 0.55 公尺，之後停在 0.4–0.5 公尺。雷達的高度變化比加速度計的撞擊慢 1–2 秒才出現，和論文說的偵測延遲約 3 秒一致。1–10 人同時在場，準確度 97.9%；但做「像跌倒的日常動作」時準確度只有 76.8%（調整門檻後 86.5%）。10 位健康成人模擬 |
+| R3 | Diraco G, Leone A, Siciliano P. (2017). A radar-based smart sensor for unobtrusive elderly monitoring in ambient assisted living applications. *Biosensors*, 7(4), 55. doi:10.3390/bios7040055。全文：[PMC5746778](https://pmc.ncbi.nlm.nih.gov/articles/PMC5746778/) | UWB（4.3 GHz） | **Fig. 13（有截圖）**：一段連續紀錄。上半是頻譜圖，下半藍線是人和雷達的距離、紅線是動作大小（0–1）。走路時紅線慢慢升高到約 0.4–0.6；T ≈ 16,000 跌倒時，頻譜圖出現一大塊正負都有的強烈訊號，紅線衝到最高 1.0；接著紅線在 T ≈ 17,500 掉到 **0**，一直維持到 T ≈ 23,500，藍線也變成一條水平線，代表人倒在同一個位置完全不動；最後紅線再升高，人起來了。不動的時間約 6,000 個樣本（以論文的 50 Hz 取樣換算約 2 分鐘，這是本組自己換算的）。跌倒偵測敏感度 98.26%、特異度 91.75%。30 位健康受試者 |
 | R4 | Hu S, Cao S, Toosizadeh N, et al. (2024). Radar-based fall detection: A survey. *IEEE Robotics & Automation Magazine*. doi:10.1109/MRA.2024.3352851。全文：[arXiv 2312.04037](https://arxiv.org/abs/2312.04037) | 綜論 | 整理 74 篇雷達跌倒研究。**Fig. 2（有圖檔 2a）**：雷達資料的四種樣子：頻譜圖（micro-Doppler）、距離－速度圖、距離－角度圖、點雲。2a 是走路的頻譜圖，手臂、軀幹、腿各自畫出不同的波紋 |
 | R10 | Amin MG, Zhang YD, Ahmad F, Ho KCD. (2016). Radar signal processing for elderly fall detection: The future for in-home monitoring. *IEEE Signal Processing Magazine*, 33(2), 71–80. doi:10.1109/MSP.2015.2502784。全文：[作者網站 PDF](http://yiminzhang.com/pdf0/spm15_fall.pdf) | 綜論（含浴室實測） | **Fig. 4（有圖檔）**：跌倒和日常動作的頻譜圖並排，每張 20 秒。**跌倒**是一道又高又尖的訊號（頻率衝到約 100–150 Hz，持續 1–2 秒），之後變成一條平線，代表人倒下後不動；**坐下站起、彎腰站起**只有幾個小波峰（約 30–60 Hz），而且有上有下；**快速彎腰**的波峰比較高，但很短、會重複出現。**Fig. 2（有圖檔）**：一次跌倒的頻譜圖。作者整理出跌倒的三個特徵：頻率最高值比較大、持續時間比較長、正負頻率比例比較大。**Table I**：資料在美國一間老人公寓的三間**浴室**錄的，雷達裝在浴室天花板上方，由專業特技演員模擬 19 種跌倒，其中 14 次是**失去意識倒下**（向前、向後、向左、向右、直直倒下），另外還有 14 種日常動作。原圖出自 Wu 2015、Su 2015 |
 | R11 | Yu X, Wang J, Jiang W. (2023). Environment-independent mmWave fall detection with interacting multiple model. arXiv:2311.08755（預印本） | **60 GHz**（TI IWR6843AOP） | **Fig. 4（有圖檔）**：三次真實跌倒，上到下是身體重心高度、垂直速度、垂直加速度、模型判斷、最後的跌倒判定。每次跌倒時，重心在約 1 秒內往下掉約 1.2 公尺，停在低處 2–3 秒後才起來；垂直速度掉到約每秒 −3 公尺，加速度掉到約 −6 到 −7 m/s²。作者引用的門檻：跌倒時垂直速度通常約每秒 3 公尺、加速度低於 −5 m/s²。3 位受試者、104 次跌倒，偵測率 96%、準確率 94% |
@@ -34,7 +34,7 @@
 | # | 文獻 | 雷達 | 訊號圖與重點 |
 |---|---|---|---|
 | R6 | Wang W, Li C, Chen Z, et al. (2024). Detection of sleep apnea-hypopnea events using millimeter-wave radar and pulse oximeter. arXiv:2409.19217（預印本） | **60 GHz**（Infineon BGT60TR13C） | **Fig. 2（有圖檔）**：一次阻塞型呼吸中止（約 18 秒）。左邊是醫院儀器：氣流變成一條平線、胸腹起伏變小，血氧在呼吸停止**之後**才往下掉（約 98% → 95%）。右邊是雷達：代表呼吸的那一層訊號在同一段時間明顯變暗，呼吸恢復後又亮回來。**Fig. 4**：只用雷達會漏掉部分「呼吸變淺」，只用血氧會漏掉中樞型呼吸中止，兩個一起用才全部抓到。100 位受試者在醫院睡眠檢查時同步錄，結合後準確度 97%（每小時 15 次的診斷門檻） |
-| R7 | Choi JW, Kim DH, Koo DL, et al. (2022). Automated detection of sleep apnea-hypopnea events based on 60 GHz frequency-modulated continuous-wave radar using convolutional recurrent neural networks. *Sensors*, 22(19), 7177. doi:10.3390/s22197177。全文：[PMC9570824](https://pmc.ncbi.nlm.nih.gov/articles/PMC9570824/) | **60 GHz**（裝在天花板，離胸口 2 公尺） | **Fig. 4**：從雷達訊號解出來的呼吸波形。**Fig. 6**：呼吸變淺、阻塞型中止、中樞型中止三種狀況的雷達波形。44 位受試者。**只用雷達時，呼吸事件只抓到 49.0–67.6%，每人誤報 23.4–52.8 次**，所以雷達的呼吸訊號不能單獨用來判斷 |
+| R7 | Choi JW, Kim DH, Koo DL, et al. (2022). Automated detection of sleep apnea-hypopnea events based on 60 GHz frequency-modulated continuous-wave radar using convolutional recurrent neural networks. *Sensors*, 22(19), 7177. doi:10.3390/s22197177。全文：[PMC9570824](https://pmc.ncbi.nlm.nih.gov/articles/PMC9570824/) | **60 GHz**（裝在天花板，離胸口 2 公尺） | **Fig. 4（有截圖）**：示意圖，說明雷達怎麼從胸口的微小移動算出呼吸波形，結果是一條上下起伏的曲線。**Fig. 6（有截圖）**：三個 60 秒的例子，每個從上到下是氣流、胸部起伏、**雷達**、模型判斷，橘框是真正發生呼吸事件的時間。(a) 呼吸變淺：三種訊號的起伏都變小。(b) 阻塞型中止（約 35 秒）：氣流變成平線，但胸部還有小起伏（還在用力呼吸），雷達也只剩很小的抖動，事件結束時雷達突然出現很大的波動。(c) **中樞型中止（約 30 秒）：氣流、胸部、雷達三條線都幾乎變平，雷達只剩一條緩慢飄移的線**，呼吸恢復後波形又回來。44 位受試者。**只用雷達時，呼吸事件只抓到 49.0–67.6%，每人誤報 23.4–52.8 次**，所以雷達的呼吸訊號不能單獨用來判斷 |
 | R8 | Alizadeh M, Shaker G, De Almeida JCM, et al. (2019). Remote monitoring of human vital signs using mm-wave FMCW radar. *IEEE Access*, 7, 54958–54968. doi:10.1109/ACCESS.2019.2912956 | 77 GHz | 雷達裝在床上方，從胸口的微小起伏量呼吸和心跳。和參考儀器比較，呼吸相關性 94%、心跳 80%（圖號待確認） |
 
 ### A4. 浴室裡的雷達
@@ -93,7 +93,7 @@
 
 | 文獻 | 重點 |
 |---|---|
-| He C, Liu S, Zhong G, et al. (2023). A non-contact fall detection method for bathroom application based on MEMS infrared sensors. *Micromachines*, 14(1), 130. doi:10.3390/mi14010130（[PMC9867492](https://pmc.ncbi.nlm.nih.gov/articles/PMC9867492/)） | 浴室專用。PIR 只對人移動造成的紅外線變化有反應，有動作時輸出 1、維持 2 秒。**Fig. 13**：跌倒後身體區域往下移，之後維持穩定。單用一個紅外線或 PIR 很難判斷跌倒。準確度 92.81%，環境溫度越高越不準 |
+| He C, Liu S, Zhong G, et al. (2023). A non-contact fall detection method for bathroom application based on MEMS infrared sensors. *Micromachines*, 14(1), 130. doi:10.3390/mi14010130（[PMC9867492](https://pmc.ncbi.nlm.nih.gov/articles/PMC9867492/)） | 浴室專用。PIR 只對人移動造成的紅外線變化有反應，有動作時輸出 1、維持 2 秒。**Fig. 13（有截圖）**：32 × 32 的熱像格子，紅色是人。跌倒前人在第 15–29 列（中心約第 22 列），跌倒後移到第 4–12 列（中心約第 8 列），而且紅色格子變少（人離感測器比較遠）。單用一個紅外線或 PIR 很難判斷跌倒。準確度 92.81%，環境溫度越高越不準 |
 | Meng F, Liu T, Meng C, et al. (2024). Method of bed exit intention based on the internal pressure features in array air spring mattress. *Scientific Reports*, 14, 27273. doi:10.1038/s41598-024-78903-4 | **Fig. 6**：八種狀態的壓力時間序列（躺著、床上坐起、床邊坐、沒人、抬背、轉身、離床、跌下床）。躺著直接變成離床判斷為跌落。測試集 99.44%、實際情境 93.5% |
 | Subermaniam K, et al. (2017). *Front Public Health*, 4, 292. doi:10.3389/fpubh.2016.00292（[PMC5220104](https://pmc.ncbi.nlm.nih.gov/articles/PMC5220104/)） | 單用離床墊：119 次警報中 32% 是誤報 |
 | Qi P, Gong S, Jiang N, et al. (2023). *Sensors*, 23(7), 3675. doi:10.3390/s23073675（[PMC10098849](https://pmc.ncbi.nlm.nih.gov/articles/PMC10098849)） | 床墊下的感測條量得到呼吸的週期訊號；呼吸中止時波形相似度長時間低於 40% |
@@ -125,26 +125,25 @@
 | `amin2016-fig4-fall-vs-adl.png` | Amin 2016（R10）Fig. 4 | 上面四張是跌倒，下面四張是坐下、彎腰。跌倒是一道很高的尖峰，然後變平線；坐下、彎腰只有小波峰 |
 | `amin2016-fig2-fall-spectrogram.png` | Amin 2016（R10）Fig. 2 | 一次跌倒的頻譜圖，約第 4–6 秒出現往上衝的訊號 |
 | `yu2023-fade-fig4.png` | Yu 2023（R11）Fig. 4 | 三次跌倒：重心高度往下掉、垂直速度和加速度同時出現向下的尖峰，三個條件都成立才判定跌倒 |
+| `diraco2017-fig13.png`（截圖） | Diraco 2017（R3）Figure 13 | 紅線是動作大小。跌倒那一下衝到最高，接著掉到 0，維持很久都不動，藍線也變成水平線，代表人倒在原地。這就是「昏倒沒反應」在雷達上的樣子 |
+| `choi2022-fig6.png`（截圖） | Choi 2022（R7）Figure 6 | 看第三行雷達。右邊中樞型中止時，雷達線幾乎變平，呼吸恢復才又起伏 |
+| `choi2022-fig4.png`（截圖） | Choi 2022（R7）Figure 4 | 雷達從胸口很小的移動，算出一條上下起伏的呼吸曲線 |
+| `chen2026-fig9.png`（截圖） | Chen 2026（R2）Fig. 9 | 藍線是 60 GHz 雷達量的身體高度，跌倒時約 2 秒從 1.35 公尺降到 0.5 公尺 |
+| `he2023-fig13.png`（截圖） | He 2023 Figure 13 | 浴室熱像：跌倒後紅色的人往下移、變小 |
 | `hu2024-fig2a-microdoppler.png` | Hu 2024（R4）Fig. 2a（原圖出自該文獻的參考資料 [52]） | 雷達的頻譜圖：走路時手、軀幹、腳各有不同的波紋 |
 
 圖檔沒有放進 repository（著作權屬於原作者）。課堂報告引用時，在圖下方註明作者、年份、圖號。
 
 ---
 
-## F2. 需要自己截圖的圖
+## F2. 還缺的圖
 
-這些論文的圖放在 PubMed Central 或出版社網站，網站對程式下載有驗證，所以要用瀏覽器打開、自己截圖。截好傳給我，我會核對內容並寫進簡報。
+Diraco 2017 Fig. 13、Choi 2022 Fig. 4 與 Fig. 6、Chen 2026 Fig. 9、He 2023 Fig. 13 已經由報告人截圖（2026-10-29）。還缺：
 
-| 優先 | 文獻 | 截哪一張 | 為什麼需要 |
-|---|---|---|---|
-| 1 | Diraco 2017（R3）[PMC5746778](https://pmc.ncbi.nlm.nih.gov/articles/PMC5746778/) | **Figure 13** | 走路 → 跌倒 → 躺著不動 → 起來，一張圖講完整段，最適合「昏倒沒反應」 |
-| 2 | Choi 2022（R7）[PMC9570824](https://pmc.ncbi.nlm.nih.gov/articles/PMC9570824/) | **Figure 6**（還有 Figure 4） | 60 GHz 雷達在呼吸變淺、呼吸中止時的波形 |
-| 3 | Chen 2026（R2）[PMC12988233](https://pmc.ncbi.nlm.nih.gov/articles/PMC12988233/) | **Fig. 9** | 60 GHz 雷達量到的高度和穿戴式感測器對照 |
-| 4 | He 2023（紅外線）[PMC9867492](https://pmc.ncbi.nlm.nih.gov/articles/PMC9867492/) | **Figure 13** | 浴室裡跌倒後，熱像上的人往下移後不動 |
-| 5 | Meng 2024（床墊）[doi:10.1038/s41598-024-78903-4](https://doi.org/10.1038/s41598-024-78903-4) | **Fig. 6** | 八種在床上的狀態（含跌下床）的壓力曲線 |
-| 6 | Alizadeh 2019（R8）[doi:10.1109/ACCESS.2019.2912956](https://doi.org/10.1109/ACCESS.2019.2912956) | 呼吸波形那張圖 | 我還沒確認圖號，截圖時順便告訴我是 Fig. 幾 |
-
-截圖時請把圖說（Fig. X 那一行）一起截進去。
+| 文獻 | 截哪一張 | 用途 |
+|---|---|---|
+| Meng 2024（床墊）[doi:10.1038/s41598-024-78903-4](https://doi.org/10.1038/s41598-024-78903-4) | **Fig. 6** | 八種在床上的狀態（含跌下床）的壓力曲線 |
+| Alizadeh 2019（R8）[doi:10.1109/ACCESS.2019.2912956](https://doi.org/10.1109/ACCESS.2019.2912956) | 呼吸波形那張 | 圖號還沒確認；Choi 2022 Fig. 6 已經有雷達呼吸波形，這張可以不用 |
 
 ---
 
