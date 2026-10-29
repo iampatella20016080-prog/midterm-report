@@ -35,7 +35,7 @@
 |---|---|---|---|
 | R6 | Wang W, Li C, Chen Z, et al. (2024). Detection of sleep apnea-hypopnea events using millimeter-wave radar and pulse oximeter. arXiv:2409.19217（預印本） | **60 GHz**（Infineon BGT60TR13C） | **Fig. 2（有圖檔）**：一次阻塞型呼吸中止（約 18 秒）。左邊是醫院儀器：氣流變成一條平線、胸腹起伏變小，血氧在呼吸停止**之後**才往下掉（約 98% → 95%）。右邊是雷達：代表呼吸的那一層訊號在同一段時間明顯變暗，呼吸恢復後又亮回來。**Fig. 4**：只用雷達會漏掉部分「呼吸變淺」，只用血氧會漏掉中樞型呼吸中止，兩個一起用才全部抓到。100 位受試者在醫院睡眠檢查時同步錄，結合後準確度 97%（每小時 15 次的診斷門檻） |
 | R7 | Choi JW, Kim DH, Koo DL, et al. (2022). Automated detection of sleep apnea-hypopnea events based on 60 GHz frequency-modulated continuous-wave radar using convolutional recurrent neural networks. *Sensors*, 22(19), 7177. doi:10.3390/s22197177。全文：[PMC9570824](https://pmc.ncbi.nlm.nih.gov/articles/PMC9570824/) | **60 GHz**（裝在天花板，離胸口 2 公尺） | **Fig. 4（有截圖）**：示意圖，說明雷達怎麼從胸口的微小移動算出呼吸波形，結果是一條上下起伏的曲線。**Fig. 6（有截圖）**：三個 60 秒的例子，每個從上到下是氣流、胸部起伏、**雷達**、模型判斷，橘框是真正發生呼吸事件的時間。(a) 呼吸變淺：三種訊號的起伏都變小。(b) 阻塞型中止（約 35 秒）：氣流變成平線，但胸部還有小起伏（還在用力呼吸），雷達也只剩很小的抖動，事件結束時雷達突然出現很大的波動。(c) **中樞型中止（約 30 秒）：氣流、胸部、雷達三條線都幾乎變平，雷達只剩一條緩慢飄移的線**，呼吸恢復後波形又回來。44 位受試者。**只用雷達時，呼吸事件只抓到 49.0–67.6%，每人誤報 23.4–52.8 次**，所以雷達的呼吸訊號不能單獨用來判斷 |
-| R8 | Alizadeh M, Shaker G, De Almeida JCM, et al. (2019). Remote monitoring of human vital signs using mm-wave FMCW radar. *IEEE Access*, 7, 54958–54968. doi:10.1109/ACCESS.2019.2912956 | 77 GHz | 雷達裝在床上方，從胸口的微小起伏量呼吸和心跳。和參考儀器比較，呼吸相關性 94%、心跳 80%（圖號待確認） |
+| R8 | Alizadeh M, Shaker G, De Almeida JCM, et al. (2019). Remote monitoring of human vital signs using mm-wave FMCW radar. *IEEE Access*, 7, 54958–54968. doi:10.1109/ACCESS.2019.2912956 | 77 GHz | 雷達裝在床上方，從胸口的微小起伏量呼吸和心跳。和參考儀器比較，呼吸相關性 94%、心跳 80%。**Figure 7（有截圖）**：約 13 秒的呼吸波形和心跳波形。呼吸讓胸口前後移動約 2–4 毫米，這個例子大約每 1.6 秒起伏一次；心跳造成的移動不到 1 毫米，比呼吸小很多，所以心跳比呼吸難量 |
 
 ### A4. 浴室裡的雷達
 
@@ -82,7 +82,7 @@
 | 毫米波雷達：動作速度（頻譜圖） | 走路有規律的波紋（R4 Fig. 2a）；坐下、彎腰只有小波峰（約 30–60 Hz），有上有下（R10 Fig. 4） | 一道又高又尖的訊號（約 100–150 Hz、1–2 秒，R10 Fig. 4）；垂直速度約每秒 −3 公尺（R11 Fig. 4） | 尖峰之後變成一條平線，人不動（R10 Fig. 4、R3 Fig. 13）；R10 的資料包含失去意識倒下 |
 | 毫米波雷達：呼吸 | 胸口規律起伏，雷達量得到（R8） | 跌倒後躺著時，呼吸還量得到，準確度 93%（R3） | 呼吸那層訊號變暗或消失（R6 Fig. 2）。但雷達單獨判斷呼吸事件只抓到約五到七成（R7），要搭配其他訊號 |
 | 紅外線 | 有人經過就輸出訊號（約 2 秒），人不動就沒有訊號（He 2023） | 跌倒那一下有訊號，之後就沒有 | （同學情境沒用） |
-| 床墊壓力 | 躺著時壓力穩定；正常下床：躺著 → 抬背 → 轉身 → 離床（Meng 2024） | 躺著直接變成沒人，中間沒有抬背、轉身，判斷為跌下床（Meng 2024） | （同學情境沒用） |
+| 床墊壓力 | 躺著時壓力穩定；正常下床：躺著 → 抬背 → 轉身 → 離床，坐床邊時壓力很高，離開時突然掉到 0（Meng 2024 Fig. 6g） | 從躺著先出現一個尖峰，很快掉到 0，中間沒有抬背、轉身（Meng 2024 Fig. 6h） | （同學情境沒用） |
 | 語音確認 | 問了有回應 → 取消 | 跌倒後問，有回應就不打擾家人，減少誤報（V1） | 問了沒回應 → 通知。80% 跌倒時不會自己按求救鈕（V2），所以要系統主動問 |
 
 紅外線、床墊壓力的文獻見 D 節。
@@ -94,7 +94,7 @@
 | 文獻 | 重點 |
 |---|---|
 | He C, Liu S, Zhong G, et al. (2023). A non-contact fall detection method for bathroom application based on MEMS infrared sensors. *Micromachines*, 14(1), 130. doi:10.3390/mi14010130（[PMC9867492](https://pmc.ncbi.nlm.nih.gov/articles/PMC9867492/)） | 浴室專用。PIR 只對人移動造成的紅外線變化有反應，有動作時輸出 1、維持 2 秒。**Fig. 13（有截圖）**：32 × 32 的熱像格子，紅色是人。跌倒前人在第 15–29 列（中心約第 22 列），跌倒後移到第 4–12 列（中心約第 8 列），而且紅色格子變少（人離感測器比較遠）。單用一個紅外線或 PIR 很難判斷跌倒。準確度 92.81%，環境溫度越高越不準 |
-| Meng F, Liu T, Meng C, et al. (2024). Method of bed exit intention based on the internal pressure features in array air spring mattress. *Scientific Reports*, 14, 27273. doi:10.1038/s41598-024-78903-4 | **Fig. 6**：八種狀態的壓力時間序列（躺著、床上坐起、床邊坐、沒人、抬背、轉身、離床、跌下床）。躺著直接變成離床判斷為跌落。測試集 99.44%、實際情境 93.5% |
+| Meng F, Liu T, Meng C, et al. (2024). Method of bed exit intention based on the internal pressure features in array air spring mattress. *Scientific Reports*, 14, 27273. doi:10.1038/s41598-024-78903-4 | **Fig. 6（有截圖）**：八種狀態的壓力曲線，數值都縮放到 0–1。**(g) 正常離床**：人坐在床邊時壓力一直很高（約 1.0），第 24 個時間點突然掉到接近 0，之後維持在 0。**(h) 跌下床**：本來躺著（約 0.3），先出現一個很高的尖峰（約 1.0），接著幾個時間點內掉到 0，之後一直是 0。**差別：正常離床前會先經過坐起、坐在床邊；跌下床是從躺著直接變成沒人，中間還有一個尖峰。**(e) 抬背坐起：壓力從約 0.1 升到約 0.7–1.0。(f) 轉身：壓力劇烈跳動後降到約 0.15。測試集 99.44%、實際情境 93.5% |
 | Subermaniam K, et al. (2017). *Front Public Health*, 4, 292. doi:10.3389/fpubh.2016.00292（[PMC5220104](https://pmc.ncbi.nlm.nih.gov/articles/PMC5220104/)） | 單用離床墊：119 次警報中 32% 是誤報 |
 | Qi P, Gong S, Jiang N, et al. (2023). *Sensors*, 23(7), 3675. doi:10.3390/s23073675（[PMC10098849](https://pmc.ncbi.nlm.nih.gov/articles/PMC10098849)） | 床墊下的感測條量得到呼吸的週期訊號；呼吸中止時波形相似度長時間低於 40% |
 
@@ -130,20 +130,17 @@
 | `choi2022-fig4.png`（截圖） | Choi 2022（R7）Figure 4 | 雷達從胸口很小的移動，算出一條上下起伏的呼吸曲線 |
 | `chen2026-fig9.png`（截圖） | Chen 2026（R2）Fig. 9 | 藍線是 60 GHz 雷達量的身體高度，跌倒時約 2 秒從 1.35 公尺降到 0.5 公尺 |
 | `he2023-fig13.png`（截圖） | He 2023 Figure 13 | 浴室熱像：跌倒後紅色的人往下移、變小 |
+| `meng2024-fig6.png`（截圖） | Meng 2024 Fig. 6 | 看最下面兩張：正常離床是平穩的高壓突然掉到 0；跌下床是先出現一個尖峰再掉到 0，而且前面沒有坐起來的過程 |
+| `alizadeh2019-fig7.png`（截圖） | Alizadeh 2019（R8）Figure 7 | 雷達量到的胸口移動：呼吸約 2–4 毫米，心跳不到 1 毫米 |
 | `hu2024-fig2a-microdoppler.png` | Hu 2024（R4）Fig. 2a（原圖出自該文獻的參考資料 [52]） | 雷達的頻譜圖：走路時手、軀幹、腳各有不同的波紋 |
 
 圖檔沒有放進 repository（著作權屬於原作者）。課堂報告引用時，在圖下方註明作者、年份、圖號。
 
 ---
 
-## F2. 還缺的圖
+## F2. 報告人截的圖
 
-Diraco 2017 Fig. 13、Choi 2022 Fig. 4 與 Fig. 6、Chen 2026 Fig. 9、He 2023 Fig. 13 已經由報告人截圖（2026-10-29）。還缺：
-
-| 文獻 | 截哪一張 | 用途 |
-|---|---|---|
-| Meng 2024（床墊）[doi:10.1038/s41598-024-78903-4](https://doi.org/10.1038/s41598-024-78903-4) | **Fig. 6** | 八種在床上的狀態（含跌下床）的壓力曲線 |
-| Alizadeh 2019（R8）[doi:10.1109/ACCESS.2019.2912956](https://doi.org/10.1109/ACCESS.2019.2912956) | 呼吸波形那張 | 圖號還沒確認；Choi 2022 Fig. 6 已經有雷達呼吸波形，這張可以不用 |
+Diraco 2017 Fig. 13、Choi 2022 Fig. 4 與 Fig. 6、Chen 2026 Fig. 9、He 2023 Fig. 13、Meng 2024 Fig. 6、Alizadeh 2019 Figure 7 由報告人截圖（2026-10-29），內容已核對圖說。需要的圖都齊了。
 
 ---
 
