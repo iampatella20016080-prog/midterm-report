@@ -350,7 +350,7 @@ body { font-family: var(--f-sans); }
   font-size: 46px;
   letter-spacing: 0.06em;
 }
-#s-cover .sub {
+#s-cover .sub, #s-fcover .sub {
   position: absolute;
   left: 0;
   right: 0;
@@ -360,7 +360,7 @@ body { font-family: var(--f-sans); }
   color: var(--fg2);
   letter-spacing: 0.04em;
 }
-#s-cover .meta {
+#s-cover .meta, #s-fcover .meta {
   position: absolute;
   left: 120px;
   right: 120px;
@@ -372,9 +372,9 @@ body { font-family: var(--f-sans); }
   color: var(--fg2);
   line-height: 1.6;
 }
-#s-cover .meta .r { text-align: right; }
-#s-cover .meta .mono { font-size: 20px; color: var(--fg3); letter-spacing: 0.08em; }
-#s-cover .meta-rule { left: 120px; right: 120px; bottom: 176px; width: auto; }
+#s-cover .meta .r, #s-fcover .meta .r { text-align: right; }
+#s-cover .meta .mono, #s-fcover .meta .mono { font-size: 20px; color: var(--fg3); letter-spacing: 0.08em; }
+#s-cover .meta-rule, #s-fcover .meta-rule { left: 120px; right: 120px; bottom: 176px; width: auto; }
 
 /* ---------- 背景資料 A */
 #s-evA .chain { position: absolute; left: 120px; right: 120px; top: 300px; height: 560px; }
@@ -913,3 +913,166 @@ body.print #viewport { position: relative; width: 1920px; height: 1080px; }
 body.print #stage { transform: none !important; }
 
 @page { size: 1920px 1080px; margin: 0; }
+
+/* ==========================================================================
+   期末報告草稿（final-draft.html）：毫米波雷達＋語音確認
+   ========================================================================== */
+
+/* 文獻圖：白底、出處寫在圖下；圖檔不在 repository 時顯示出處 */
+.lit { position: absolute; margin: 0; padding: 14px; background: #fff; border: 1px solid var(--line); }
+.lit img { display: block; }
+.lit figcaption { position: absolute; left: 0; right: 0; top: 100%; margin-top: 10px; font-size: 17px; line-height: 1.45; color: var(--fg3); }
+.lit figcaption b { color: var(--fg2); font-weight: 600; }
+.lit.tall { left: 120px; top: 238px; }
+.lit.tall img { height: 640px; width: auto; }
+.lit.missing img { display: none; }
+.lit.missing { display: flex; align-items: center; justify-content: center; background: var(--panel); border-style: dashed; }
+.lit.missing::before { content: "圖：" attr(data-fig) "\A（圖檔放在 final/figures/）"; white-space: pre; text-align: center; font-size: 26px; line-height: 1.6; color: var(--fg3); }
+.lit.tall.missing { width: 500px; height: 668px; }
+
+/* 聚焦 */
+#s-focus .fc-cards { position: absolute; left: 120px; right: 120px; top: 276px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+#s-focus .fc { display: grid; grid-template-columns: 88px 1fr; column-gap: 28px; padding: 34px 0; border-top: 3px solid var(--fg); }
+#s-focus .fc .n { grid-row: span 2; width: 72px; height: 72px; border-radius: 50%; background: var(--verm); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: 34px; font-weight: 500; }
+#s-focus .fc .t { font-family: var(--f-serif); font-weight: 600; font-size: 50px; line-height: 1.2; }
+#s-focus .fc .d { font-size: 29px; line-height: 1.5; color: var(--fg2); margin-top: 10px; }
+#s-focus .fc-sense { position: absolute; left: 120px; right: 120px; top: 620px; display: grid; grid-template-columns: 260px 1fr 80px 1fr; align-items: center; gap: 28px; }
+#s-focus .fc-sense .k { font-size: 24px; letter-spacing: 0.08em; color: var(--fg3); }
+#s-focus .fc-sense .s { padding: 26px 32px; background: var(--ink); color: var(--paper); border-radius: 6px; }
+#s-focus .fc-sense .s b { display: block; font-size: 40px; font-weight: 700; }
+#s-focus .fc-sense .s > span { display: block; font-size: 26px; color: #c9c2b6; margin-top: 6px; }
+#s-focus .fc-sense .plus { font-size: 56px; text-align: center; color: var(--fg3); }
+#s-focus .fc-note { position: absolute; left: 120px; right: 120px; top: 880px; font-size: 26px; color: var(--fg3); }
+
+/* 雷達量到什麼 */
+#s-radar .lit { left: 120px; top: 246px; }
+#s-radar .lit img { height: 590px; width: auto; }
+#s-radar .lit.missing { width: 590px; height: 618px; }
+#s-radar .rq { position: absolute; left: 820px; right: 120px; top: 270px; }
+#s-radar .rq .r { padding: 30px 0 30px 30px; border-left: 4px solid var(--amber); margin-bottom: 26px; }
+#s-radar .rq .r b { display: block; font-size: 40px; font-weight: 700; }
+#s-radar .rq .r > span { display: block; font-size: 29px; line-height: 1.45; color: var(--fg2); margin-top: 6px; }
+#s-radar .rq-note { font-size: 27px; color: var(--fg3); margin-top: 20px; }
+
+/* 訊號怎麼收集 */
+#s-collect .pipe { position: absolute; left: 120px; right: 120px; top: 276px; display: grid; grid-template-columns: 300px 1fr 300px 1fr 300px; align-items: center; }
+#s-collect .pn { padding: 22px 26px; border: 2px solid var(--fg); border-radius: 6px; }
+#s-collect .pn.hub { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+#s-collect .pn b { display: block; font-size: 32px; font-weight: 700; }
+#s-collect .pn > span { display: block; font-size: 23px; color: var(--fg2); margin-top: 4px; }
+#s-collect .pn.hub > span { color: #c9c2b6; }
+#s-collect .pa { position: relative; height: 3px; margin: 0 14px; background: var(--slate); }
+#s-collect .pa::after { content: ""; position: absolute; right: -6px; top: -6px; border-left: 12px solid var(--slate); border-top: 7.5px solid transparent; border-bottom: 7.5px solid transparent; }
+#s-collect .pa span { position: absolute; left: 0; right: 0; bottom: 14px; text-align: center; font-size: 21px; color: var(--fg3); white-space: nowrap; }
+#s-collect .pipe-voice { position: absolute; left: 810px; width: 300px; top: 448px; padding: 16px 22px; border: 2px dashed var(--line-strong); border-radius: 6px; }
+#s-collect .pipe-voice::before { content: ""; position: absolute; left: 50%; top: -38px; height: 36px; border-left: 2px dashed var(--line-strong); }
+#s-collect .pipe-voice b { display: block; font-size: 28px; font-weight: 700; }
+#s-collect .pipe-voice > span { display: block; font-size: 21px; line-height: 1.4; color: var(--fg2); margin-top: 4px; }
+#s-collect .stbl { position: absolute; left: 120px; right: 120px; top: 590px; }
+#s-collect .sr { display: grid; grid-template-columns: 520px 400px 1fr; gap: 36px; padding: 17px 0; border-top: 1px solid var(--line); font-size: 29px; color: var(--fg2); align-items: baseline; }
+#s-collect .sr:last-child { border-bottom: 1px solid var(--line); }
+#s-collect .sr.th { border-top: none; padding-bottom: 8px; font-size: 21px; letter-spacing: 0.08em; color: var(--fg3); }
+#s-collect .sr .s { font-weight: 700; color: var(--fg); }
+#s-collect .pipe-note { position: absolute; left: 120px; right: 120px; top: 924px; font-size: 25px; color: var(--fg3); }
+
+/* 文獻圖旁的觀察 */
+.obs { position: absolute; right: 120px; top: 262px; }
+#s-fspec .obs { left: 700px; }
+#s-fheight .obs { left: 620px; }
+#s-fspeed .obs { left: 740px; }
+.obs .o { padding: 22px 0 22px 30px; border-left: 4px solid var(--line-strong); margin-bottom: 24px; }
+.obs .o.fall { border-left-color: var(--verm); }
+.obs .o.warn { border-left-color: var(--amber); }
+.obs .o.src { border-left: none; padding-left: 0; }
+.obs .tg { font-size: 23px; letter-spacing: 0.04em; color: var(--fg3); margin-bottom: 6px; }
+.obs .tx { font-size: 32px; line-height: 1.45; font-weight: 500; }
+.obs .o.src .tx { font-size: 27px; font-weight: 400; color: var(--fg2); }
+.obs .tx b { color: var(--alert-text); }
+
+/* 倒地不動 */
+#s-still .lit { left: 120px; top: 240px; }
+#s-still .lit img { width: 1080px; height: auto; }
+#s-still .lit.missing { width: 1108px; height: 565px; }
+#s-still .seq { position: absolute; left: 1290px; right: 120px; top: 250px; }
+#s-still .sq { display: grid; grid-template-columns: 60px 1fr; gap: 20px; align-items: center; padding: 20px 0; border-top: 1px solid var(--line); }
+#s-still .sq:last-child { border-bottom: 1px solid var(--line); }
+#s-still .sq .nm { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--fg); display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: 22px; font-weight: 500; }
+#s-still .sq .tx { font-size: 30px; line-height: 1.35; font-weight: 500; }
+#s-still .sq.fall .nm { background: var(--verm); border-color: var(--verm); color: #fff; }
+#s-still .sq.still .nm { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+#s-still .sq.still .tx { color: var(--alert-text); font-weight: 700; }
+#s-still .seq-note { position: absolute; left: 120px; right: 120px; top: 880px; font-size: 26px; line-height: 1.5; color: var(--fg2); }
+
+/* 呼吸 */
+#s-breath .lit { left: 310px; top: 236px; }
+#s-breath .lit img { width: 1272px; height: auto; }
+#s-breath .lit.missing { width: 1300px; height: 480px; }
+#s-breath .cols3 { position: absolute; left: 310px; width: 1300px; top: 790px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
+#s-breath .cols3 .c { padding-top: 12px; border-top: 3px solid var(--line-strong); }
+#s-breath .cols3 .c.hot { border-top-color: var(--verm); }
+#s-breath .cols3 b { display: block; font-size: 30px; font-weight: 700; }
+#s-breath .cols3 .c > span { display: block; font-size: 25px; line-height: 1.4; color: var(--fg2); margin-top: 4px; }
+#s-breath .cols3 .c.hot > span { color: var(--alert-text); }
+#s-breath .warnline { position: absolute; left: 310px; width: 1300px; top: 930px; font-size: 25px; color: var(--fg2); }
+
+/* 語音確認的文獻 */
+#s-voice .stats { position: absolute; left: 120px; right: 120px; top: 330px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 44px; }
+#s-voice .st { border-top: 3px solid var(--fg); padding-top: 28px; }
+#s-voice .st .big { font-family: var(--f-serif); font-weight: 700; font-size: 96px; line-height: 1.1; color: var(--fg); white-space: nowrap; }
+#s-voice .st .big small { font-size: 0.45em; font-weight: 600; color: var(--fg2); }
+#s-voice .st .tx { font-size: 31px; line-height: 1.5; color: var(--fg2); margin-top: 26px; }
+#s-voice .stats-note { position: absolute; left: 120px; right: 120px; top: 760px; font-size: 28px; color: var(--fg2); padding-left: 24px; border-left: 4px solid var(--amber); }
+
+/* 對照表 */
+#s-ftable .ctbl { position: absolute; left: 120px; right: 120px; top: 270px; }
+#s-ftable .cr { display: grid; grid-template-columns: 230px 1fr 1fr 1fr; gap: 32px; padding: 26px 0; border-top: 1px solid var(--line); font-size: 29px; line-height: 1.4; color: var(--fg2); align-items: baseline; }
+#s-ftable .cr:last-child { border-bottom: 1px solid var(--line); }
+#s-ftable .cr.th { border-top: none; padding-bottom: 10px; font-size: 24px; letter-spacing: 0.08em; color: var(--fg3); }
+#s-ftable .cr .k { font-size: 32px; font-weight: 700; color: var(--fg); }
+#s-ftable .cr > div:nth-child(3) { color: var(--fg); }
+#s-ftable .cr > div:nth-child(4) { color: var(--alert-text); font-weight: 500; }
+#s-ftable .cr.th > div { color: var(--fg3) !important; font-weight: 400 !important; }
+
+/* 判斷流程 */
+#s-logic .dflow { position: absolute; left: 120px; right: 120px; top: 290px; display: grid; grid-template-columns: 1.25fr 44px 0.85fr 44px 0.85fr 44px 1.35fr 44px 1fr; align-items: start; }
+#s-logic .fs { padding-top: 20px; border-top: 3px solid var(--fg); }
+#s-logic .fs.ask { border-top-color: var(--amber); }
+#s-logic .fs.alert { border-top-color: var(--verm); }
+#s-logic .fs .nm { font-family: var(--f-mono); font-size: 26px; font-weight: 500; color: var(--fg3); }
+#s-logic .fs .t { font-size: 32px; font-weight: 700; line-height: 1.3; margin-top: 8px; }
+#s-logic .fs .d { font-size: 24px; line-height: 1.45; color: var(--fg2); margin-top: 10px; }
+#s-logic .fa { position: relative; height: 3px; margin-top: 64px; }
+#s-logic .fa::before { content: ""; position: absolute; left: 6px; right: 12px; top: 0; height: 3px; background: var(--slate); }
+#s-logic .fa::after { content: ""; position: absolute; right: 2px; top: -6px; border-left: 12px solid var(--slate); border-top: 7.5px solid transparent; border-bottom: 7.5px solid transparent; }
+#s-logic .flow-out { position: absolute; left: 120px; right: 120px; top: 660px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 36px; }
+#s-logic .fo { padding: 26px 30px; background: var(--panel); border-radius: 6px; }
+#s-logic .fo.hot { background: var(--verm); color: #fff; }
+#s-logic .fo b { display: block; font-size: 30px; font-weight: 700; }
+#s-logic .fo > span { display: block; font-size: 27px; margin-top: 8px; color: var(--fg2); }
+#s-logic .fo.hot > span { color: #fff; }
+
+/* 一般做法 vs 本設計 */
+#s-innov .itbl { position: absolute; left: 120px; right: 120px; top: 260px; }
+#s-innov .ir { display: grid; grid-template-columns: 620px 340px 1fr; gap: 40px; padding: 21px 0; border-top: 1px solid var(--line); font-size: 28px; line-height: 1.4; align-items: baseline; }
+#s-innov .ir:last-child { border-bottom: 1px solid var(--line); }
+#s-innov .ir.th { border-top: none; padding-bottom: 10px; font-size: 22px; letter-spacing: 0.08em; color: var(--fg3); }
+#s-innov .ir .p { font-weight: 700; }
+#s-innov .ir .n { color: var(--fg3); }
+#s-innov .ir .m { padding-left: 20px; border-left: 4px solid var(--amber); font-weight: 500; }
+
+/* 限制與下一步 */
+#s-flimits .lim2 { position: absolute; left: 120px; top: 280px; width: 1000px; }
+#s-flimits .next2 { position: absolute; left: 1220px; right: 120px; top: 280px; }
+#s-flimits .lr { padding: 22px 0; border-top: 1px solid var(--line); font-size: 30px; line-height: 1.45; }
+#s-flimits .lim2 .lr:last-child { border-bottom: 1px solid var(--line); }
+#s-flimits .lr.th { border-top: none; padding-bottom: 10px; font-size: 22px; letter-spacing: 0.1em; color: var(--fg3); }
+#s-flimits .nx2 { display: grid; grid-template-columns: 56px 1fr; gap: 18px; align-items: start; padding: 22px 0; border-top: 1px solid var(--line); font-size: 30px; line-height: 1.45; }
+#s-flimits .nx2 .nm { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--fg); display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: 20px; font-weight: 500; margin-top: 2px; }
+
+/* 參考資料 */
+#s-frefs .list { position: absolute; left: 120px; right: 120px; top: 236px; columns: 2; column-gap: 64px; }
+#s-frefs .ref { break-inside: avoid; display: grid; grid-template-columns: 44px 1fr; gap: 8px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 16px; line-height: 1.45; color: var(--fg2); }
+#s-frefs .ref .i { font-family: var(--f-mono); color: var(--fg); font-weight: 500; }
+#s-frefs .ref b { color: var(--fg); font-weight: 500; }
+#s-frefs .note { position: absolute; left: 120px; right: 120px; bottom: 96px; font-size: 16px; color: var(--fg3); line-height: 1.6; }
+

@@ -314,6 +314,9 @@
     tl.fromTo(S.q(".q .ch"), { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 1.0, ease: E.enter, stagger: 0.09 }, 0.3);
     S.fade(".eyebrow", 0.6, { y: 8 });
     S.lines(".name .line", 1.2);
+    S.lines(".sub .line", 1.5);
+    S.rule(".meta-rule", 1.7);
+    S.fade(".meta", 1.9, { y: 8 });
   };
 
   /* ================================================================ S11 */
@@ -1075,5 +1078,152 @@
     S.fade(".smart-note", tl.duration() + 0.1, { y: 8 });
     // the only element already designed: S stays marked
     tl.to(S.one(".sm .l .line"), { color: "#9a5f0c", duration: 0.4 }, tl.duration() + 0.2);
+  };
+
+
+  /* ================================================================ 期末：雷達＋語音確認 */
+  /** A literature figure: the frame appears, then its source line. */
+  function figure(S, pos) {
+    S.show(".lit", pos, { d: 0.6 });
+    S.fade(".lit figcaption", pos + 0.4, { y: 6 });
+  }
+
+  B["s-focus"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    S.q(".fc").forEach((c, i) => {
+      const t = 0.6 + i * 0.35;
+      S.fade(c, t, { y: 14 });
+      S.pop(c.querySelector(".n"), t + 0.15);
+    });
+    S.step(3);
+    const t = tl.duration();
+    S.fade(".fc-sense .k", t, { y: 6 });
+    S.fade(".fc-sense .s", t + 0.2, { stagger: 0.35, y: 14 });
+    S.pop(".fc-sense .plus", t + 0.45);
+    S.fade(".fc-note", t + 1.0, { y: 6 });
+  };
+
+  B["s-radar"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    S.fade(".rq .r", 0.6, { stagger: 0.25, x: -12, y: 0 });
+    S.step(3);
+    figure(S, tl.duration());
+    S.fade(".rq-note", tl.duration() + 0.1, { y: 6 });
+  };
+
+  B["s-collect"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    const nodes = S.q(".pipe .pn");
+    const links = S.q(".pipe .pa");
+    nodes.forEach((n, i) => {
+      const t = 0.6 + i * 0.5;
+      S.fade(n, t, { y: 10 });
+      if (links[i]) {
+        S.rule(links[i], t + 0.25, { d: 0.45 });
+        S.fade(links[i].querySelector("span"), t + 0.45, { y: 4 });
+      }
+    });
+    S.fade(".pipe-voice", tl.duration() + 0.1, { y: -8 });
+    S.step(3);
+    const t = tl.duration();
+    S.fade(".stbl .sr", t, { stagger: 0.14, y: 10 });
+    S.fade(".pipe-note", t + 0.8, { y: 6 });
+  };
+
+  /** Figure on the left, observations on the right; `before` of them come before the pause. */
+  function figureSlide(before) {
+    return (S) => {
+      const { tl } = S;
+      S.lines(".headline .line", 0);
+      figure(S, 0.5);
+      const obs = S.q(".obs .o");
+      if (before) S.fade(obs.slice(0, before), tl.duration() + 0.1, { stagger: 0.2, x: -12, y: 0 });
+      S.step(3);
+      S.fade(obs.slice(before), tl.duration(), { stagger: 0.35, x: -12, y: 0 });
+    };
+  }
+  B["s-fspec"] = figureSlide(0);
+  B["s-fheight"] = figureSlide(1);
+  B["s-fspeed"] = figureSlide(1);
+
+  B["s-still"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    figure(S, 0.5);
+    S.step(3);
+    const t = tl.duration();
+    // whole rows enter together, so no empty rule shows before its text
+    S.fade(".sq", t, { stagger: 0.5, x: -10, y: 0 });
+    S.fade(".seq-note", tl.duration() + 0.2, { y: 6 });
+  };
+
+  B["s-breath"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    figure(S, 0.5);
+    S.step(3);
+    S.fade(".cols3 .c", tl.duration(), { stagger: 0.35, y: 10 });
+    S.fade(".warnline", tl.duration() + 0.2, { y: 6 });
+  };
+
+  B["s-voice"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    const st = S.q(".st");
+    S.fade(st.slice(0, 2), 0.6, { stagger: 0.35, y: 16 });
+    S.step(3);
+    S.fade(st.slice(2), tl.duration(), { stagger: 0.35, y: 16 });
+    S.fade(".stats-note", tl.duration() + 0.2, { y: 6 });
+  };
+
+  B["s-ftable"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    const rows = S.q(".cr");
+    S.fade(rows.slice(0, 3), 0.6, { stagger: 0.2, y: 10 });
+    S.step(3);
+    S.fade(rows.slice(3), tl.duration(), { stagger: 0.3, y: 10 });
+  };
+
+  B["s-logic"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    const steps = S.q(".dflow .fs");
+    const arrows = S.q(".dflow .fa");
+    steps.forEach((f, i) => {
+      const t = 0.6 + i * 0.55;
+      S.fade(f, t, { y: 10 });
+      if (arrows[i]) S.show(arrows[i], t + 0.4, { d: 0.3 });
+    });
+    S.step(3);
+    S.fade(".flow-out .fo", tl.duration(), { stagger: 0.3, y: 12 });
+  };
+
+  B["s-innov"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    const rows = S.q(".ir");
+    S.fade(rows.slice(0, 3), 0.6, { stagger: 0.25, y: 10 });
+    S.step(3);
+    S.fade(rows.slice(3), tl.duration(), { stagger: 0.3, y: 10 });
+  };
+
+  B["s-flimits"] = (S) => {
+    const { tl } = S;
+    S.lines(".headline .line", 0);
+    S.fade(".lim2 .lr", 0.6, { stagger: 0.18, y: 10 });
+    S.step(3);
+    const t = tl.duration();
+    S.fade(".next2 .th", t, { y: 6 });
+    S.fade(".nx2", t + 0.2, { stagger: 0.4, x: -10, y: 0 });
+  };
+
+  B["s-frefs"] = (S) => {
+    S.lines(".headline .line", 0);
+    S.fade(".ref", 0.4, { stagger: 0.04, y: 8 });
+    S.fade(".note", 1.2, { y: 6 });
   };
 })();

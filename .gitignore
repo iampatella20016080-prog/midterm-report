@@ -3,3 +3,5 @@ node_modules/
 *.log
 /shots/
 /shots-final/
+/final/figures/
+/exports/final-draft.pdf

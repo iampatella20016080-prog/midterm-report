@@ -10,7 +10,7 @@
 - 4 檢測觀察項目（心律、血壓）
 - 四個練習：橫向關係、縱向關係（三層圖）、與市售感測系統比較、感測器關係圖（仿 IEEE 1451 範例）
 
-第 5–8 項（訊號收集、資料整理分析、討論、參考資料列表）是期末報告的內容，已經先做成草稿 `final-draft.html`，實測用的紀錄表放在 `final/`。
+第 5–8 項（訊號收集、資料整理分析、討論、參考資料列表）是期末報告的內容，草稿在 `final-draft.html`（15 頁，講稿約 7 分鐘）。
 
 繳交物：上台用的網頁簡報（19 頁，講稿約 9 分鐘）、簡報 PDF、講稿。
 
@@ -67,7 +67,10 @@
 | 檔案 | 內容 |
 |---|---|
 | `docs/05-signal-literature.md` | 期末文獻：毫米波雷達 13 篇、語音確認 9 篇；訊號曲線、對照表、一般做法 vs 本設計、限制 |
-| `final-draft.html` | 第 5–8 項的舊草稿（以血壓為主，之後要依老師的指示重寫） |
+| `final-draft.html` | 期末簡報草稿（15 頁）：05 訊號收集 → 06 文獻的訊號曲線（跌倒那一下、躺著不動、呼吸、語音確認）→ 07 對照表、判斷流程、一般做法 vs 本設計、限制 → 08 參考資料 |
+| `docs/speaker-notes-final.md` | 期末講稿（約 7 分鐘，`python3 tools/build-notes.py --final`） |
+| `final/figures/` | 期末簡報用的文獻圖（7 張）。**不進 GitHub**（著作權屬於原作者），換電腦時要自己放回去；沒有圖檔時，簡報會在圖的位置顯示出處 |
+| `exports/final-draft.pdf` | 期末草稿 PDF（`node tools/export-pdf.mjs --file=final-draft.html`），含文獻圖，所以也不進 GitHub |
 | `final/` | 補充用紀錄表：夜間如廁、洗澡濕度（血壓已拿掉） |
 
 ---
@@ -104,7 +107,7 @@ python3 tools/build-measurement-log.py --pdf  # → final/ 紀錄表（--pdf 需
 
 ```
 index.html              期中簡報內容與講稿
-final-draft.html        期末報告第 5–8 項草稿
+final-draft.html        期末報告草稿（第 5–8 項）
 final/                  補充用紀錄表（夜間如廁、洗澡濕度）
 src/
   styles.css            版面與各頁樣式

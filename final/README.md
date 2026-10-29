@@ -13,6 +13,20 @@
 
 血壓的實測已經拿掉（不在這兩個議題裡）。
 
+## 期末簡報用的文獻圖（`final/figures/`）
+
+`final-draft.html` 會讀這個資料夾的 7 張圖。圖的著作權屬於原作者，所以這個資料夾不進 GitHub；換電腦時，把圖檔包解壓到這裡。沒有圖檔時，簡報會在圖的位置顯示出處。
+
+| 檔名 | 出處 | 用在 |
+|---|---|---|
+| `alizadeh2019-fig7.png` | Alizadeh et al., 2019, Figure 7 | 毫米波雷達量到什麼 |
+| `amin2016-fig4-fall-vs-adl.png` | Amin et al., 2016, Fig. 4 | 跌倒那一下：頻譜圖 |
+| `mmfall-fig7.png` | Jin et al., 2022, Fig. 7(a) | 跌倒那一下：身體高度 |
+| `yu2023-fade-fig4.png` | Yu et al., 2023, Fig. 4(a)–(c) | 跌倒那一下：速度與加速度 |
+| `diraco2017-fig13.png` | Diraco et al., 2017, Figure 13 | 跌倒之後：躺著不動 |
+| `choi2022-fig6.png` | Choi et al., 2022, Figure 6 | 有沒有在呼吸 |
+| `chen2026-fig9.png` | Chen et al., 2026, Fig. 9 | 備用（文獻整理有描述） |
+
 ## 這個資料夾的檔案
 
 | 檔案 | 用途 |
