@@ -62,12 +62,13 @@
 
 ## 3. 期末報告的準備
 
+期中報告後，老師請我從橫向關係圖選兩個議題聚焦：**夜間跌倒**、**昏倒沒有反應**（感測器：毫米波雷達、紅外線、床墊壓力、語音按鈕盒），找文獻裡的訊號曲線做對照表。
+
 | 檔案 | 內容 |
 |---|---|
-| `final-draft.html` | 第 5–8 項的簡報草稿（9 頁）：訊號收集、資料整理分析、討論（預計結果、效益、SMART、隱私、限制）、參考資料。實測資料待補 |
-| `final/measurement-log.xlsx` | 實測紀錄表：血壓 722（7 天）、臥站血壓（4 次）、夜間如廁（7 晚）、洗澡濕度（7 次）。填數字後平均、下降幅度、判斷與摘要自動計算 |
-| `final/measurement-sheets.pdf` | 同一份紀錄表的 A4 紙本，可以印出來手寫 |
-| `final/README.md` | 量測說明：要準備的東西、怎麼量、時程、安全與同意、文獻 |
+| `docs/05-signal-literature.md` | 期末文獻：9 篇研究的訊號曲線、對照表初稿、一般做法 vs 本設計、限制 |
+| `final-draft.html` | 第 5–8 項的舊草稿（以血壓為主，之後要依老師的指示重寫） |
+| `final/` | 補充用紀錄表：夜間如廁、洗澡濕度（血壓已拿掉） |
 
 ---
 
@@ -104,7 +105,7 @@ python3 tools/build-measurement-log.py --pdf  # → final/ 紀錄表（--pdf 需
 ```
 index.html              期中簡報內容與講稿
 final-draft.html        期末報告第 5–8 項草稿
-final/                  期末實測紀錄表與量測說明
+final/                  補充用紀錄表（夜間如廁、洗澡濕度）
 src/
   styles.css            版面與各頁樣式
   deck.js               簡報引擎：縮放、步驟導覽、轉場、頁首資訊列、自動播放、PDF 輸出介面
@@ -121,6 +122,7 @@ docs/
   02-research.md        研究筆記與資料來源
   03-production-plan.md 製作企劃
   04-critique-log.md    每輪檢查與修改紀錄
+  05-signal-literature.md 期末文獻：跌倒與昏倒沒反應的訊號曲線
   99-final-checklist.md 最終需求檢核表
   speaker-notes.md      講稿
   progress.md           進度紀錄
