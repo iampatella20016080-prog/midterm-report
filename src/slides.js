@@ -248,58 +248,72 @@
   /* ================================================================ S10 */
   B["s-arch"] = (S) => {
     const { tl, E } = S;
-    const layers = S.q(".layer");
-    const rects = layers.map((l) => DECK.rectIn(l));
-    const top = rects[0];
-    const bot = rects[rects.length - 1];
-    const right = top.x + top.w;
-    // place flow tracks inside the right gutter of the layer stack
-    const upX = right - 78;
-    const dnX = right - 44;
-    const yTop = top.y + top.h / 2;
-    const yBot = bot.y + bot.h / 2;
-    const yAna = rects[1].y + rects[1].h / 2;
-    const set = (sel, css) => Object.assign(S.one(sel).style, css);
-    set(".flowline.up", { left: `${upX}px`, top: `${yTop}px`, height: `${yBot - yTop}px` });
-    set(".flowline.down", { left: `${dnX}px`, top: `${yAna}px`, height: `${yBot - yAna}px` });
-    set(".packet", { left: `${upX - 6}px`, top: `${yBot - 7}px` });
-    set(".cmd", { left: `${dnX - 6}px`, top: `${yAna - 7}px` });
-    set(".flowlabel.lu", { left: `${upX - 10}px`, top: `${top.y - 30}px`, transform: "translateX(-100%)" });
-    set(".flowlabel.ld", { left: `${dnX + 10}px`, top: `${bot.y + bot.h + 10}px` });
-    const cloudTop = rects[0].y;
-    const cloudBot = rects[2].y + rects[2].h;
-    const edgeTop = rects[3].y;
-    const edgeBot = rects[4].y + rects[4].h;
-    set(".b-cloud", { top: `${cloudTop + 6}px`, height: `${cloudBot - cloudTop - 12}px` });
-    set(".b-edge", { top: `${edgeTop + 6}px`, height: `${edgeBot - edgeTop - 12}px` });
-    set(".bl-cloud", { top: `${(cloudTop + cloudBot) / 2 - 56}px` });
-    set(".bl-edge", { top: `${(edgeTop + edgeBot) / 2 - 56}px` });
+    const box = S.one(".layers-map");
+    box.innerHTML = DIAGRAM.layerMap();
+    const svg = box.querySelector("svg");
+    const g = (sel) => S.q(svg.querySelectorAll(sel));
 
+    /* ---- seg 0: the three planes stack up from the devices, like the data */
     S.lines(".headline .line", 0);
-    // build bottom-up: perception first, like the data
-    const rev = layers.slice().reverse();
-    rev.forEach((l, i) => {
-      S.fade(l, 0.55 + i * 0.16, { y: 26, d: 0.8 });
-    });
+    S.fade(".dg-note", 0.4, { y: 6 });
+    const dev = svg.querySelector(".lm-band.dev");
+    const net = svg.querySelector(".lm-band.net");
+    const app = svg.querySelector(".lm-band.app");
+    S.fade(dev, 0.5, { y: 24, d: 0.7 });
+    S.pop(g(".lm-chip"), 0.8, { from: 0.4, stagger: 0.05 });
+    S.draw(g(".lm-wire"), 1.1, { d: 0.5, stagger: 0.03 });
+    S.pop(g(".lm-box.gw"), 1.4, { from: 0.85 });
+    S.fade(g(".lm-wire-t"), 1.6, { y: 6 });
+    S.fade(net, 1.6, { y: 24, d: 0.7 });
+    S.draw(g(".lm-dev .lm-link"), 1.9, { d: 0.4 });
+    tl.fromTo(g(".lm-bus"), { scaleX: 0, transformOrigin: "50% 50%" }, { scaleX: 1, duration: 0.7, ease: E.move }, 2.0);
+    S.fade(g(".lm-bus-t"), 2.4, { y: 6 });
+    S.pop(g(".lm-net .lm-box"), 2.2, { from: 0.85, stagger: 0.12 });
+    S.draw(g(".lm-net .lm-link"), 2.5, { d: 0.4, stagger: 0.1 });
+    S.fade(app, 2.7, { y: 24, d: 0.7 });
+    S.pop(g(".lm-app .lm-box"), 3.0, { from: 0.85, stagger: 0.12 });
+    S.show(g(".lm-app .lm-arrow"), 3.4, { d: 0.3 });
     S.step(3);
-    const t0 = tl.duration();
-    tl.fromTo(S.one(".flowline.up"), { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 1.0, ease: E.move }, t0);
-    tl.fromTo(S.one(".packet"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, t0 + 0.2);
-    tl.fromTo(S.one(".packet"), { y: 0 }, { y: -(yBot - yTop), duration: 2.0, ease: "power1.inOut" }, t0 + 0.3);
-    S.fade(".flowlabel.lu", t0 + 0.6, { y: 6 });
-    // each layer acknowledges the packet as it passes
-    rev.forEach((l, i) => {
-      tl.fromTo(l, { borderColor: "rgba(17,22,29,0.45)" }, { borderColor: SLATE, duration: 0.25, yoyo: true, repeat: 1 }, t0 + 0.3 + i * 0.45);
+
+    /* ---- seg 1: one reading goes up; control comes back down to the outputs */
+    const t = tl.duration();
+    const path = svg.querySelector(".lm-flowpath");
+    const pulse = svg.querySelector(".lm-pulse");
+    tl.set(pulse, { autoAlpha: 0 }, 0);
+    const radar = svg.querySelector('.lm-chip[data-code="R"] circle');
+    tl.to(radar, { stroke: SLATE, strokeWidth: 4, duration: 0.3 }, t);
+    tl.fromTo(pulse, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, t + 0.1);
+    tl.fromTo(
+      pulse,
+      { motionPath: { path, align: path, alignOrigin: [0.5, 0.5], start: 0, end: 0 } },
+      { motionPath: { path, align: path, alignOrigin: [0.5, 0.5], start: 0, end: 1 }, duration: 2.6, ease: "power1.inOut", immediateRender: false },
+      t + 0.1
+    );
+    const appBox = svg.querySelectorAll(".lm-app .lm-box rect")[2];
+    tl.to(appBox, { stroke: AMBER, strokeWidth: 3.5, duration: 0.3 }, t + 2.6);
+    tl.to(pulse, { autoAlpha: 0, duration: 0.2 }, t + 2.7);
+    tl.fromTo(g(".lm-wire.out"), { stroke: "#666e79" }, { stroke: AMBER, strokeWidth: 2.5, duration: 0.4, stagger: 0.08 }, t + 3.0);
+    tl.to(g(".lm-chip.out circle"), { fill: AMBER, duration: 0.3, stagger: 0.08 }, t + 3.2);
+  };
+
+  /* ================================================================ 期末預告 */
+  B["s-next"] = (S) => {
+    const { tl, E } = S;
+    S.lines(".headline .line", 0);
+    S.q(".nx .nr").forEach((r, i) => {
+      const t = 0.6 + i * 0.3;
+      S.pop(r.querySelector(".nn"), t, { from: 0.4 });
+      S.fade(S.q(r.querySelectorAll(".nt, .nd")), t + 0.1, { stagger: 0.1, x: -10, y: 0 });
     });
-    tl.fromTo(S.one(".flowline.down"), { scaleY: 0, transformOrigin: "50% 0%" }, { scaleY: 1, duration: 0.8, ease: E.move }, t0 + 2.3);
-    tl.fromTo(S.one(".cmd"), { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, t0 + 2.4);
-    tl.fromTo(S.one(".cmd"), { y: 0 }, { y: yBot - yAna, duration: 1.4, ease: "power2.inOut" }, t0 + 2.8);
-    S.fade(".flowlabel.ld", t0 + 3.0, { y: -6 });
-    S.step(3);
-    const t1 = tl.duration();
-    tl.fromTo(S.q(".bracket"), { scaleY: 0, transformOrigin: "0% 50%" }, { scaleY: 1, duration: 0.7, ease: E.move, stagger: 0.25 }, t1);
-    S.fade(".bl-cloud", t1 + 0.3, { x: -10, y: 0 });
-    S.fade(".bl-edge", t1 + 0.55, { x: -10, y: 0 });
+    S.fade(".nx-note", tl.duration() + 0.1, { y: 8 });
+  };
+
+  /* ================================================================ 期末草稿封面 */
+  B["s-fcover"] = (S) => {
+    const { tl, E } = S;
+    tl.fromTo(S.q(".q .ch"), { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 1.0, ease: E.enter, stagger: 0.09 }, 0.3);
+    S.fade(".eyebrow", 0.6, { y: 8 });
+    S.lines(".name .line", 1.2);
   };
 
   /* ================================================================ S11 */

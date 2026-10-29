@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>浴室安全監測系統｜期末報告草稿</title>
+<meta name="description" content="健康物聯網趨勢與創新期中報告：以非影像感測器監測獨居長者夜間如廁與外宿同學洗澡時的一氧化碳。">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+<div id="viewport">
+<div id="stage">
+  <div id="bgwipe"></div>
+
+  <section class="slide" id="s-fcover" data-theme="night" data-chapter="0" data-hold="2">
+    <div class="slide-inner">
+      <div class="eyebrow">健康物聯網趨勢與創新　期末報告草稿</div>
+      <h1 class="q" aria-label="浴室安全監測系統"><span class="ch">浴</span><span class="ch">室</span><span class="ch">安</span><span class="ch">全</span><span class="ch">監</span><span class="ch">測</span><span class="ch">系</span><span class="ch">統</span></h1>
+      <div class="name mask"><span class="line">第 5–8 項（期末報告用，實測資料待補）</span></div>
+    </div>
+    <aside class="notes">期末報告草稿。實測完成後，把第 5、6 項換成實際量到的資料。</aside>
+  </section>
+
+  <!-- ================================================================ 05 訊號收集 -->
+  <section class="slide" id="s-signal" data-theme="day" data-chapter="1" data-hold="4">
+    <div class="slide-inner">
+      <h2 class="headline"><span class="mask"><span class="line">感測器訊號的收集</span></span></h2>
+      <div class="pipe">
+        <div class="pn"><b>感測器</b><span>雷達、門磁、CO、血壓計</span></div>
+        <div class="pa"><span>Zigbee／UART／藍牙</span></div>
+        <div class="pn"><b>家中閘道</b><span>在家判斷事件</span></div>
+        <div class="pa"><span>MQTT</span></div>
+        <div class="pn"><b>雲端</b><span>收事件、加密儲存</span></div>
+        <div class="pa"><span>推播</span></div>
+        <div class="pn"><b>手機</b><span>家屬、室友收通知</span></div>
+      </div>
+      <div class="pipe-note">同課堂「健康照護物聯網」範例：測量儀器 → 整合終端機 → 資料中心<span class="cite">[14]</span></div>
+      <div class="stbl">
+        <div class="sr th"><div>來源</div><div>傳輸</div><div>頻率</div></div>
+        <div class="sr"><div class="s">雷達</div><div>UART 有線</div><div>約 3 秒一筆；跌倒立即送</div></div>
+        <div class="sr"><div class="s">床墊、門磁、紅外線</div><div>Zigbee</div><div>狀態改變才送</div></div>
+        <div class="sr"><div class="s">溫濕度</div><div>Zigbee</div><div>每 30 秒</div></div>
+        <div class="sr"><div class="s">一氧化碳</div><div>UART 有線</div><div>每 10 秒</div></div>
+        <div class="sr"><div class="s">血壓計</div><div>藍牙</div><div>每次量完</div></div>
+      </div>
+      <div class="rec">
+        <div class="rh">上傳的事件（示意）</div>
+        <div class="rr"><span>時間</span><b>2026-12-18 02:19</b></div>
+        <div class="rr"><span>場域</span><b>阿嬤家浴室</b></div>
+        <div class="rr"><span>事件</span><b>跌倒姿勢</b></div>
+        <div class="rr"><span>呼吸</span><b>有</b></div>
+        <div class="rr"><span>處置</span><b>L1 語音詢問中</b></div>
+      </div>
+    </div>
+    <aside class="notes">第五個項目是訊號的收集。雷達和一氧化碳模組用有線的 UART，床墊、門磁、紅外線和溫濕度用 Zigbee，血壓計用藍牙；閘道再用 MQTT 上傳。這條路徑和課堂的健康照護物聯網範例一樣，家中閘道就是整合終端機。上傳到雲端的只有事件，右邊是事件的格式。</aside>
+  </section>
+
+  <!-- ================================================================ 06 資料分析 -->
+  <section class="slide" id="s-analysis" data-theme="day" data-chapter="2" data-hold="4">
+    <div class="slide-inner">
+      <h2 class="headline"><span class="mask"><span class="line">資料整理分析與文獻佐證</span></span></h2>
+      <div class="atbl">
+        <div class="ar th"><div>想知道的問題</div><div>文獻依據</div><div>用在設計</div></div>
+        <div class="ar"><div class="q">夜尿多有風險嗎？</div><div>每晚 ≥ 3 次，跌倒風險較高<span class="cite">[7]</span></div><div class="u">連續一週就提醒就醫</div></div>
+        <div class="ar"><div class="q">跌倒後多久被發現？</div><div>30% 倒地超過 1 小時<span class="cite">[4]</span></div><div class="u">2 分鐘內通知</div></div>
+        <div class="ar"><div class="q">起身頭暈和血壓有關？</div><div>站起後血壓下降<span class="cite">[16][17]</span></div><div class="u">提醒「先坐一下」</div></div>
+        <div class="ar"><div class="q">血壓控制得好嗎？</div><div>居家平均 ≥ 130/80<span class="cite">[15]</span></div><div class="u">週報給醫師</div></div>
+        <div class="ar"><div class="q">CO 多少要處理？</div><div>室內標準 9 ppm<span class="cite">[9]</span></div><div class="u">9／50／100 ppm 三段</div></div>
+        <div class="ar"><div class="q">熱水器裝錯了嗎？</div><div>八成中毒與熱水器有關<span class="cite">[5]</span></div><div class="u">每次洗澡都升高就請房東檢查</div></div>
+      </div>
+    </div>
+    <aside class="notes">第六個項目是資料整理分析，用文獻佐證門檻。研究發現每晚上廁所三次以上，跌倒風險比較高，所以連續一週就提醒就醫；倒地時間的研究讓我把通知目標訂在兩分鐘內。（下一步）血壓參考姿勢性低血壓的定義和國健署 722 原則；一氧化碳門檻來自室內空氣品質標準；八成中毒案件和熱水器安裝有關，所以會看每次洗澡的最高值。</aside>
+  </section>
+
+  <!-- ================================================================ 07 預計結果 -->
+  <section class="slide" id="s-results" data-theme="day" data-chapter="3" data-hold="4">
+    <div class="slide-inner">
+      <h2 class="headline"><span class="mask"><span class="line">討論：預計結果</span></span></h2>
+      <div class="badge-goal">設計目標，原型完成後實測</div>
+      <div class="hero">
+        <div class="row now"><div class="k">研究：獨自跌倒後倒地<span class="cite">[4]</span></div><div class="bar" style="width:100%"></div><div class="v">≥ 60 分鐘</div></div>
+        <div class="row goal"><div class="k">本設計：家人收到通知</div><div class="bar" style="width:3.33%"></div><div class="v">≤ 2 分鐘</div></div>
+        <div class="axisrow"><div></div><div class="axis"><span style="left:0">0</span><span style="left:25%">15</span><span style="left:50%">30</span><span style="left:75%">45</span><span style="left:100%">60 分鐘</span></div><div></div></div>
+      </div>
+      <div class="targets">
+        <div class="tt"><div class="m">離床到夜燈亮起</div><div class="g">≤ 1 秒</div></div>
+        <div class="tt"><div class="m">CO 開始處理</div><div class="g">9 ppm</div></div>
+        <div class="tt"><div class="m">家人收到的誤報</div><div class="g">&lt; 1 次／週</div></div>
+        <div class="tt"><div class="m">上傳的影像、錄音</div><div class="g">0</div></div>
+      </div>
+    </div>
+    <aside class="notes">第七個項目是討論，先講預計結果。這些是設計目標，原型做出來後才實測。最主要的是跌倒後兩分鐘內讓家人知道，研究中有三成的人倒地超過一小時。其他目標是離床一秒內亮燈、一氧化碳 9 ppm 就排風、誤報每週少於一次，而且不上傳任何影像和錄音。</aside>
+  </section>
+
+  <!-- ================================================================ 07 效益 -->
+  <section class="slide" id="s-benefits" data-theme="day" data-chapter="3" data-hold="4">
+    <div class="slide-inner">
+      <h2 class="headline"><span class="mask"><span class="line">討論：效益</span></span></h2>
+      <div class="cols">
+        <div class="bc"><div class="who">阿嬤</div><ul><li>繼續住在自己家</li><li>不用戴裝置</li></ul></div>
+        <div class="bc"><div class="who">家人</div><ul><li>不用天天打電話確認</li><li>週報帶去回診</li></ul></div>
+        <div class="bc"><div class="who">同學、室友</div><ul><li>CO 高先自動排風</li><li>沒反應室友會知道</li></ul></div>
+        <div class="bc"><div class="who">社會</div><ul><li>搭配政府關懷計畫<span class="cite">[11]</span></li><li>減少長時間倒地<span class="cite">[4]</span></li></ul></div>
+      </div>
+      <div class="themes">
+        <div class="k">課程主題</div>
+        <div class="th main"><b>智慧照護</b>主要</div>
+        <div class="th"><b>數位醫療</b>週報給醫師</div>
+        <div class="th"><b>智慧輔具</b>夜燈、語音按鈕盒</div>
+      </div>
+    </div>
+    <aside class="notes">效益方面，阿嬤可以繼續住在自己家，不用戴裝置；家人不用每天打電話確認，週報可以帶去回診；同學洗澡時一氧化碳太高會先自動排風，沒反應時室友會知道；對社會來說，可以搭配政府的獨居長者關懷計畫。課程主題主要是智慧照護，也和數位醫療、智慧輔具有關。</aside>
+  </section>
+
+  <!-- ================================================================ 07 SMART -->
+  <section class="slide" id="s-smart" data-theme="day" data-chapter="3" data-hold="4">
+    <div class="slide-inner">
+      <h2 class="headline"><span class="mask"><span class="line">討論：SMART 五要素</span></span></h2>
+      <div class="dg-note">課堂：智慧健康產業的關鍵因素<span class="cite">[14]</span></div>
+      <div class="smart">
+        <div class="sm"><div class="l mask"><span class="line">S</span></div><div class="en">Sensor</div><div class="zh">感測器</div><div class="rl"></div><div class="d">雷達、門磁、<br>CO 模組、血壓計</div></div>
+        <div class="sm"><div class="l mask"><span class="line">M</span></div><div class="en">Model</div><div class="zh">營運模式</div><div class="rl"></div><div class="d">購買或租用，<br>搭配政府補助<span class="cite">[11]</span></div></div>
+        <div class="sm"><div class="l mask"><span class="line">A</span></div><div class="en">Alliance / API</div><div class="zh">跨業合作</div><div class="rl"></div><div class="d">串接 LINE、<br>救援中心</div></div>
+        <div class="sm"><div class="l mask"><span class="line">R</span></div><div class="en">Relationship</div><div class="zh">產業夥伴</div><div class="rl"></div><div class="d">感測器廠商、<br>電信業者</div></div>
+        <div class="sm"><div class="l mask"><span class="line">T</span></div><div class="en">Trial / Test bed</div><div class="zh">試驗</div><div class="rl"></div><div class="d">在家試用、<br>租屋處測試</div></div>
+      </div>
+      <div class="smart-note">目前完成 S；M、A、R 要靠 T 的試用確認。</div>
+    </div>
+    <aside class="notes">接著用課堂的 SMART 五要素檢查可行性。S 是感測器，就是前面的設計。M 是營運模式，設備可以購買或租用，獨居長者可以搭配政府的緊急救援補助。A 是跨業合作，用 API 串接 LINE 和救援中心。R 是產業夥伴，例如感測器廠商和電信業者。T 是試驗，也就是下一步的在家試用。目前完成的是 S，其他要靠試用結果確認。</aside>
+  </section>
+
+  <!-- ================================================================ 07 隱私 -->
+  <section class="slide" id="s-privacy" data-theme="day" data-chapter="3" data-hold="4">
+    <div class="slide-inner">
+      <h2 class="headline"><span class="mask"><span class="line">討論：隱私與資料分享</span></span></h2>
+      <div class="steps">
+        <div class="stair s0" style="left:0;top:390px"><div class="lv">平常</div><div class="who">本人</div><div class="what">週摘要先給本人看</div><div class="when">每週</div></div>
+        <div class="stair s1" style="left:282px;top:260px"><div class="riser" style="top:0;height:130px"></div><div class="lv">L1</div><div class="who">本人</div><div class="what">語音詢問本人</div><div class="when">偵測到異常</div></div>
+        <div class="stair s2" style="left:564px;top:130px"><div class="riser" style="top:0;height:130px"></div><div class="lv">L2</div><div class="who">家人、室友</div><div class="what">事件、時間、場域</div><div class="when">60 秒沒回應</div></div>
+        <div class="stair s3" style="left:846px;top:0"><div class="riser" style="top:0;height:130px"></div><div class="lv">L3</div><div class="who">救援中心</div><div class="what">再加地址、聯絡人</div><div class="when">3 分鐘沒人確認</div></div>
+      </div>
+      <div class="side">
+        <h3>不收集</h3>
+        <ul>
+          <li><span class="x">×</span><span>影像</span></li>
+          <li><span class="x">×</span><span>錄音</span></li>
+          <li><span class="x">×</span><span>雷達原始資料</span></li>
+        </ul>
+        <h3>本人可以</h3>
+        <ul>
+          <li><span class="o">○</span><span>決定通知名單</span></li>
+          <li><span class="o">○</span><span>訪客時暫停</span></li>
+          <li><span class="o">○</span><span>查看誰看過</span></li>
+        </ul>
+      </div>
+    </div>
+    <aside class="notes">隱私分成四級。平常只有週摘要，先給本人看；L1 只在家裡處理；L2 家人或室友只看到事件、時間和場域；L3 才給救援單位地址和聯絡人。系統不收影像、不錄音，雷達原始資料也不保存；本人可以決定通知名單，訪客來時也能暫停。</aside>
+  </section>
+
+  <!-- ================================================================ 07 限制 -->
+  <section class="slide" id="s-limits" data-theme="day" data-chapter="3" data-hold="4">
+    <div class="slide-inner">
+      <h2 class="headline"><span class="mask"><span class="line">討論：限制與下一步</span></span></h2>
+      <div class="lim">
+        <div class="lr th"><div>限制</div><div>對策</div></div>
+        <div class="lr"><div class="p">雷達誤判</div><div class="s">先問本人；門磁、床墊交叉確認</div></div>
+        <div class="lr"><div class="p">停電、斷網</div><div class="s">備用電池＋4G；現場警報不需網路</div></div>
+        <div class="lr"><div class="p">多人同住</div><div class="s">床墊、門磁輔助；訪客時暫停</div></div>
+        <div class="lr"><div class="p">是否接受</div><div class="s">不施工、不配戴；遮斷閥選配</div></div>
+        <div class="lr"><div class="p">資安</div><div class="s">加密傳輸，只上傳事件</div></div>
+      </div>
+      <div class="road">
+        <div class="rh">下一步</div>
+        <div class="spine"></div>
+        <div class="ms now"><div class="dot"></div><div class="w">期中（現在）</div><div class="t">系統設計</div></div>
+        <div class="ms"><div class="dot"></div><div class="w">第 10–11 週</div><div class="t">做出原型</div></div>
+        <div class="ms"><div class="dot"></div><div class="w">第 12–14 週</div><div class="t">在家試用 2 週</div></div>
+        <div class="ms"><div class="dot"></div><div class="w">第 15–18 週</div><div class="t">租屋處測試、期末</div></div>
+      </div>
+    </div>
+    <aside class="notes">限制方面，雷達可能誤判，所以先問本人，再用門磁和床墊交叉確認；停電斷網時閘道有備用電池和 4G；多人同住和是否接受也要考慮，瓦斯遮斷閥列為選配。下一步是第 10 到 11 週做原型，第 12 到 14 週在家試用兩週，最後到同學的租屋處測試。</aside>
+  </section>
+
+  <!-- ================================================================ 08 參考資料 -->
+  <section class="slide" id="s-refs" data-theme="day" data-chapter="4" data-hold="5">
+    <div class="slide-inner">
+      <h2 class="headline" style="font-size:48px"><span class="mask"><span class="line">參考資料</span></span></h2>
+      <div class="list">
+        <div class="ref"><span class="i">[1]</span><span><b>內政部</b>（2026-01-09）。民國114年12月戶口統計資料分析。<span class="u">moi.gov.tw/News_Content.aspx?n=9&amp;s=335870</span></span></div>
+        <div class="ref"><span class="i">[2]</span><span><b>內政部統計處</b>（2025-11-29）。114年第48週內政統計通報。<span class="u">moi.gov.tw/News_Content.aspx?n=2905&amp;s=334815</span></span></div>
+        <div class="ref"><span class="i">[3]</span><span><b>衛生福利部</b>（2019-09-24）。長者跌倒新聞稿（2017 國民健康訪問調查）。<span class="u">mohw.gov.tw/cp-16-49428-1.html</span></span></div>
+        <div class="ref"><span class="i">[4]</span><span><b>Fleming J, Brayne C.</b> (2008). Inability to get up after falling, subsequent time on floor, and summoning help. <i>BMJ</i>, 337, a2227.</span></div>
+        <div class="ref"><span class="i">[5]</span><span><b>內政部</b>（2023-11-24）。今年一氧化碳中毒已奪3命，使用瓦斯熱水器要注意通風。<span class="u">moi.gov.tw/News_Content.aspx?n=4&amp;s=298370</span></span></div>
+        <div class="ref"><span class="i">[6]</span><span><b>U.S. CDC</b> (2026-01-12). <i>Carbon Monoxide Poisoning Basics</i>.</span></div>
+        <div class="ref"><span class="i">[7]</span><span><b>Vaughan CP, et al.</b> (2010). The association of nocturia with incident falls in an elderly community-dwelling cohort. <i>Int J Clin Pract</i>, 64(5), 577–583.</span></div>
+        <div class="ref"><span class="i">[8]</span><span><b>臺南市政府消防局</b>（2026-02-06）。熱水器安裝「五要」宣導，聯合新聞網報導。</span></div>
+        <div class="ref"><span class="i">[9]</span><span><b>環境部（原環保署）</b>（2012）。室內空氣品質標準：一氧化碳 8 小時值 9 ppm。</span></div>
+        <div class="ref"><span class="i">[10]</span><span><b>EN 50291-1、UL 2034</b>。住宅用一氧化碳警報器反應時間規範。</span></div>
+        <div class="ref"><span class="i">[11]</span><span><b>行政院</b>（2026-03-20）。獨居老人關懷服務計畫，聯合新聞網報導。</span></div>
+        <div class="ref"><span class="i">[12]</span><span><b>Texas Instruments</b> (2019). <i>Non-contact and private stance detection with TI mmWave sensors</i>.</span></div>
+        <div class="ref"><span class="i">[13]</span><span><b>Wang H, et al.</b> (2025). P2MFDS: A privacy-preserving multimodal fall detection system for elderly people in bathroom environments. arXiv:2506.17332.</span></div>
+        <div class="ref"><span class="i">[14]</span><span><b>課程講義</b>。物聯網簡介（1150910）、物聯網的架構（1150917）、穿戴感測系統（1151015，含 ECG 與血氧、SMART、期中報告與關係圖練習）。</span></div>
+        <div class="ref"><span class="i">[15]</span><span><b>衛生福利部國民健康署</b>（2023-05-15）。量血壓「722」原則（依 2022 台灣高血壓指引）。<span class="u">mohw.gov.tw/cp-16-74604-1.html</span></span></div>
+        <div class="ref"><span class="i">[16]</span><span><b>臺大醫院健康電子報</b>（2023-10，第 215 期）。姿勢性低血壓護理指導。</span></div>
+        <div class="ref"><span class="i">[17]</span><span><b>Freeman R, et al.</b> (2011). Consensus statement on the definition of orthostatic hypotension. <i>Clin Auton Res</i>, 21(2), 69–72.</span></div>
+        <div class="ref"><span class="i">[18]</span><span><b>Seeed Studio</b>. 60GHz mmWave Sensor MR60BHA1 wiki（呼吸與心跳偵測模組）。</span></div>
+        <div class="ref"><span class="i">[19]</span><span><b>Winsen（煒盛科技）</b>. ZE07-CO electrochemical CO module manual（0–500 ppm）。</span></div>
+        <div class="ref"><span class="i">[20]</span><span><b>Hampson NB.</b> (1998). Pulse oximetry in severe carbon monoxide poisoning. <i>Chest</i>, 114(4), 1036–1041.</span></div>
+      </div>
+      <div class="note">情境中的人物、平面圖與模擬時間軸是設計示意；統計數字都來自上列資料。</div>
+    </div>
+    <aside class="notes">第八個項目是參考資料，統計數字都來自政府資料和期刊，情境和模擬時間軸是我設計的示意。</aside>
+  </section>
+
+  <!-- ================================================================ HUD -->
+  <div id="hud">
+    <div class="hud-chapter"></div>
+    <div class="hud-where"></div>
+    <div class="hud-progress"><div class="fill"></div></div>
+    <div class="hud-page"><b class="pg">01</b> / <span class="pt">24</span></div>
+  </div>
+  <div id="playhead"></div>
+</div>
+</div>
+
+<div id="notes-panel"><div class="nh"></div><div class="nb"></div></div>
+<div id="help">→ 或空白鍵：下一步　← 上一步　F 全螢幕　N 講稿　A 自動播放</div>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/MotionPathPlugin.min.js"></script>
+<script src="src/config.js"></script>
+<script src="src/plans.js"></script>
+<script src="src/diagram.js"></script>
+<script>
+window.DECK_CHAPTERS = [
+  { n: "00", label: "期末報告草稿" },
+  { n: "05", label: "感測器訊號的收集" },
+  { n: "06", label: "資料整理分析" },
+  { n: "07", label: "討論" },
+  { n: "08", label: "參考資料列表" },
+];
+</script>
+<script src="src/deck.js"></script>
+<script src="src/slides.js"></script>
+<script>DECK.start();</script>
+</body>
+</html>

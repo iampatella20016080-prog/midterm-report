@@ -324,8 +324,8 @@ body { font-family: var(--f-sans); }
   border-radius: 50%;
   background: radial-gradient(circle, rgba(232, 163, 61, 0.28) 0%, rgba(232, 163, 61, 0.08) 45%, rgba(232, 163, 61, 0) 70%);
 }
-#s-cover .eyebrow { position: absolute; left: 120px; top: 124px; font-size: 20px; }
-#s-cover .q {
+#s-cover .eyebrow, #s-fcover .eyebrow { position: absolute; left: 120px; top: 124px; font-size: 20px; }
+#s-cover .q, #s-fcover .q {
   position: absolute;
   left: 0;
   right: 0;
@@ -338,8 +338,8 @@ body { font-family: var(--f-sans); }
   letter-spacing: 0.08em;
   text-indent: 0.08em;
 }
-#s-cover .q .ch { display: inline-block; }
-#s-cover .name {
+#s-cover .q .ch, #s-fcover .q .ch { display: inline-block; }
+#s-cover .name, #s-fcover .name {
   position: absolute;
   left: 0;
   right: 0;
@@ -488,21 +488,44 @@ body { font-family: var(--f-sans); }
 #s-place .legend i { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--slate); font-style: normal; font-family: var(--f-mono); font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; justify-content: center; color: var(--fg); }
 #s-place .legend i.act { border-color: var(--amber); }
 
-/* ---------- 縱向關係（物聯網架構） */
-#s-arch .tri-cap { position: absolute; left: 120px; top: 262px; font-size: 22px; color: var(--fg3); }
-#s-arch .layers { position: absolute; left: 120px; top: 318px; width: 1180px; }
-#s-arch .layer { position: relative; display: grid; grid-template-columns: 260px 1fr; gap: 30px; padding: 18px 130px 18px 26px; border: 1px solid var(--line-strong); margin-top: -1px; background: var(--bg); }
-#s-arch .layer .ln { font-family: var(--f-serif); font-weight: 600; font-size: 34px; line-height: 1.2; }
-#s-arch .layer .ln small { display: block; font-family: var(--f-sans); font-weight: 400; font-size: 19px; letter-spacing: 0.02em; color: var(--fg3); margin-top: 8px; }
-#s-arch .layer .lw { font-size: 29px; line-height: 1.4; }
-#s-arch .layer .lt { font-size: 22px; color: var(--fg2); margin-top: 6px; line-height: 1.4; }
-#s-arch .bracket { position: absolute; left: 1324px; width: 18px; border: 1px solid var(--fg3); border-left: none; }
-#s-arch .bracket-label { position: absolute; left: 1360px; font-size: 27px; line-height: 1.45; color: var(--fg2); width: 440px; }
-#s-arch .bracket-label b { display: block; font-size: 32px; color: var(--fg); margin-bottom: 6px; }
-#s-arch .flowline { position: absolute; width: 0; border-left: 2px dashed var(--slate); }
-#s-arch .packet { position: absolute; width: 16px; height: 16px; background: var(--slate); }
-#s-arch .cmd { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--amber); }
-#s-arch .flowlabel { position: absolute; font-size: 20px; color: var(--fg3); white-space: nowrap; }
+/* ---------- 縱向關係（三層圖） */
+#s-arch .layers-map { position: absolute; left: 120px; top: 240px; width: 1680px; }
+.layer-map { display: block; width: 100%; height: auto; overflow: visible; }
+.layer-map text { font-family: var(--f-sans); fill: var(--fg); text-anchor: middle; dominant-baseline: central; }
+.layer-map .lm-plane { fill: var(--fg); fill-opacity: 0.04; stroke: var(--line-strong); stroke-width: 1.5; }
+.layer-map .lm-name { font-family: var(--f-serif); font-weight: 700; font-size: 34px; }
+.layer-map .lm-note { font-size: 20px; fill: var(--fg3); text-anchor: start; }
+.layer-map .lm-tag { font-family: var(--f-serif); font-weight: 700; font-size: 30px; fill: var(--alert-text); text-anchor: end; }
+.layer-map .lm-box rect { fill: var(--bg); stroke: var(--fg); stroke-width: 1.5; }
+.layer-map .lm-box.hub rect { stroke-width: 2.5; }
+.layer-map .lm-box.backup rect { stroke-dasharray: 6 5; }
+.layer-map .lm-t { font-size: 27px; font-weight: 700; }
+.layer-map .lm-s { font-size: 21px; fill: var(--fg2); }
+.layer-map .lm-bus { fill: var(--slate); }
+.layer-map .lm-bus-t { font-size: 22px; font-weight: 500; fill: #fff; }
+.layer-map .lm-link { stroke: var(--fg2); stroke-width: 2; }
+.layer-map .lm-link.dash { stroke-dasharray: 6 5; }
+.layer-map .lm-arrow { stroke: var(--fg2); stroke-width: 1.8; }
+.layer-map .lm-head { fill: var(--fg2); }
+.layer-map .lm-wire { stroke: var(--fg3); stroke-width: 1.5; }
+.layer-map .lm-wire.out { stroke-dasharray: 5 5; }
+.layer-map .lm-wire-t { font-family: var(--f-mono); font-size: 18px; fill: var(--fg3); text-anchor: start; }
+.layer-map .lm-wire-t.out { text-anchor: end; font-family: var(--f-sans); fill: var(--accent-text); }
+.layer-map .lm-chip circle { fill: var(--bg); stroke: var(--slate); stroke-width: 2.5; }
+.layer-map .lm-chip.out circle { stroke: var(--amber); }
+.layer-map .lm-code { font-family: var(--f-mono); font-size: 19px; font-weight: 500; }
+.layer-map .lm-cname { font-size: 22px; }
+.layer-map .lm-flowpath { fill: none; stroke: none; }
+.layer-map .lm-pulse { fill: var(--slate); stroke: var(--bg); stroke-width: 3; }
+
+/* ---------- 期末預告 */
+#s-next .nx { position: absolute; left: 120px; right: 120px; top: 280px; }
+#s-next .nr { display: grid; grid-template-columns: 96px 420px 1fr; gap: 32px; align-items: center; padding: 34px 0; border-top: 1px solid var(--line); }
+#s-next .nr:last-child { border-bottom: 1px solid var(--line); }
+#s-next .nn { width: 72px; height: 72px; border-radius: 50%; border: 2.5px solid var(--fg); display: flex; align-items: center; justify-content: center; font-family: var(--f-mono); font-size: 32px; font-weight: 500; }
+#s-next .nt { font-family: var(--f-serif); font-weight: 600; font-size: 40px; }
+#s-next .nd { font-size: 29px; line-height: 1.4; color: var(--fg2); }
+#s-next .nx-note { position: absolute; left: 120px; right: 120px; top: 880px; font-size: 27px; color: var(--fg3); }
 
 /* ---------- 監測流程 A、B */
 .flow .headline { font-size: 52px; }

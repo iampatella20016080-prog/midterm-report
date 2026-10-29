@@ -45,7 +45,8 @@
     day: { bg: "#f2ede4", fg: "#11161d", fg2: "#666e79", line: "rgba(17,22,29,0.16)" },
   };
 
-  const CHAPTERS = [
+  // a deck can supply its own chapter list (window.DECK_CHAPTERS) before this script
+  const CHAPTERS = window.DECK_CHAPTERS || [
     { n: "00", label: "封面" },
     { n: "01", label: "主題：關懷對象、時間、場域" },
     { n: "02", label: "使用的感測系統與元件" },
@@ -357,7 +358,7 @@
     const cfg = Object.assign({}, window.DECK_CONFIG || {});
     if (params.get("name")) cfg.presenter = params.get("name");
     if (params.get("id")) cfg.studentId = params.get("id");
-    const who = [cfg.presenter ? `報告人　${cfg.presenter}` : "", cfg.studentId ? cfg.studentId : ""].filter(Boolean).join("　");
+    const who = [cfg.studentId ? `學號　${cfg.studentId}` : "", cfg.presenter ? `姓名　${cfg.presenter}` : ""].filter(Boolean).join("　　");
     $$("[data-cfg]").forEach((n) => {
       const k = n.dataset.cfg;
       if (k === "who") n.textContent = who;
