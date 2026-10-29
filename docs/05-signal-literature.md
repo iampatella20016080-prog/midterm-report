@@ -19,6 +19,8 @@
 | R2 | Chen HH, Lin JD, Lin SH, Wu CW, Chen HC. (2026). Millimeter-wave technology for multi-person fall detection validated through wearable sensors and real-life scenarios. *Scientific Reports*, 16, 8859. doi:10.1038/s41598-026-40330-y。全文：[PMC12988233](https://pmc.ncbi.nlm.nih.gov/articles/PMC12988233/) | **60–64 GHz**（TI IWR6843） | 判斷分兩階段：先找「快速往下的動作＋姿勢變低」，再等身體穩定後確認最後的姿勢。**Fig. 9**：雷達量到的高度（z 軸）和穿戴式加速度計的訊號對照。1–10 人同時在場，準確度 97.9%；但做「像跌倒的日常動作」時準確度只有 76.8%（調整門檻後 86.5%）。10 位健康成人模擬 |
 | R3 | Diraco G, Leone A, Siciliano P. (2017). A radar-based smart sensor for unobtrusive elderly monitoring in ambient assisted living applications. *Biosensors*, 7(4), 55. doi:10.3390/bios7040055。全文：[PMC5746778](https://pmc.ncbi.nlm.nih.gov/articles/PMC5746778/) | UWB（4.3 GHz） | **Fig. 13**：一段連續紀錄，先越走越快、在樣本 T = 16,000 跌倒，之後一直躺著不動，到 T = 24,000 才起來。跌倒那一下和前面走路的訊號明顯不同。跌倒偵測敏感度 98.26%、特異度 91.75%。30 位健康受試者 |
 | R4 | Hu S, Cao S, Toosizadeh N, et al. (2024). Radar-based fall detection: A survey. *IEEE Robotics & Automation Magazine*. doi:10.1109/MRA.2024.3352851。全文：[arXiv 2312.04037](https://arxiv.org/abs/2312.04037) | 綜論 | 整理 74 篇雷達跌倒研究。**Fig. 2（有圖檔 2a）**：雷達資料的四種樣子：頻譜圖（micro-Doppler）、距離－速度圖、距離－角度圖、點雲。2a 是走路的頻譜圖，手臂、軀幹、腿各自畫出不同的波紋 |
+| R10 | Amin MG, Zhang YD, Ahmad F, Ho KCD. (2016). Radar signal processing for elderly fall detection: The future for in-home monitoring. *IEEE Signal Processing Magazine*, 33(2), 71–80. doi:10.1109/MSP.2015.2502784。全文：[作者網站 PDF](http://yiminzhang.com/pdf0/spm15_fall.pdf) | 綜論（含浴室實測） | **Fig. 4（有圖檔）**：跌倒和日常動作的頻譜圖並排，每張 20 秒。**跌倒**是一道又高又尖的訊號（頻率衝到約 100–150 Hz，持續 1–2 秒），之後變成一條平線，代表人倒下後不動；**坐下站起、彎腰站起**只有幾個小波峰（約 30–60 Hz），而且有上有下；**快速彎腰**的波峰比較高，但很短、會重複出現。**Fig. 2（有圖檔）**：一次跌倒的頻譜圖。作者整理出跌倒的三個特徵：頻率最高值比較大、持續時間比較長、正負頻率比例比較大。**Table I**：資料在美國一間老人公寓的三間**浴室**錄的，雷達裝在浴室天花板上方，由專業特技演員模擬 19 種跌倒，其中 14 次是**失去意識倒下**（向前、向後、向左、向右、直直倒下），另外還有 14 種日常動作。原圖出自 Wu 2015、Su 2015 |
+| R11 | Yu X, Wang J, Jiang W. (2023). Environment-independent mmWave fall detection with interacting multiple model. arXiv:2311.08755（預印本） | **60 GHz**（TI IWR6843AOP） | **Fig. 4（有圖檔）**：三次真實跌倒，上到下是身體重心高度、垂直速度、垂直加速度、模型判斷、最後的跌倒判定。每次跌倒時，重心在約 1 秒內往下掉約 1.2 公尺，停在低處 2–3 秒後才起來；垂直速度掉到約每秒 −3 公尺，加速度掉到約 −6 到 −7 m/s²。作者引用的門檻：跌倒時垂直速度通常約每秒 3 公尺、加速度低於 −5 m/s²。3 位受試者、104 次跌倒，偵測率 96%、準確率 94% |
 
 ### A2. 跌倒之後：躺在地上幾乎不動
 
@@ -40,6 +42,8 @@
 | # | 文獻 | 重點 |
 |---|---|---|
 | R9 | Wang H, Wang Y, Wang X, et al. (2025). P2MFDS: A privacy-preserving multimodal fall detection system for elderly people in bathroom environments. arXiv:2506.17332（期中參考資料 [13]） | 2.5 × 1.1 公尺的模擬浴室，雷達裝在 2.2 公尺高，淋浴區地上放震動感測器。9 種情境（空浴室、東西掉落、走路、扶牆走、站著不動、蹲下、跌倒），共 3 小時資料。雷達加震動，準確度 95.0%、跌倒偵測率 87.8%。作者提到雷達會受浴室磁磚和地板影響。沒有訊號曲線圖 |
+| R12 | Wang H, Wang Y, Wang X, Fung S, Mansoor A. (2026). Edge-efficient two-stream multimodal architecture for non-intrusive bathroom fall detection. arXiv:2603.17069（預印本，CC BY 4.0 授權，圖可以重用） | 同一個團隊的新版本。3.70 × 2.50 公尺的模擬浴室，**所有情境都開著蓮蓬頭**；雷達裝在牆上 1.87 公尺高，震動感測器在淋浴平台上，資料用 Wi-Fi 傳到 Raspberry Pi 4B 判斷（和本設計的閘道一樣）。3 小時以上資料，準確度 96.1%、跌倒偵測率 88.0% |
+| R13 | Waffle（2023）。*Proc. ACM IMWUT*, 7(4)。doi:10.1145/3631458（只讀到摘要） | 流動的水對毫米波的反射很像人體，會干擾淋浴時的偵測。作者用統計方法把水流干擾濾掉，開著水時身高估計誤差約 1.8 公分，跌倒偵測率 97.2%、準確度 97.8% |
 
 ---
 
@@ -54,6 +58,8 @@
 | V5 | Kim S. (2021). Exploring how older adults use a smart speaker-based voice assistant in their first interactions: Qualitative study. *JMIR mHealth uHealth*, 9(1), e20427. doi:10.2196/20427。全文：[PMC7840274](https://pmc.ncbi.nlm.nih.gov/articles/PMC7840274/) | 18 位 74–91 歲（平均 79 歲）、多數獨居的長者第一次用智慧音箱。用說的很簡單，第一印象正面；但要說出完整、固定格式的指令很困難，也擔心隱私 |
 | V6 | Mahmood A, Wang J, Huang CM. (2024). Situated understanding of errors in older adults' interactions with voice assistants: A month-long, in-home study. arXiv:2403.02421 | 15 位長者家裡放智慧音箱一個月，錄下每次對話。常見錯誤：喚醒詞說錯、話只說一半、還沒說完就被打斷、辨識成錯的字。作者建議語音助理要能接受不完整、不標準的回答 |
 | V7 | Cohn M, Lanzi A, Ishihara Y, et al. (2026). Challenges in automatic speech recognition for adults with cognitive impairment. *CHI 2026*（已接受）。全文：[arXiv 2602.23436](https://arxiv.org/abs/2602.23436) | 83 位長者對智慧音箱唸指令。**失智者的辨識錯誤率平均 0.32，是認知正常長者（約 0.12）的兩倍多**。音量、聲音品質、停頓多寡會影響辨識。人剛跌倒或頭暈時，聲音可能更小、更斷斷續續 |
+| V8 | Liu C, Su M, Xiang Y, et al. (2025). Toward enabling natural conversation with older adults via the design of LLM-powered voice agents that support interruptions and backchannels. *CHI 2025*. doi:10.1145/3706598.3714228 | 長者說話比較慢、句子中間常停頓。8 位長者裡有 5 位，句子中間短暫停一下，就被語音助理當成已經說完。作者建議長者沉默時，語音助理要主動再開口 |
+| V9 | Addlesee A, Eshghi A. (2024). You have interrupted me again!: Making voice assistants more dementia-friendly with incremental clarification. *Frontiers in Dementia*, 3, 1343052. doi:10.3389/frdem.2024.1343052 | 失智者說話停頓更長、更頻繁，現在的語音助理常常太早打斷他們 |
 
 ### 語音確認的「訊號」長什麼樣
 
@@ -64,7 +70,7 @@
                                                └─ 沒回應 → 再問一次 → 還是沒有 → 通知家人或室友
 ```
 
-依 V5–V7，長者的回答常常不完整、不標準，失智或剛跌倒時辨識更容易錯。所以本設計**不要求說出特定的字**，只要偵測到有人出聲（聲音能量變大）或按了按鈕，就算有回應。這是本設計依文獻做的調整，還沒有實測。
+依 V5–V7，長者的回答常常不完整、不標準，失智或剛跌倒時辨識更容易錯。所以本設計**不要求說出特定的字**，只要偵測到有人出聲（聲音能量變大）或按了按鈕，就算有回應。依 V8、V9，長者常在句子中間停頓，所以每次問完要多等一下，不能一安靜就判斷沒回應；第一次沒回應就再問一次。這些是本設計依文獻做的調整，還沒有實測。
 
 ---
 
@@ -72,8 +78,8 @@
 
 | 感測器 | 正常 | 夜間跌倒 | 昏倒沒有反應 |
 |---|---|---|---|
-| 毫米波雷達：身體重心高度 | 走路時重心在 1.1–1.4 公尺上下跳動（R1） | 約 1 秒內掉到 0.2–0.5 公尺，停在低處（R1） | 停在低處不起來，幾乎沒有移動訊號；地板反射會讓人不容易被看到（R5） |
-| 毫米波雷達：動作速度 | 走路有規律的波紋（R4 Fig. 2a）；坐下、彎腰動作比較慢 | 突然出現很快的往下動作（R1 異常分數尖峰、R2 第一階段） | 之後幾乎沒有動作（R3 Fig. 13） |
+| 毫米波雷達：身體重心高度 | 走路時重心在 1.1–1.4 公尺上下跳動（R1） | 約 1 秒內掉到 0.2–0.5 公尺，停在低處（R1）；掉約 1.2 公尺（R11） | 停在低處不起來，幾乎沒有移動訊號；地板反射會讓人不容易被看到（R5） |
+| 毫米波雷達：動作速度（頻譜圖） | 走路有規律的波紋（R4 Fig. 2a）；坐下、彎腰只有小波峰（約 30–60 Hz），有上有下（R10 Fig. 4） | 一道又高又尖的訊號（約 100–150 Hz、1–2 秒，R10 Fig. 4）；垂直速度約每秒 −3 公尺（R11 Fig. 4） | 尖峰之後變成一條平線，人不動（R10 Fig. 4、R3 Fig. 13）；R10 的資料包含失去意識倒下 |
 | 毫米波雷達：呼吸 | 胸口規律起伏，雷達量得到（R8） | 跌倒後躺著時，呼吸還量得到，準確度 93%（R3） | 呼吸那層訊號變暗或消失（R6 Fig. 2）。但雷達單獨判斷呼吸事件只抓到約五到七成（R7），要搭配其他訊號 |
 | 紅外線 | 有人經過就輸出訊號（約 2 秒），人不動就沒有訊號（He 2023） | 跌倒那一下有訊號，之後就沒有 | （同學情境沒用） |
 | 床墊壓力 | 躺著時壓力穩定；正常下床：躺著 → 抬背 → 轉身 → 離床（Meng 2024） | 躺著直接變成沒人，中間沒有抬背、轉身，判斷為跌下床（Meng 2024） | （同學情境沒用） |
@@ -104,6 +110,8 @@
 | 跌倒時 80% 不會按求救鈕（V2） | 隨身按鈕 | 系統偵測到後主動問 |
 | 偵測到就通報，誤報打擾家人（V1、V3） | 直接通報 | 先問本人，有回應就取消；本人也可以自己取消（V3、V4） |
 | 長者回答不標準、失智者辨識錯誤率高（V5–V7） | 要說出固定指令 | 不辨識內容，只要有出聲或按按鈕就算回應；沒回應再問一次才通報 |
+| 長者說話停頓長，語音助理太早判斷說完（V8、V9） | 安靜一下就結束 | 問完多等一下；長者停頓時主動再問一次，而不是直接當作沒回應 |
+| 淋浴的水流會干擾雷達（R12、R13） | 不處理 | 濕度上升代表正在洗澡時，雷達判斷要考慮水流干擾；搭配門磁和語音確認，不只靠雷達 |
 
 ---
 
@@ -114,16 +122,36 @@
 | `mmfall-fig7.png` | Jin 2022（R1）Fig. 7 | 藍線是身體重心高度。走路時在 1.2 公尺上下，跌倒時一秒內掉到 0.5 公尺以下；坐下也會降，所以還要看速度 |
 | `wang2024-fig2.png` | Wang 2024（R6）Fig. 2 | 綠框是呼吸停止的那 18 秒：氣流變平線，雷達的呼吸訊號同時變暗，血氧之後才掉 |
 | `trinh2026-fig5.png` | Trinh 2026（R5）Fig. 5 | 跌倒後躺在地上，雷達畫面上只剩一小塊亮點，比站著走動難偵測很多 |
+| `amin2016-fig4-fall-vs-adl.png` | Amin 2016（R10）Fig. 4 | 上面四張是跌倒，下面四張是坐下、彎腰。跌倒是一道很高的尖峰，然後變平線；坐下、彎腰只有小波峰 |
+| `amin2016-fig2-fall-spectrogram.png` | Amin 2016（R10）Fig. 2 | 一次跌倒的頻譜圖，約第 4–6 秒出現往上衝的訊號 |
+| `yu2023-fade-fig4.png` | Yu 2023（R11）Fig. 4 | 三次跌倒：重心高度往下掉、垂直速度和加速度同時出現向下的尖峰，三個條件都成立才判定跌倒 |
 | `hu2024-fig2a-microdoppler.png` | Hu 2024（R4）Fig. 2a（原圖出自該文獻的參考資料 [52]） | 雷達的頻譜圖：走路時手、軀幹、腳各有不同的波紋 |
 
 圖檔沒有放進 repository（著作權屬於原作者）。課堂報告引用時，在圖下方註明作者、年份、圖號。
 
 ---
 
+## F2. 需要自己截圖的圖
+
+這些論文的圖放在 PubMed Central 或出版社網站，網站對程式下載有驗證，所以要用瀏覽器打開、自己截圖。截好傳給我，我會核對內容並寫進簡報。
+
+| 優先 | 文獻 | 截哪一張 | 為什麼需要 |
+|---|---|---|---|
+| 1 | Diraco 2017（R3）[PMC5746778](https://pmc.ncbi.nlm.nih.gov/articles/PMC5746778/) | **Figure 13** | 走路 → 跌倒 → 躺著不動 → 起來，一張圖講完整段，最適合「昏倒沒反應」 |
+| 2 | Choi 2022（R7）[PMC9570824](https://pmc.ncbi.nlm.nih.gov/articles/PMC9570824/) | **Figure 6**（還有 Figure 4） | 60 GHz 雷達在呼吸變淺、呼吸中止時的波形 |
+| 3 | Chen 2026（R2）[PMC12988233](https://pmc.ncbi.nlm.nih.gov/articles/PMC12988233/) | **Fig. 9** | 60 GHz 雷達量到的高度和穿戴式感測器對照 |
+| 4 | He 2023（紅外線）[PMC9867492](https://pmc.ncbi.nlm.nih.gov/articles/PMC9867492/) | **Figure 13** | 浴室裡跌倒後，熱像上的人往下移後不動 |
+| 5 | Meng 2024（床墊）[doi:10.1038/s41598-024-78903-4](https://doi.org/10.1038/s41598-024-78903-4) | **Fig. 6** | 八種在床上的狀態（含跌下床）的壓力曲線 |
+| 6 | Alizadeh 2019（R8）[doi:10.1109/ACCESS.2019.2912956](https://doi.org/10.1109/ACCESS.2019.2912956) | 呼吸波形那張圖 | 我還沒確認圖號，截圖時順便告訴我是 Fig. 幾 |
+
+截圖時請把圖說（Fig. X 那一行）一起截進去。
+
+---
+
 ## G. 限制（期末討論可以寫）
 
-- 跌倒大多是年輕受試者模擬的（R1、R2、R3、R5），不是長者真的跌倒。
-- 雷達頻率不一：R2、R5、R6、R7 是 60 GHz，和本設計一樣；R1、R8 是 77 GHz，R3 是 4.3 GHz。原理相同，數字不能直接套用。
-- R5、R6、V6、V7 是預印本或會議論文，還沒有正式期刊版本。
+- 跌倒大多是年輕受試者或特技演員模擬的（R1、R2、R3、R5、R10、R11），不是長者真的跌倒。
+- 雷達頻率不一：R2、R5、R6、R7、R11 是 60 GHz，和本設計一樣；R1、R8 是 77 GHz，R3 是 4.3 GHz，R10 的浴室資料是 5.8 GHz。原理相同，數字不能直接套用。
+- R5、R6、R11、R12、V6 是預印本，V7、V8 是會議論文。
 - 浴室的磁磚、水流會影響雷達（R9）；溫度高時紅外線也比較不準（He 2023）。
 - 語音確認「不辨識內容、只看有沒有出聲」是本設計的想法，文獻沒有直接測試過。
